@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2000319907980263700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2000319907980263690}
+  - component: {fileID: 2000319907980263701}
+  m_Layer: 0
+  m_Name: CD Testing
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2000319907980263690
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000319907980263700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2000319907980263701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000319907980263700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16cefceb184bf644cbf6e6fdedc346e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioPlayer: []
+  audiofilters: []
+  Playlist:
+  - {fileID: 8300000, guid: 6ac8c1f12b3e31044928c1026e3a29e3, type: 3}
+  - {fileID: 8300000, guid: c8f5bd4623deb9246bf0c3a443bf1ec9, type: 3}
+  - {fileID: 8300000, guid: dfd2444aa1fe656428ad5f3041169e58, type: 3}
+  - {fileID: 8300000, guid: dd2229a9d129a844b98066a9b73cc1d2, type: 3}
+  - {fileID: 8300000, guid: 4d9ff303fb83c494388de85736e2bc86, type: 3}
+  - {fileID: 8300000, guid: be0558eefaf8db942b0f5c90bb0f9d67, type: 3}
+  - {fileID: 8300000, guid: af1cb1703ff2b7147b048695adeeb704, type: 3}
+  - {fileID: 8300000, guid: 63a2d56878b66324e8efc86e5436f374, type: 3}
+  - {fileID: 8300000, guid: 3d3e3dc25462b914ca0aefc94e613ac8, type: 3}
+  - {fileID: 8300000, guid: 0f1340c40eb839941a293ce4af978cdb, type: 3}
+  - {fileID: 8300000, guid: 6374e7a4959548d498b029efcbe17624, type: 3}
+  - {fileID: 8300000, guid: ce6ade5b8d000884ab9a5e4e10f68acd, type: 3}
+  - {fileID: 8300000, guid: 120acb4dab3c4614daa6152f29d3f1c9, type: 3}
+  - {fileID: 8300000, guid: d7478c9bf181a8a4292246df90095710, type: 3}
+  - {fileID: 8300000, guid: 97d6617dee7afe340ad76a2462dbb807, type: 3}
+  - {fileID: 8300000, guid: 3ce5f196b5a1a174eb8813612b27bfb6, type: 3}
+  - {fileID: 8300000, guid: 3f96d94b2f162e44892f4171445a6520, type: 3}
+  - {fileID: 8300000, guid: c7ee05d088af23b49b36e22dece76e86, type: 3}
+  - {fileID: 8300000, guid: 0c0515c1e4fa40f40a26dbefa2509cba, type: 3}
+  - {fileID: 8300000, guid: 9f8abb9f9c734a44bbdae19a65ecb1b9, type: 3}
+  - {fileID: 8300000, guid: 42a7e86541a144841bd3065e08081cb4, type: 3}
+  - {fileID: 8300000, guid: b928b2756a319134599cdf03ae899e9c, type: 3}
+  songFrequencyAmounts:
+  - 8520
+  - 3384
+  - 4696
+  - 16029
+  - 13529
+  - 3654
+  - 16029
+  - 4539
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
+  - 16029
