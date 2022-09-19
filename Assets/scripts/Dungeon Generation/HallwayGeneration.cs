@@ -10,6 +10,7 @@ public class HallwayGeneration : MonoBehaviour
 
     public GameObject startPoint;
     public GameObject endPoint;
+    public GameObject cornerPoint;
 
     public GameObject pointMarkers;
     public GameObject HallwayPrefab;
@@ -24,6 +25,28 @@ public class HallwayGeneration : MonoBehaviour
     {
         
         distance = new Vector2(endPoint.transform.position.x - startPoint.transform.position.x, endPoint.transform.position.y - startPoint.transform.position.y);
+        if(startPoint.transform.position.x > endPoint.transform.position.x)
+        {
+            if (startPoint.transform.position.z < endPoint.transform.position.z)
+            {
+                cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, startPoint.transform.position.z);
+            }
+            else
+            {
+                cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, endPoint.transform.position.z);
+            }
+        }
+        else
+        {
+            if (startPoint.transform.position.z < endPoint.transform.position.z)
+            {
+                cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, startPoint.transform.position.z);
+            }
+            else
+            {
+                cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, endPoint.transform.position.z);
+            }
+        }
     }
 
     // Update is called once per frame
