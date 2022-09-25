@@ -51,10 +51,10 @@ public class HallwayGeneration : MonoBehaviour
     }
 
     
-
-    public void GenerateMarkers(GameObject point1, GameObject point2)
+    public void ClearAll()
     {
-        
+
+
         if (markers1 != null)
         {
             for (int a = 0; a < markers1.Length; a++)
@@ -71,6 +71,11 @@ public class HallwayGeneration : MonoBehaviour
             }
             hallways = null;
         }
+    }
+
+
+    public void GenerateMarkers(GameObject point1, GameObject point2)
+    {
         float i = 0;
         float distance3 = Mathf.Floor(distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace());
         float distance4 = Mathf.Floor(distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace());
