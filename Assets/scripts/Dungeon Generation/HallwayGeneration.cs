@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class HallwayGeneration : MonoBehaviour
 {
-
-    [Range(1, 20)]
-    public int spaceing = 5;
-
     public GameObject startPoint;
     public GameObject endPoint;
     public GameObject cornerPoint;
 
     public GameObject pointMarkers;
-    public GameObject HallwayPrefab;
+    public GameObject FloorPrefab;
+    public GameObject FloorPrefabEndPoints;
 
     Vector2 distance;
 
-    GameObject[] markers;
+    GameObject[] markers1;
+    GameObject[] markers2;
     GameObject[] hallways;
 
     // Start is called before the first frame update
@@ -25,28 +23,28 @@ public class HallwayGeneration : MonoBehaviour
     {
         
         distance = new Vector2(endPoint.transform.position.x - startPoint.transform.position.x, endPoint.transform.position.y - startPoint.transform.position.y);
-        if(startPoint.transform.position.x > endPoint.transform.position.x)
-        {
-            if (startPoint.transform.position.z < endPoint.transform.position.z)
-            {
-                cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, startPoint.transform.position.z);
-            }
-            else
-            {
-                cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, endPoint.transform.position.z);
-            }
-        }
-        else
-        {
-            if (startPoint.transform.position.z < endPoint.transform.position.z)
-            {
-                cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, startPoint.transform.position.z);
-            }
-            else
-            {
-                cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, endPoint.transform.position.z);
-            }
-        }
+        //if(startPoint.transform.position.x > endPoint.transform.position.x)
+        //{
+        //    if (startPoint.transform.position.z < endPoint.transform.position.z)
+        //    {
+        //        cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, startPoint.transform.position.z);
+        //    }
+        //    else
+        //    {
+        //        cornerPoint.transform.position = new Vector3(startPoint.transform.position.x, 0, endPoint.transform.position.z);
+        //    }
+        //}
+        //else
+        //{
+        //    if (startPoint.transform.position.z < endPoint.transform.position.z)
+        //    {
+        //        cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, startPoint.transform.position.z);
+        //    }
+        //    else
+        //    {
+        //        cornerPoint.transform.position = new Vector3(endPoint.transform.position.x, 0, endPoint.transform.position.z);
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -61,13 +59,14 @@ public class HallwayGeneration : MonoBehaviour
 
     public void GenerateMarkers()
     {
-        if (markers != null)
+        
+        if (markers1 != null)
         {
-            for (int a = 0; a < markers.Length; a++)
+            for (int a = 0; a < markers1.Length; a++)
             {
-                Destroy(markers[a]);
+                Destroy(markers1[a]);
             }
-            markers = null;
+            markers1 = null;
         }
         if (hallways != null)
         {
@@ -78,30 +77,35 @@ public class HallwayGeneration : MonoBehaviour
             hallways = null;
         }
         float i = 0;
-        float distance2 = Mathf.Floor(distance.x / spaceing);
+        float distance2 = Mathf.Floor(distance.x / FloorPrefab.GetComponent<FloorBehaviour>().GetSpace());
         Debug.Log(distance2.ToString());
-        markers = new GameObject[(int)Mathf.Floor(distance2)];
+        markers1 = new GameObject[(int)Mathf.Floor(distance2)];
 
         while(i < Mathf.Floor(distance2))
         {
-            markers[(int)i] = (Instantiate(pointMarkers, new Vector3(startPoint.transform.position.x + ((i+1) * spaceing),0,0), new Quaternion(0,0,0,1)));
+            markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(startPoint.transform.position.x + ((i+1) * FloorPrefab.GetComponent<FloorBehaviour>().GetSpace()),0,0), new Quaternion(0,0,0,1)));
 
             i++;
         }
         int j = 0;
-        hallways = new GameObject[markers.Length + 2];
-        if (markers != null)
+        hallways = new GameObject[markers1.Length + 2];
+        if (markers1 != null)
         {
-            hallways[j] = Instantiate(HallwayPrefab, startPoint.transform.position, startPoint.transform.rotation);
+            
+            hallways[j] = Instantiate(FloorPrefabEndPoints, startPoint.transform.position, FloorPrefabEndPoints.transform.rotation);
             j++;
-            hallways[j] = Instantiate(HallwayPrefab, endPoint.transform.position, endPoint.transform.rotation);
+            hallways[j] = Instantiate(FloorPrefabEndPoints, new Vector3(endPoint.transform.position.x + FloorPrefabEndPoints.GetComponent<FloorBehaviour>().GetSpace(), endPoint.transform.position.y, endPoint.transform.position.z), FloorPrefabEndPoints.transform.rotation);
             j++;
-            foreach (GameObject mark in markers)
+            foreach (GameObject mark in markers1)
             {
-                hallways[j] = Instantiate(HallwayPrefab, mark.transform.position, mark.transform.rotation);
+                hallways[j] = Instantiate(FloorPrefab, mark.transform.position, FloorPrefab.transform.rotation);
                 j++;
             }
-            markers = null;
+            for (int a = 0; a < markers1.Length; a++)
+            {
+                Destroy(markers1[a]);
+            }
+            markers1 = null;
         }
 
     }
