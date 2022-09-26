@@ -18,4 +18,20 @@ public class Generaterooms : MonoBehaviour
     {
         
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(new Vector3(range.x / 4, 0, range.y / 4), new Vector3(range.x/2,2,range.y/2));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(new Vector3(range.x / -4, 0, range.y / 4), new Vector3(range.x / 2, 2, range.y / 2));
+        
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(new Vector3(range.x / -4, 0, range.y / -4), new Vector3(range.x / 2, 2, range.y / 2));
+        
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(new Vector3(range.x / 4, 0, range.y / -4), new Vector3(range.x / 2, 2, range.y / 2));
+        
+    }
 }

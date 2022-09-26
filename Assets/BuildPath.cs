@@ -10,11 +10,14 @@ public class BuildPath : MonoBehaviour
 
     public GameObject cornerPointObject;
 
-    
+    public HallwayGeneration hallwayGeneration;
 
     public GameObject startPoint;
     public GameObject endPoint;
     public GameObject[] corners;
+
+    public GameObject hallwayX;
+    public GameObject hallwayZ;
 
     float distance;
 
@@ -101,12 +104,15 @@ public class BuildPath : MonoBehaviour
                 }
 
             }
-                
+               
 
             
         }
 
+        hallwayGeneration.GenerateMarkers(corners[0], corners[2]);
 
     }
 
-}
+
+    
+    }

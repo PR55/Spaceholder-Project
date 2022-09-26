@@ -17,6 +17,8 @@ public class HallwayGeneration : MonoBehaviour
     public GameObject FloorPrefabx;
     public GameObject FloorPrefabz;
     public GameObject FloorPrefabEndPoints;
+    public GameObject cornerPrefab;
+    public GameObject cornerPointPrefab;
 
     float distance1;
     float distance2;
@@ -44,7 +46,9 @@ public class HallwayGeneration : MonoBehaviour
     }
     public void CornerPoint(GameObject point1, GameObject point2)
     {
-        cornerPoint.transform.position = new Vector3(point2.transform.position.x, 0, point1.transform.position.z);
+        ClearAll();
+        Destroy(cornerPoint);
+        cornerPoint = Instantiate(cornerPointPrefab, new Vector3(point2.transform.position.x, 0, point1.transform.position.z), Quaternion.identity);
         distance1 = Vector3.Distance(startPoint.transform.position, cornerPoint.transform.position) - (Vector3.Distance(startPoint.transform.position, cornerPoint.transform.position) * decreaseModifier);
         distance2 = Vector3.Distance(endPoint.transform.position, cornerPoint.transform.position) - (Vector3.Distance(endPoint.transform.position, cornerPoint.transform.position) * decreaseModifier);
         GenerateMarkers(point1, point2);
@@ -111,15 +115,19 @@ public class HallwayGeneration : MonoBehaviour
             i++;
         }
         int j = 0;
-        hallways = new GameObject[markers1.Length + markers2.Length];
+        hallways = new GameObject[markers1.Length + markers2.Length + 1];
         if (markers1 != null && markers2 != null)
         {
+            
             foreach (GameObject mark in markers1)
             {
                 hallways[j] = Instantiate(FloorPrefabx, mark.transform.position, FloorPrefabx.transform.rotation);
                 hallways[j].transform.parent = hallwayHolder.transform;
                 j++;
             }
+            hallways[j] = Instantiate(FloorPrefabx, cornerPoint.transform.position, FloorPrefabx.transform.rotation);
+            hallways[j].transform.parent = hallwayHolder.transform;
+            j++;
             foreach (GameObject mark in markers2)
             {
                 hallways[j] = Instantiate(FloorPrefabz, mark.transform.position, FloorPrefabz.transform.rotation);
