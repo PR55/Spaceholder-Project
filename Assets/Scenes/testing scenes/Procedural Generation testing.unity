@@ -1365,7 +1365,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4638229013956912910, guid: 37ea98f6d452a0a4bbc4524cef55f216, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4638229014081364729, guid: 37ea98f6d452a0a4bbc4524cef55f216, type: 3}
       propertyPath: m_HDR
@@ -2414,7 +2414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1929230083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +2834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 263890237647104113, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -46
+      value: -28.7
       objectReference: {fileID: 0}
     - target: {fileID: 263890237647104113, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2842,7 +2842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 263890237647104113, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 46
+      value: 34.2
       objectReference: {fileID: 0}
     - target: {fileID: 263890237647104113, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2919,6 +2919,14 @@ PrefabInstance:
     - target: {fileID: 5959175774954833867, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6986354261609877811, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
+      propertyPath: spaceTakenx
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6986354261609877811, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
+      propertyPath: spaceTakenz
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 7574247304261465614, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
       propertyPath: m_Materials.Array.data[0]
