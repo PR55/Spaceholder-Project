@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class RoomAttribute : MonoBehaviour
 {
+    public pointProperties[] doorways;
 
     [SerializeField]
     private float spaceTakenx = 3;
@@ -16,6 +17,11 @@ public class RoomAttribute : MonoBehaviour
     {
         Vector2 roomSize = new Vector2(spaceTakenx, spaceTakenz);
         return roomSize;
+    }
+
+    public pointProperties[] Doorways()
+    {
+        return doorways;
     }
 
     private void OnDrawGizmos()
