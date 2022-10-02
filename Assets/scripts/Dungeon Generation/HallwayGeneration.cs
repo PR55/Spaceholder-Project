@@ -38,17 +38,52 @@ public class HallwayGeneration : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if(startPoint.GetComponent<pointProperties>().direction[0] || startPoint.GetComponent<pointProperties>().direction[1])
-            {
-                CornerPoint(startPoint, endPoint);
-            }
-            else if (startPoint.GetComponent<pointProperties>().direction[3] || startPoint.GetComponent<pointProperties>().direction[4])
-            {
-                CornerPoint(endPoint, startPoint);
-            }
+            //if(startPoint.GetComponent<pointProperties>().direction[0] || startPoint.GetComponent<pointProperties>().direction[1])
+            //{
+            //    CornerPoint(startPoint, endPoint);
+            //}
+            //else if (startPoint.GetComponent<pointProperties>().direction[3] || startPoint.GetComponent<pointProperties>().direction[4])
+            //{
+            //    CornerPoint(endPoint, startPoint);
+            //}
+
+            pointCheck(startPoint, endPoint);
 
         }
     }
+
+
+    public void pointCheck(GameObject point1, GameObject point2)
+    {
+        if(point1.GetComponent<pointProperties>() != null && point2.GetComponent<pointProperties>() != null)
+        {
+            if( point1.GetComponent<pointProperties>().Directions()[3] || point1.GetComponent<pointProperties>().Directions()[4])
+            {
+                if(point2.GetComponent<pointProperties>().Directions()[0])
+                {
+                    if(point1.transform.position.x < 0)
+                    {
+                        if(point2.transform.position.x > point1.transform.position.x+8)
+                        {
+                            if(point1.transform.position.z > point2.transform.position.z)
+                            {
+                                CornerPoint(point1, point2);
+                                point1.GetComponent<pointProperties>().hasUsed();
+                                point2.GetComponent<pointProperties>().hasUsed();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Both points need point properties script!!!!");
+        }
+
+    }
+
+
     public void CornerPoint(GameObject point1, GameObject point2)
     {
         ClearAll();
