@@ -48,7 +48,7 @@ public class Generaterooms : MonoBehaviour
         }
     }
 
-    void GenerateRooms()
+    public void GenerateRooms()
     {
         ClearAll();
         UnityEngine.Random.seed = DateTime.UtcNow.Millisecond;
