@@ -9,9 +9,13 @@ public class GenerateRommsWthButton : Editor
         DrawDefaultInspector();
 
         Generaterooms rooms = (Generaterooms)target;
-        if(GUILayout.Button("Create Rooms"))
+
+        if(Application.isPlaying)
         {
-            rooms.GenerateRooms();
+            if (GUILayout.Button("Create Rooms"))
+            {
+                rooms.GenerateRooms();
+            }
         }
     }
 }

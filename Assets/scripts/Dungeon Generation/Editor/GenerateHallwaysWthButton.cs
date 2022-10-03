@@ -9,9 +9,13 @@ public class GenerateHallwaysWthButton : Editor
         DrawDefaultInspector();
 
         HallwayGeneration hallway = (HallwayGeneration)target;
-        if(GUILayout.Button("Create Hallways"))
+        if(Application.isPlaying)
         {
-            hallway.pointCheck(hallway.startPoint,hallway.endPoint);
+            if (GUILayout.Button("Create Hallways"))
+            {
+                hallway.pointCheck(hallway.startPoint, hallway.endPoint);
+            }
         }
+        
     }
 }
