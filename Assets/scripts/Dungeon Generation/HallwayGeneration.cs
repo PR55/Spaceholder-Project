@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class HallwayGeneration : MonoBehaviour
 {
-    [Range(0f , 1f)]
-    public float decreaseModifier = 1f;
+    
 
     public GameObject hallwayHolder;
 
@@ -39,10 +38,67 @@ public class HallwayGeneration : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            //if(startPoint.GetComponent<pointProperties>().direction[0] || startPoint.GetComponent<pointProperties>().direction[1])
+            //{
+            //    CornerPoint(startPoint, endPoint);
+            //}
+            //else if (startPoint.GetComponent<pointProperties>().direction[3] || startPoint.GetComponent<pointProperties>().direction[4])
+            //{
+            //    CornerPoint(endPoint, startPoint);
+            //}
 
-            CornerPoint(startPoint, endPoint);
+            pointCheck(startPoint, endPoint);
+
         }
     }
+
+
+    public void pointCheck(GameObject point1, GameObject point2)
+    {
+        if(point1.GetComponent<pointProperties>() != null && point2.GetComponent<pointProperties>() != null)
+        {
+            if( point1.GetComponent<pointProperties>().Directions()[3] || point1.GetComponent<pointProperties>().Directions()[4])
+            {
+                if(point2.GetComponent<pointProperties>().Directions()[0])
+                {
+                    if(point1.transform.position.x < 0)
+                    {
+                        if(point2.transform.position.x > point1.transform.position.x+8)
+                        {
+                            if(point1.transform.position.z > point2.transform.position.z)
+                            {
+                                CornerPoint(point1, point2);
+                                point1.GetComponent<pointProperties>().hasUsed();
+                                point2.GetComponent<pointProperties>().hasUsed();
+                            }
+                        }
+                    }
+                }
+                else if (point2.GetComponent<pointProperties>().Directions()[1])
+                {
+                    if (point1.transform.position.x < 0)
+                    {
+                        if (point2.transform.position.x > point1.transform.position.x + 8)
+                        {
+                            if (point2.transform.position.z > point1.transform.position.z)
+                            {
+                                CornerPoint(point1, point2);
+                                point1.GetComponent<pointProperties>().hasUsed();
+                                point2.GetComponent<pointProperties>().hasUsed();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("Both points need point properties script!!!!");
+        }
+
+    }
+
+
     public void CornerPoint(GameObject point1, GameObject point2)
     {
         ClearAll();
@@ -57,8 +113,9 @@ public class HallwayGeneration : MonoBehaviour
         else
         {
             cornerPoint = Instantiate(cornerPointPrefab, new Vector3(point2.transform.position.x, 0, point1.transform.position.z), Quaternion.identity);
-            distance1 = Vector3.Distance(startPoint.transform.position, cornerPoint.transform.position) - (Vector3.Distance(startPoint.transform.position, cornerPoint.transform.position) * decreaseModifier);
-            distance2 = Vector3.Distance(endPoint.transform.position, cornerPoint.transform.position) - (Vector3.Distance(endPoint.transform.position, cornerPoint.transform.position) * decreaseModifier);
+
+            distance1 = Vector3.Distance(point1.transform.position, cornerPoint.transform.position);
+            distance2 = Vector3.Distance(point2.transform.position, cornerPoint.transform.position);
             GenerateMarkers(point1, point2, cornerPoint);
         }
         
@@ -92,11 +149,11 @@ public class HallwayGeneration : MonoBehaviour
         if(pointMid != null)
         {
             float i = 0;
-            float distance3 = Mathf.Floor(distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace());
-            float distance4 = Mathf.Floor(distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace());
-            markers1 = new GameObject[(int)Mathf.Floor(distance3)];
-            markers2 = new GameObject[(int)Mathf.Floor(distance4)];
-            while (i < Mathf.Floor(distance3))
+            float distance3 = Mathf.Floor((distance1- (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y/2)) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace());
+            float distance4 = Mathf.Floor((distance2-(cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x/2)) / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace());
+            markers1 = new GameObject[Mathf.CeilToInt(distance3)];
+            markers2 = new GameObject[Mathf.CeilToInt(distance4)];
+            while (i < markers1.Length)
             {
 
                 if (pointStart.transform.position.x < pointMid.transform.position.x)
@@ -111,7 +168,7 @@ public class HallwayGeneration : MonoBehaviour
                 i++;
             }
             i = 0;
-            while (i < Mathf.Floor(distance4))
+            while (i <markers2.Length)
             {
                 if (pointEnd.transform.position.z > pointMid.transform.position.z)
                 {

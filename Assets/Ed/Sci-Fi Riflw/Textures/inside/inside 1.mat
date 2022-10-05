@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4277619520552326706
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 11
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,10 +20,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: metal_details
+  m_Name: inside 1
   m_Shader: {fileID: 4800000, guid: 873188af6a7b5ca49aa69929a5d863c1, type: 3}
   m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _EMISSIVE_SIMPLE _IS_ANGELRING_OFF _IS_CLIPPING_OFF
-    _IS_OUTLINE_CLIPPING_NO _MASKMAP _NORMALMAP _NORMALMAP_TANGENT_SPACE _OUTLINE_POS
+    _IS_OUTLINE_CLIPPING_NO _OUTLINE_POS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,12 +33,11 @@ Material:
     MotionVector: User
     RenderType: Opaque
   disabledShaderPasses:
-  - DistortionVectors
+  - RayTracingPrepass
   - MOTIONVECTORS
   - TransparentDepthPrepass
   - TransparentDepthPostpass
   - TransparentBackface
-  - RayTracingPrepass
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -50,7 +62,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 4216424636dc96f45adade2d8eee610b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -66,7 +78,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 8d9740f1d3ec0ab4b82f97d61620789e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 652137aa174b9d643b2928d4e26ff711, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ClippingMask:
@@ -86,7 +98,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a05d715f65d6d3246b7d942ba95d9d4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissiveColorMap:
@@ -94,7 +106,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emissive_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a05d715f65d6d3246b7d942ba95d9d4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -114,11 +126,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4216424636dc96f45adade2d8eee610b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4822462538572c04d91b397555177352, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: 783900cc5df0b8f44a0793c469779531, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCap_Sampler:
@@ -126,11 +138,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 783900cc5df0b8f44a0793c469779531, type: 3}
+        m_Texture: {fileID: 2800000, guid: 02e33d8ff0cff14429bddef18dace2ad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 8d9740f1d3ec0ab4b82f97d61620789e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 652137aa174b9d643b2928d4e26ff711, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapForMatCap:
@@ -254,7 +266,7 @@ Material:
     - _BaseColorVisible: 1
     - _BaseColor_Step: 0.5
     - _BaseShade_Feather: 0.0001
-    - _Base_Speed: 0
+    - _Base_Speed: 3
     - _BlendMode: 0
     - _BlurLevelMatcap: 0
     - _BlurLevelSGM: 0
@@ -265,7 +277,7 @@ Material:
     - _ClippingMode: 0
     - _Clipping_Level: 0
     - _CoatMask: 0
-    - _ColorShift_Speed: 0
+    - _ColorShift_Speed: 3.31
     - _ComposerMaskMode: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -377,7 +389,7 @@ Material:
     - _OpaqueCullMode: 2
     - _OutlineOverridden: 0
     - _OutlineVisible: 1
-    - _Outline_Width: 0.06
+    - _Outline_Width: 0.3
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
@@ -395,13 +407,13 @@ Material:
     - _RimLight_FeatherOff: 0
     - _RimLight_InsideMask: 0.0001
     - _RimLight_Power: 0.1
-    - _Rotate_EmissiveUV: 0
+    - _Rotate_EmissiveUV: -0.01
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
     - _SPRDefaultUnlitColorMask: 15
     - _SRPDefaultUnlitColMode: 1
     - _SSRefractionProjectionModel: 0
-    - _Scroll_EmissiveU: 0
+    - _Scroll_EmissiveU: 0.62
     - _Scroll_EmissiveV: 0
     - _SecondShadeOverridden: 0
     - _SecondShadeVisible: 1
@@ -464,7 +476,7 @@ Material:
     - _UseAoMap: 0
     - _UseColorMap: 1
     - _UseEmissiveIntensity: 0
-    - _UseEmissiveMap: 0
+    - _UseEmissiveMap: 1
     - _UseMetallicMap: 1
     - _UseNormalMap: 1
     - _UseRoughnessMap: 0
@@ -494,14 +506,14 @@ Material:
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
+    - _ColorShift: {r: 1, g: 0.84861106, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Emissive: {r: 0, g: 0, b: 0, a: 0}
+    - _Emissive: {r: 1, g: 0, b: 0, a: 0}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive_Color: {r: 766.9961, g: 0, b: 0, a: 1}
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
     - _HighColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}
@@ -521,19 +533,6 @@ Material:
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
     - _UvOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UvTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _ViewShift: {r: 0, g: 0, b: 0, a: 1}
+    - _ViewShift: {r: 1, g: 0, b: 0.8486109, a: 1}
     - emissive: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &1506929544938391711
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 11
