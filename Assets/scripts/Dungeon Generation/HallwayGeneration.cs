@@ -74,6 +74,21 @@ public class HallwayGeneration : MonoBehaviour
                         }
                     }
                 }
+                else if (point2.GetComponent<pointProperties>().Directions()[1])
+                {
+                    if (point1.transform.position.x < 0)
+                    {
+                        if (point2.transform.position.x > point1.transform.position.x + 8)
+                        {
+                            if (point2.transform.position.z > point1.transform.position.z)
+                            {
+                                CornerPoint(point1, point2);
+                                point1.GetComponent<pointProperties>().hasUsed();
+                                point2.GetComponent<pointProperties>().hasUsed();
+                            }
+                        }
+                    }
+                }
             }
         }
         else
