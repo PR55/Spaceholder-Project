@@ -21,10 +21,13 @@ public class Generaterooms : MonoBehaviour
     GameObject[] roomsActive;
     GameObject[] roomsActiveSpawn;
 
+    GameObject[] hallways;
+
     bool isCollide = false;
 
     public List<pointProperties> allDoorWays;
     public pointProperties[] pointsDoorways;
+    public HallwayGeneration hallwayGeneration;
 
     // Start is called before the first frame update
     private void Start()
@@ -34,23 +37,11 @@ public class Generaterooms : MonoBehaviour
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
         roomsActive[1] = GameObject.Find("End Room");
-
-
-
     }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            GenerateRooms();
-        }
-    }
-
     public void GenerateRooms()
     {
-        ClearAll();
+        ClearAlls();
+        hallwayGeneration.ClearAll();
         UnityEngine.Random.seed = DateTime.UtcNow.Millisecond;
         int i = 0;
         while(i < totalAmountAllowed)
@@ -94,12 +85,64 @@ public class Generaterooms : MonoBehaviour
             isCollide = false;
 
         }
-        pointsDoorways = new pointProperties[allDoorWays.Count];
-        pointsDoorways = allDoorWays.ToArray();
+        pointsDoorways = new pointProperties[GameObject.FindObjectsOfType<pointProperties>().Length];
+        pointsDoorways = GameObject.FindObjectsOfType<pointProperties>();
+        pointProperties closestPoint = null;
+        foreach (pointProperties a in pointsDoorways)
+        {
+            if (a.useCheck() == false)
+            {
+                foreach (pointProperties b in pointsDoorways)
+                {
+                    if (b != a)
+                    {
+                        if (b.useCheck() == false)
+                        {
+                            if (b.parentCheck().transform != a.parentCheck().transform)
+                            {
+                                if (closestPoint != null)
+                                {
+                                    if (Vector3.Distance(a.gameObject.transform.position, b.gameObject.transform.position) < Vector3.Distance(a.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                    {
+                                        closestPoint = b;
+                                    }
+                                }
+                                else
+                                {
+                                    closestPoint = b;
+                                }
+                            }
+                        }
+                    }
+                }
+                hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+            }
+        }
+        foreach (pointProperties a in pointsDoorways)
+        {
+            a.doorChAct();
+        }
+        hallways = null;
+        hallways = new GameObject[hallwayGeneration.hallwayColelction().Length];
+        hallways = hallwayGeneration.hallwayColelction();
+
+        Resources.UnloadUnusedAssets();
     }
 
-    void ClearAll()
+    void ClearAlls()
     {
+        roomsActiveSpawn = new GameObject[GameObject.FindObjectsOfType<RoomAttribute>().Length];
+
+        int v = 0;
+
+        foreach(RoomAttribute a in GameObject.FindObjectsOfType<RoomAttribute>())
+        {
+            if(a.gameObject.name != "Start Room" && a.gameObject.name != "End Room")
+            {
+                roomsActiveSpawn[v] = a.gameObject;
+            }
+            v++;
+        }
         foreach(GameObject room in roomsActiveSpawn)
         {
             if(room != null)
@@ -107,12 +150,26 @@ public class Generaterooms : MonoBehaviour
                 Destroy(room);
             }
         }
+        if(hallways != null)
+        {
+            foreach (GameObject hall in hallways)
+            {
+                if (hall != null)
+                {
+                    Destroy(hall);
+                }
+            }
+        }
+        
         allDoorWays.Clear();
         pointsDoorways = null;
         roomsActive = new GameObject[totalAmountAllowed + 2];
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
         roomsActive[1] = GameObject.Find("End Room");
+        pointsDoorways = null;
+        hallways = null;
+        Resources.UnloadUnusedAssets();
     }
 
     private void OnDrawGizmos()
