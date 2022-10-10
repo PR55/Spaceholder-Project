@@ -16,7 +16,10 @@ public class pointProperties : MonoBehaviour
     bool point1 = false;
     bool point2 = false;
     GameObject otherPoint;
-
+    private void Start()
+    {
+        overallParent = doorParent.transform.parent.gameObject;
+    }
     public bool[] Directions()
     {
         return direction;
