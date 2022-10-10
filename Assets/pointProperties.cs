@@ -7,7 +7,7 @@ using UnityEngine;
 public class pointProperties : MonoBehaviour
 {
     
-    [Tooltip("0 - North\n1 - South\n2 - East\n3 - West")]
+    [Tooltip("0 - South\n1 - North\n2 - West\n3 - East")]
     public bool[] direction = new bool[4]; // 0 - North 1 - South 2 - East 3 - West
     public GameObject doorParent;
     public GameObject overallParent;
