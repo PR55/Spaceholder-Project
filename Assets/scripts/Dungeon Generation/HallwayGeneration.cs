@@ -42,7 +42,7 @@ public class HallwayGeneration : MonoBehaviour
         if(point1.GetComponent<pointProperties>() != null && point2.GetComponent<pointProperties>() != null)
         {
             
-            if(point1.GetComponent<pointProperties>().Directions()[2])
+            if(point1.GetComponent<pointProperties>().Directions()[3])
             {
                 if(point2.GetComponent<pointProperties>().Directions()[1])
                 {
@@ -63,6 +63,41 @@ public class HallwayGeneration : MonoBehaviour
                 else if (point2.GetComponent<pointProperties>().Directions()[0])
                 {
                     if (point1.transform.position.z + 5 < point2.transform.position.z)
+                    {
+                        if (point1.transform.position.x < point2.transform.position.x - 5)
+                        {
+                            CornerPoint(point1, point2);
+                            point1.GetComponent<pointProperties>().hasUsed();
+                            point1.GetComponent<pointProperties>().isPoint1();
+                            point1.GetComponent<pointProperties>().otherPint(point2);
+                            point2.GetComponent<pointProperties>().hasUsed();
+                            point2.GetComponent<pointProperties>().isPoint2();
+                            point2.GetComponent<pointProperties>().otherPint(point1);
+                        }
+                    }
+                }
+            }
+            else if(point1.GetComponent<pointProperties>().Directions()[3])
+            {
+                if (point2.GetComponent<pointProperties>().Directions()[1])
+                {
+                    if (point1.transform.position.z - 5 < point2.transform.position.z)
+                    {
+                        if (point1.transform.position.x + 5 < point2.transform.position.x)
+                        {
+                            CornerPoint(point1, point2);
+                            point1.GetComponent<pointProperties>().hasUsed();
+                            point1.GetComponent<pointProperties>().isPoint1();
+                            point1.GetComponent<pointProperties>().otherPint(point2);
+                            point2.GetComponent<pointProperties>().hasUsed();
+                            point2.GetComponent<pointProperties>().isPoint2();
+                            point2.GetComponent<pointProperties>().otherPint(point1);
+                        }
+                    }
+                }
+                else if (point2.GetComponent<pointProperties>().Directions()[0])
+                {
+                    if (point1.transform.position.z + 5 > point2.transform.position.z)
                     {
                         if (point1.transform.position.x < point2.transform.position.x - 5)
                         {

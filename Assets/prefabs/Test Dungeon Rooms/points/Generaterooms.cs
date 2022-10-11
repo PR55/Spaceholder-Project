@@ -85,18 +85,18 @@ public class Generaterooms : MonoBehaviour
             isCollide = false;
 
         }
-        pointsDoorways = new pointProperties[GameObject.FindObjectsOfType<pointProperties>().Length];
-        pointsDoorways = GameObject.FindObjectsOfType<pointProperties>();
+        pointsDoorways = new pointProperties[allDoorWays.Count];
+        pointsDoorways = allDoorWays.ToArray();
         pointProperties closestPoint = null;
         foreach (pointProperties a in pointsDoorways)
         {
-            if (a.useCheck() == false)
+            if (!a.useCheck())
             {
                 foreach (pointProperties b in pointsDoorways)
                 {
                     if (b != a)
                     {
-                        if (b.useCheck() == false)
+                        if (!b.useCheck())
                         {
                             if (b.parentCheck().transform != a.parentCheck().transform)
                             {
@@ -115,7 +115,10 @@ public class Generaterooms : MonoBehaviour
                         }
                     }
                 }
+                if(closestPoint != null)
                 hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+
+                closestPoint = null;
             }
         }
         foreach (pointProperties a in pointsDoorways)
