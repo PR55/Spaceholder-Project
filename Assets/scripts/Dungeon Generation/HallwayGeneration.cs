@@ -46,7 +46,7 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if(point2.GetComponent<pointProperties>().Directions()[1])
                 {
-                    if(point1.transform.position.z + 5 < point2.transform.position.z)
+                    if(point1.transform.position.z + 5 < point2.transform.position.z)// left or right check, checking if left
                     {
                         if(point1.transform.position.x + 5 < point2.transform.position.x)
                         {
@@ -77,11 +77,11 @@ public class HallwayGeneration : MonoBehaviour
                     }
                 }
             }
-            else if(point1.GetComponent<pointProperties>().Directions()[3])
+            else if(point1.GetComponent<pointProperties>().Directions()[2])
             {
                 if (point2.GetComponent<pointProperties>().Directions()[1])
                 {
-                    if (point1.transform.position.z - 5 < point2.transform.position.z)
+                    if (point1.transform.position.z - 5 > point2.transform.position.z)
                     {
                         if (point1.transform.position.x + 5 < point2.transform.position.x)
                         {
@@ -97,7 +97,7 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 else if (point2.GetComponent<pointProperties>().Directions()[0])
                 {
-                    if (point1.transform.position.z + 5 > point2.transform.position.z)
+                    if (point1.transform.position.z - 5 > point2.transform.position.z)
                     {
                         if (point1.transform.position.x < point2.transform.position.x - 5)
                         {

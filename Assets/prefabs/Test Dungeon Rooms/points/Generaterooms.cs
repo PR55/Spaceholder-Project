@@ -54,12 +54,13 @@ public class Generaterooms : MonoBehaviour
                 {
                     if((Vector3.Distance(new Vector3(0,0,spawnMarker.position.z),new Vector3(0,0,room.GetComponent<RoomAttribute>().RoomDimensions().y)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y)+minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x,0,0), new Vector3(room.GetComponent<RoomAttribute>().RoomDimensions().x, 0, 0)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x) + minSpacing) && (Vector3.Distance(new Vector3(0, 0, spawnMarker.position.z), new Vector3(0, 0, room.GetComponent<RoomAttribute>().RoomDimensions().y)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().y) + minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x, 0, 0), new Vector3(room.GetComponent<RoomAttribute>().RoomDimensions().x, 0, 0)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().x) + minSpacing))
                     {
-                        isCollide = false;
+                        isCollide = true;
+                        break;
                     }
                     else
                     {
-                        isCollide = true;
-                        break;
+                        isCollide = false;
+                        
                     }
                 }
             }
