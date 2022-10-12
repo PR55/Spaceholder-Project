@@ -65,17 +65,9 @@ public class Generaterooms : MonoBehaviour
             {
                 if(room != null)
                 {
-                    if((Vector3.Distance(new Vector3(0,0,spawnMarker.position.z),new Vector3(0,0, spawnMarker.position.z + (room.GetComponent<RoomAttribute>().RoomDimensions().y))) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y)+minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x,0,0), new Vector3(spawnMarker.position.x + (room.GetComponent<RoomAttribute>().RoomDimensions().x), 0, 0)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2) + minSpacing))
+                    if((((spawnMarker.position.z + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y/2)) > ((room.transform.position.z + (room.GetComponent<RoomAttribute>().RoomDimensions().y/2)) + minSpacing) || ((spawnMarker.position.z - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) < (room.transform.position.z - (room.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) + minSpacing)) && ((spawnMarker.position.x + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) > (room.transform.position.x + (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)) || ((spawnMarker.position.x - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2) < (room.transform.position.x - (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)))
                     {
-                        if ((Vector3.Distance(new Vector3(0, 0, spawnMarker.position.z), new Vector3(0, 0, spawnMarker.position.z + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y))) >= (room.GetComponent<RoomAttribute>().RoomDimensions().y/2) + minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x, 0, 0), new Vector3(spawnMarker.position.x + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x), 0, 0)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().x/2) + minSpacing))
-                        {
-                            isCollide = false;
-                        }
-                        else
-                        {
-                            isCollide = true;
-                            break;
-                        }
+                        isCollide = false;
                     }
                     else
                     {
