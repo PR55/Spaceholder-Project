@@ -60,7 +60,12 @@ public class pointProperties : MonoBehaviour
     {
         otherPoint = oPoint;
     }
-
+    public void pointReset()
+    {
+        otherPoint = null;
+        point1 = false;
+        point2 = false;
+    }
     private void OnDrawGizmos()
     {
         if(point1)

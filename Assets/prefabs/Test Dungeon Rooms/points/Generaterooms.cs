@@ -37,6 +37,19 @@ public class Generaterooms : MonoBehaviour
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
         roomsActive[1] = GameObject.Find("End Room");
+        foreach (GameObject a in roomsActive)
+        {
+            if (a != null && a.GetComponent<RoomAttribute>() != null)
+            {
+                foreach (pointProperties b in a.GetComponent<RoomAttribute>().Doorways())
+                {
+                    if (allDoorWays.Contains(b) != true)
+                    {
+                        allDoorWays.Add(b);
+                    }
+                }
+            }
+        }
     }
     public void GenerateRooms()
     {
@@ -52,21 +65,32 @@ public class Generaterooms : MonoBehaviour
             {
                 if(room != null)
                 {
-                    if((Vector3.Distance(new Vector3(0,0,spawnMarker.position.z),new Vector3(0,0,room.GetComponent<RoomAttribute>().RoomDimensions().y)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y)+minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x,0,0), new Vector3(room.GetComponent<RoomAttribute>().RoomDimensions().x, 0, 0)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x) + minSpacing) && (Vector3.Distance(new Vector3(0, 0, spawnMarker.position.z), new Vector3(0, 0, room.GetComponent<RoomAttribute>().RoomDimensions().y)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().y) + minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x, 0, 0), new Vector3(room.GetComponent<RoomAttribute>().RoomDimensions().x, 0, 0)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().x) + minSpacing))
+                    if((Vector3.Distance(new Vector3(0,0,spawnMarker.position.z),new Vector3(0,0, spawnMarker.position.z + (room.GetComponent<RoomAttribute>().RoomDimensions().y))) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y)+minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x,0,0), new Vector3(spawnMarker.position.x + (room.GetComponent<RoomAttribute>().RoomDimensions().x), 0, 0)) >= (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2) + minSpacing))
                     {
-                        isCollide = true;
-                        break;
+                        if ((Vector3.Distance(new Vector3(0, 0, spawnMarker.position.z), new Vector3(0, 0, spawnMarker.position.z + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y))) >= (room.GetComponent<RoomAttribute>().RoomDimensions().y/2) + minSpacing && Vector3.Distance(new Vector3(spawnMarker.position.x, 0, 0), new Vector3(spawnMarker.position.x + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x), 0, 0)) >= (room.GetComponent<RoomAttribute>().RoomDimensions().x/2) + minSpacing))
+                        {
+                            isCollide = false;
+                        }
+                        else
+                        {
+                            isCollide = true;
+                            break;
+                        }
                     }
                     else
                     {
-                        isCollide = false;
+                        isCollide = true;
+                        break;
                         
                     }
                 }
             }
 
             if(isCollide)
-            { }
+            {
+                //Debug.Log("Collision");
+                //i++;
+            }
             else
             {
                 var newRoom = Instantiate(RoomChoice, new Vector3(spawnMarker.position.x, spawnMarker.position.y, spawnMarker.position.z), spawnMarker.rotation);
@@ -171,6 +195,20 @@ public class Generaterooms : MonoBehaviour
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
         roomsActive[1] = GameObject.Find("End Room");
+        foreach(GameObject a in roomsActive)
+        {
+            if(a != null && a.GetComponent<RoomAttribute>() != null)
+            {
+                foreach (pointProperties b in a.GetComponent<RoomAttribute>().Doorways())
+                {
+                    if(allDoorWays.Contains(b) != true)
+                    {
+                        b.pointReset();
+                        allDoorWays.Add(b);
+                    }
+                }
+            }
+        }
         pointsDoorways = null;
         hallways = null;
         Resources.UnloadUnusedAssets();
