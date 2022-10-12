@@ -26,6 +26,7 @@ public class Generaterooms : MonoBehaviour
     bool isCollide = false;
 
     public List<pointProperties> allDoorWays;
+    public pointProperties[] pointsDoorwaysMandatory;
     public pointProperties[] pointsDoorways;
     public HallwayGeneration hallwayGeneration;
 
@@ -105,6 +106,43 @@ public class Generaterooms : MonoBehaviour
         pointsDoorways = new pointProperties[allDoorWays.Count];
         pointsDoorways = allDoorWays.ToArray();
         pointProperties closestPoint = null;
+        foreach (pointProperties a in pointsDoorwaysMandatory)
+        {
+            if (!a.useCheck())
+            {
+                foreach (pointProperties b in pointsDoorways)
+                {
+                    if (b != a)
+                    {
+                        if (!b.useCheck())
+                        {
+                            if (b.parentCheck().transform != a.parentCheck().transform)
+                            {
+                                if (closestPoint != null)
+                                {
+                                    if (Vector3.Distance(a.gameObject.transform.position, b.gameObject.transform.position) < Vector3.Distance(a.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                    {
+                                        closestPoint = b;
+                                    }
+                                }
+                                else
+                                {
+                                    closestPoint = b;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (closestPoint != null)
+                    hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+
+                closestPoint = null;
+            }
+        }
+        foreach (pointProperties a in pointsDoorwaysMandatory)
+        {
+            a.doorChAct();
+        }
         foreach (pointProperties a in pointsDoorways)
         {
             if (!a.useCheck())

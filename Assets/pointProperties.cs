@@ -65,6 +65,7 @@ public class pointProperties : MonoBehaviour
         otherPoint = null;
         point1 = false;
         point2 = false;
+        used = false;
     }
     private void OnDrawGizmos()
     {
