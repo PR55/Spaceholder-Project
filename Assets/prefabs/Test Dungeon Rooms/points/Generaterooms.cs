@@ -145,13 +145,13 @@ public class Generaterooms : MonoBehaviour
         }
         foreach (pointProperties a in pointsDoorways)
         {
-            if (!a.useCheck())
+            if (a.useCheck() == false)
             {
                 foreach (pointProperties b in pointsDoorways)
                 {
                     if (b != a)
                     {
-                        if (!b.useCheck())
+                        if (b.useCheck() == false)
                         {
                             if (b.parentCheck().transform != a.parentCheck().transform)
                             {

@@ -21,6 +21,8 @@ public class HallwayGeneration : MonoBehaviour
     float distance1;
     float distance2;
 
+    public float minDoorwaySpacing = 10f;
+
     GameObject[] markers1;
     GameObject[] markers2;
     GameObject[] hallways;
@@ -46,9 +48,9 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if(point2.GetComponent<pointProperties>().Directions()[1])
                 {
-                    if(point1.transform.position.z + 5 < point2.transform.position.z)// left or right check, checking if left, check by adding to see if less than 2 pint z
+                    if(point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)// left or right check, checking if left, check by adding to see if less than 2 pint z
                     {
-                        if(point1.transform.position.x + 5 < point2.transform.position.x)
+                        if(point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
                         {
                             CornerPoint(point1, point2);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -62,9 +64,9 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 else if (point2.GetComponent<pointProperties>().Directions()[0])
                 {
-                    if (point1.transform.position.z + 5 < point2.transform.position.z)
+                    if (point1.transform.position.z + minDoorwaySpacing > point2.transform.position.z)
                     {
-                        if (point1.transform.position.x < point2.transform.position.x - 5)
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
                         {
                             CornerPoint(point1, point2);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -81,9 +83,9 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if (point2.GetComponent<pointProperties>().Directions()[1])
                 {
-                    if (point1.transform.position.z - 5 > point2.transform.position.z)
+                    if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // check if point 1 is to right of desired connection
                     {
-                        if (point1.transform.position.x + 5 < point2.transform.position.x)
+                        if (point1.transform.position.x + minDoorwaySpacing > point2.transform.position.x)// check if desired connection is above point 1
                         {
                             CornerPoint(point1, point2);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -97,10 +99,12 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 else if (point2.GetComponent<pointProperties>().Directions()[0])
                 {
-                    if (point1.transform.position.z - 5 > point2.transform.position.z)
+                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // check if point 1 is to right of desired connection
                     {
-                        if (point1.transform.position.x < point2.transform.position.x - 5)
+                        Debug.Log("Point 1 left");
+                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x) // check if desired connection is below point 1
                         {
+                            Debug.Log("Point 2 up");
                             CornerPoint(point1, point2);
                             point1.GetComponent<pointProperties>().hasUsed();
                             point1.GetComponent<pointProperties>().isPoint1();
@@ -116,9 +120,9 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if (point2.GetComponent<pointProperties>().Directions()[2])
                 {
-                    if (point1.transform.position.x - 5 > point2.transform.position.x)
+                    if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
                     {
-                        if (point1.transform.position.z + 5 > point2.transform.position.z)
+                        if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)  
                         {
                             CornerPoint(point2, point1);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -132,9 +136,9 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 else if (point2.GetComponent<pointProperties>().Directions()[3])
                 {
-                    if (point1.transform.position.x - 5 > point2.transform.position.x)
+                    if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
                     {
-                        if (point1.transform.position.z + 5 < point2.transform.position.z)
+                        if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z)
                         {
                             CornerPoint(point2, point1);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -151,9 +155,9 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if (point2.GetComponent<pointProperties>().Directions()[2])
                 {
-                    if (point1.transform.position.x + 5 < point2.transform.position.x)
+                    if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
                     {
-                        if (point1.transform.position.z + 5 > point2.transform.position.z)
+                        if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z)
                         {
                             CornerPoint(point2, point1);
                             point1.GetComponent<pointProperties>().hasUsed();
@@ -167,9 +171,9 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 else if (point2.GetComponent<pointProperties>().Directions()[3])
                 {
-                    if (point1.transform.position.x + 5 < point2.transform.position.x)
+                    if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
                     {
-                        if (point1.transform.position.z + 5 < point2.transform.position.z)
+                        if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)
                         {
                             CornerPoint(point2, point1);
                             point1.GetComponent<pointProperties>().hasUsed();
