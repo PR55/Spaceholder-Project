@@ -43,145 +43,104 @@ public class HallwayGeneration : MonoBehaviour
     {
         if(point1.GetComponent<pointProperties>() != null && point2.GetComponent<pointProperties>() != null)
         {
-            
-            if(point1.GetComponent<pointProperties>().Directions()[3])
+            //RELATIVE TO PARENT PREFAB:
+            //(EX: FOR EAST (3) CONNECTING TO SOUTH (0) CHECK IF EAST IS BELOW THE SOUTH POINT AND THE SOUTH POINT IS TO THE RIGHT OF THE EAST POINT)
+            //0 - South (X Negative)
+            //1 - North (X positive)
+            //2 - West (Z positive)
+            //3 - East (Z negative)
+
+            if (point1.GetComponent<pointProperties>().Directions()[3])// if east
             {
-                if(point2.GetComponent<pointProperties>().Directions()[1])
+                if(point2.GetComponent<pointProperties>().Directions()[1]) // if north
                 {
-                    if(point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)// left or right check, checking if left, check by adding to see if less than 2 pint z
+                    if(point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // checking if to the right of point 1
                     {
-                        if(point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
+                        if(point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x) // checking if below point 1
                         {
                             CornerPoint(point1, point2);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
-                else if (point2.GetComponent<pointProperties>().Directions()[0])
+                else if (point2.GetComponent<pointProperties>().Directions()[0])// if south
                 {
-                    if (point1.transform.position.z + minDoorwaySpacing > point2.transform.position.z)
+                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // checking if to the right of point 1
                     {
-                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)// checking if above
                         {
                             CornerPoint(point1, point2);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
             }
-            else if(point1.GetComponent<pointProperties>().Directions()[2])
+            else if(point1.GetComponent<pointProperties>().Directions()[2]) // if west
             {
-                if (point2.GetComponent<pointProperties>().Directions()[1])
+                if (point2.GetComponent<pointProperties>().Directions()[1]) // if north
+                {
+                    if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // check if to left of point 1
+                    {
+                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)// check if below point 1
+                        {
+                            CornerPoint(point1, point2);
+                        }
+                    }
+                }
+                else if (point2.GetComponent<pointProperties>().Directions()[0]) // if south
                 {
                     if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // check if point 1 is to right of desired connection
                     {
-                        if (point1.transform.position.x + minDoorwaySpacing > point2.transform.position.x)// check if desired connection is above point 1
+                        //Debug.Log("Point 1 left");
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x) // check if desired connection above point 1
                         {
+                            //Debug.Log("Point 2 up");
                             CornerPoint(point1, point2);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
-                        }
-                    }
-                }
-                else if (point2.GetComponent<pointProperties>().Directions()[0])
-                {
-                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // check if point 1 is to right of desired connection
-                    {
-                        Debug.Log("Point 1 left");
-                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x) // check if desired connection is below point 1
-                        {
-                            Debug.Log("Point 2 up");
-                            CornerPoint(point1, point2);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
+                            
                         }
                     }
                 }
             }
-            else if (point1.GetComponent<pointProperties>().Directions()[1])
+            else if (point1.GetComponent<pointProperties>().Directions()[1]) //if north
             {
-                if (point2.GetComponent<pointProperties>().Directions()[2])
+                if (point2.GetComponent<pointProperties>().Directions()[2])// if west
                 {
-                    if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
+                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // north doorway left of west
                     {
-                        if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)  
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)  // north below west
                         {
                             CornerPoint(point2, point1);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
-                else if (point2.GetComponent<pointProperties>().Directions()[3])
+                else if (point2.GetComponent<pointProperties>().Directions()[3])// if east
                 {
-                    if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)
+                    if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // north doorway left of east
                     {
-                        if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z)
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)// north below east
                         {
                             CornerPoint(point2, point1);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
             }
-            else if (point1.GetComponent<pointProperties>().Directions()[0])
+            else if (point1.GetComponent<pointProperties>().Directions()[0])// if south
             {
-                if (point2.GetComponent<pointProperties>().Directions()[2])
+                if (point2.GetComponent<pointProperties>().Directions()[2])// if west
                 {
-                    if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
+                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z)// south left of west
                     {
-                        if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z)
+                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)// south above west
                         {
                             CornerPoint(point2, point1);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
-                else if (point2.GetComponent<pointProperties>().Directions()[3])
+                else if (point2.GetComponent<pointProperties>().Directions()[3])// if east
                 {
-                    if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)
+                    if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // south right of east
                     {
-                        if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z)
+                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x) // south above east
                         {
                             CornerPoint(point2, point1);
-                            point1.GetComponent<pointProperties>().hasUsed();
-                            point1.GetComponent<pointProperties>().isPoint1();
-                            point1.GetComponent<pointProperties>().otherPint(point2);
-                            point2.GetComponent<pointProperties>().hasUsed();
-                            point2.GetComponent<pointProperties>().isPoint2();
-                            point2.GetComponent<pointProperties>().otherPint(point1);
                         }
                     }
                 }
@@ -205,12 +164,33 @@ public class HallwayGeneration : MonoBehaviour
         if(point1.transform.position.z == point2.transform.position.z)
         {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
-            GenerateMarkers(point1, point2, null, false);
+            if (!Physics.CheckBox(new Vector3((point2.transform.position.x - point1.transform.position.x) / 2, .1f, point1.transform.position.z), new Vector3((distance1) / 2, 10, 2.5f)))
+            {
+                point1.GetComponent<pointProperties>().hasUsed();
+                point1.GetComponent<pointProperties>().isPoint1();
+                point1.GetComponent<pointProperties>().otherPint(point2);
+                point2.GetComponent<pointProperties>().hasUsed();
+                point2.GetComponent<pointProperties>().isPoint2();
+                point2.GetComponent<pointProperties>().otherPint(point1);
+                GenerateMarkers(point1, point2, null, false);
+
+            }
         }
         else if(point1.transform.position.x == point2.transform.position.x)
         {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
-            GenerateMarkers(point1, point2, null, true);
+            if (!Physics.CheckBox(new Vector3(point1.transform.position.x, 0, (point2.transform.position.z - point1.transform.position.z)/2), new Vector3(2.5f, 10, (distance1)/2)))
+            {
+                point1.GetComponent<pointProperties>().hasUsed();
+                point1.GetComponent<pointProperties>().isPoint1();
+                point1.GetComponent<pointProperties>().otherPint(point2);
+                point2.GetComponent<pointProperties>().hasUsed();
+                point2.GetComponent<pointProperties>().isPoint2();
+                point2.GetComponent<pointProperties>().otherPint(point1);
+                GenerateMarkers(point1, point2, null, true);
+                
+            }
+                
         }
         else
         {
@@ -218,7 +198,17 @@ public class HallwayGeneration : MonoBehaviour
 
             distance1 = Vector3.Distance(point1.transform.position, cornerPoint.transform.position);
             distance2 = Vector3.Distance(point2.transform.position, cornerPoint.transform.position);
-            GenerateMarkers(point1, point2, cornerPoint);
+            if (!Physics.CheckBox(new Vector3((cornerPoint.transform.position.x - point1.transform.position.x)/2, 0, cornerPoint.transform.position.z), new Vector3((distance1)/2, 10, (distance2) / 2)) && !Physics.CheckBox(new Vector3(cornerPoint.transform.position.x, 0, (cornerPoint.transform.position.z - point2.transform.position.z)/2), new Vector3((distance2) / 2, 10, (distance1)/2)))
+            {
+                point1.GetComponent<pointProperties>().hasUsed();
+                point1.GetComponent<pointProperties>().isPoint1();
+                point1.GetComponent<pointProperties>().otherPint(point2);
+                point2.GetComponent<pointProperties>().hasUsed();
+                point2.GetComponent<pointProperties>().isPoint2();
+                point2.GetComponent<pointProperties>().otherPint(point1);
+                GenerateMarkers(point1, point2, cornerPoint);
+            }
+                
         }
         
     }
@@ -260,16 +250,23 @@ public class HallwayGeneration : MonoBehaviour
         if(pointMid != null)
         {
             float i = 0;
-            float distance3 = Mathf.Floor(distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace());
-            float distance4 = Mathf.Floor(distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace());
+            float distance3 = Mathf.Floor((distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())-((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x/2)/ FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
+            float distance4 = Mathf.Floor((distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y/2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
             markers1 = null;
             
+            Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+            markers1 = null;
+            if (Mathf.CeilToInt(distance3) < 0)
+            {
+                Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                markers1 = new GameObject[Mathf.CeilToInt(distance3)*-1];
+            }
+            else
+            {
                 Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
                 markers1 = new GameObject[Mathf.CeilToInt(distance3)];
-            
+            }
 
-            Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
-            markers1 = new GameObject[Mathf.CeilToInt(distance3)];
             markers2 = null;
             if(Mathf.CeilToInt(distance4) < 0)
             {
@@ -287,11 +284,11 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.z < pointMid.transform.position.z)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointEnd.transform.position.z - (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())))), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x , 0, ((pointEnd.transform.position.z - (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointEnd.transform.position.z + (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())))), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x , 0, ((pointEnd.transform.position.z + (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
                 }
 
                 i++;
@@ -301,23 +298,23 @@ public class HallwayGeneration : MonoBehaviour
             {
                 if (pointEnd.transform.position.x > pointMid.transform.position.x)
                 {
-                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
                 }
                 else
                 {
-                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
                 }
 
 
                 i++;
             }
             int j = 0;
-            hallways = new GameObject[markers1.Length + markers2.Length + 3];
+            hallways = new GameObject[markers1.Length + markers2.Length + 1];
             if (markers1 != null && markers2 != null)
             {
-                hallways[j] = Instantiate(FloorPrefabz, pointStart.transform.position, FloorPrefabz.transform.rotation);
-                hallways[j].transform.parent = hallwayHolder.transform;
-                j++;
+                //hallways[j] = Instantiate(FloorPrefabz, pointStart.transform.position, FloorPrefabz.transform.rotation);
+                //hallways[j].transform.parent = hallwayHolder.transform;
+                //j++;
                 foreach (GameObject mark in markers2)
                 {
                     if(mark.transform.position != pointMid.transform.position)
@@ -340,9 +337,9 @@ public class HallwayGeneration : MonoBehaviour
                     }
                     j++;
                 }
-                hallways[j] = Instantiate(FloorPrefabx, pointEnd.transform.position, FloorPrefabx.transform.rotation);
-                hallways[j].transform.parent = hallwayHolder.transform;
-                j++;
+                //hallways[j] = Instantiate(FloorPrefabx, pointEnd.transform.position, FloorPrefabx.transform.rotation);
+                //hallways[j].transform.parent = hallwayHolder.transform;
+                //j++;
                 for (int a = 0; a < markers1.Length; a++)
                 {
                     Destroy(markers1[a]);
@@ -353,6 +350,64 @@ public class HallwayGeneration : MonoBehaviour
                 }
                 markers1 = null;
                 markers2 = null;
+            }
+            foreach(GameObject a in hallways)
+            {
+                if(a.GetComponent<DoorChangeCorner>() != null)
+                {
+                    if (pointStart.GetComponent<pointProperties>().direction[0])
+                    {
+                        if (pointEnd.GetComponent<pointProperties>().direction[2])
+                        {
+                            bool[] changes = { true, false, true, false };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                        else if (pointEnd.GetComponent<pointProperties>().direction[3])
+                        {
+                            bool[] changes = { true, false, false, true };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                    }
+                    else if (pointStart.GetComponent<pointProperties>().direction[1])
+                    {
+                        if (pointEnd.GetComponent<pointProperties>().direction[2])
+                        {
+                            bool[] changes = { false, true, true, false };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                        else if (pointEnd.GetComponent<pointProperties>().direction[3])
+                        {
+                            bool[] changes = { false, true, false, true };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                    }
+                    else if (pointStart.GetComponent<pointProperties>().direction[2])
+                    {
+                        if (pointEnd.GetComponent<pointProperties>().direction[0])
+                        {
+                            bool[] changes = { true, false, true, false };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                        else if (pointEnd.GetComponent<pointProperties>().direction[1])
+                        {
+                            bool[] changes = { false, true, true, false };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                    }
+                    else if (pointStart.GetComponent<pointProperties>().direction[3])
+                    {
+                        if (pointEnd.GetComponent<pointProperties>().direction[0])
+                        {
+                            bool[] changes = { true, false, false, true };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                        else if (pointEnd.GetComponent<pointProperties>().direction[1])
+                        {
+                            bool[] changes = { false, true, false, true };
+                            a.gameObject.GetComponent<DoorChangeCorner>().doorChange(changes);
+                        }
+                    }
+                }
             }
 
         }

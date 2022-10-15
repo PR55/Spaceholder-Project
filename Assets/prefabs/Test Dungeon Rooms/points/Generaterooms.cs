@@ -62,27 +62,20 @@ public class Generaterooms : MonoBehaviour
         {
             spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x/2, range.x/2), 0, UnityEngine.Random.Range(-range.y/2, range.y/2));
             var RoomChoice = roomsChoice[UnityEngine.Random.Range(0, roomsChoice.Length)];
-            foreach (GameObject room in roomsActive)
-            {
-                if(room != null)
-                {
-                    if((((spawnMarker.position.z + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y/2)) > ((room.transform.position.z + (room.GetComponent<RoomAttribute>().RoomDimensions().y/2)) + minSpacing) || ((spawnMarker.position.z - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) < (room.transform.position.z - (room.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) + minSpacing)) && ((spawnMarker.position.x + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) > (room.transform.position.x + (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)) || ((spawnMarker.position.x - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2) < (room.transform.position.x - (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)))
-                    {
-                        isCollide = false;
-                    }
-                    else
-                    {
-                        isCollide = true;
-                        break;
-                        
-                    }
-                }
-            }
 
-            if(isCollide)
+             if (Physics.CheckBox(spawnMarker.position, new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2,10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))
+             {
+                    isCollide = true;
+             }
+             else
+             {
+                    isCollide = false;
+             }
+
+            if (isCollide)
             {
-                //Debug.Log("Collision");
-                //i++;
+                Debug.Log("Collision");
+                i++;
             }
             else
             {

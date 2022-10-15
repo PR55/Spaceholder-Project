@@ -7,7 +7,7 @@ using UnityEngine;
 public class pointProperties : MonoBehaviour
 {
     
-    [Tooltip("0 - South\n1 - North\n2 - West\n3 - East")]
+    [Tooltip("Designation is relative to center of prefabe world transform:\n0 - South (X Negative)\n1 - North (X positive)\n2 - West (Z positive)\n3 - East (Z negative)")]
     public bool[] direction = new bool[4]; // 0 - North 1 - South 2 - East 3 - West
     public GameObject doorParent;
     public GameObject overallParent;
