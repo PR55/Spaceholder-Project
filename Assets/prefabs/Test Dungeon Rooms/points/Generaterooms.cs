@@ -34,6 +34,9 @@ public class Generaterooms : MonoBehaviour
     private void Start()
     {
         spawnMarker = Instantiate(spawnMarkerObject).transform;
+
+        spawnMarker.position = Vector3.zero;
+
         roomsActive = new GameObject[totalAmountAllowed + 2];
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
@@ -55,22 +58,28 @@ public class Generaterooms : MonoBehaviour
     public void GenerateRooms()
     {
         ClearAlls();
-        hallwayGeneration.ClearAll();
+
+        zero();
+
         UnityEngine.Random.seed = DateTime.UtcNow.Millisecond;
         int i = 0;
-        while(i < totalAmountAllowed)
+        while (i < totalAmountAllowed)
         {
-            spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x/2, range.x/2), 0, UnityEngine.Random.Range(-range.y/2, range.y/2));
+            
             var RoomChoice = roomsChoice[UnityEngine.Random.Range(0, roomsChoice.Length)];
 
-             if (Physics.CheckBox(spawnMarker.position, new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2,10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))
-             {
+            if (Physics.CheckBox(spawnMarker.position, new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2,10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) && Vector3.zero != spawnMarker.position)
+            {
                     isCollide = true;
-             }
-             else
-             {
+            }
+            else if(Vector3.zero == spawnMarker.position)
+            {
+                isCollide = false;
+            }
+            else
+            {
                     isCollide = false;
-             }
+            }
 
             if (isCollide)
             {
@@ -94,6 +103,7 @@ public class Generaterooms : MonoBehaviour
                 i++;
             }
             isCollide = false;
+            spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x / 2, range.x / 2), 0, UnityEngine.Random.Range(-range.y / 2, range.y / 2));
 
         }
         pointsDoorways = new pointProperties[allDoorWays.Count];
@@ -182,6 +192,8 @@ public class Generaterooms : MonoBehaviour
 
     void ClearAlls()
     {
+        
+
         roomsActiveSpawn = new GameObject[GameObject.FindObjectsOfType<RoomAttribute>().Length];
 
         int v = 0;
@@ -211,7 +223,6 @@ public class Generaterooms : MonoBehaviour
                 }
             }
         }
-        
         allDoorWays.Clear();
         pointsDoorways = null;
         roomsActive = new GameObject[totalAmountAllowed + 2];
@@ -234,7 +245,16 @@ public class Generaterooms : MonoBehaviour
         }
         pointsDoorways = null;
         hallways = null;
+
+
+        hallwayGeneration.ClearAll();
         Resources.UnloadUnusedAssets();
+    }
+
+    void zero()
+    {
+        spawnMarker.position = Vector3.zero;
+        Invoke("wait", 2f);
     }
 
     private void OnDrawGizmos()

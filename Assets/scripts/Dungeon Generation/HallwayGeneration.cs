@@ -72,6 +72,16 @@ public class HallwayGeneration : MonoBehaviour
                         }
                     }
                 }
+                else if (point2.GetComponent<pointProperties>().Directions()[2])// if west
+                {
+                    if (point1.transform.position.z - minDoorwaySpacing > point2.transform.position.z) // north doorway left of east
+                    {
+                        if (point1.transform.position.x == point2.transform.position.x)// north below east
+                        {
+                            CornerPoint(point1, point2);
+                        }
+                    }
+                }
             }
             else if(point1.GetComponent<pointProperties>().Directions()[2]) // if west
             {
@@ -98,6 +108,16 @@ public class HallwayGeneration : MonoBehaviour
                         }
                     }
                 }
+                else if (point2.GetComponent<pointProperties>().Directions()[3])// if east
+                {
+                    if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // north doorway left of east
+                    {
+                        if (point1.transform.position.x == point2.transform.position.x)// north below east
+                        {
+                            CornerPoint(point1, point2);
+                        }
+                    }
+                }
             }
             else if (point1.GetComponent<pointProperties>().Directions()[1]) //if north
             {
@@ -114,6 +134,16 @@ public class HallwayGeneration : MonoBehaviour
                 else if (point2.GetComponent<pointProperties>().Directions()[3])// if east
                 {
                     if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // north doorway left of east
+                    {
+                        if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)// north below east
+                        {
+                            CornerPoint(point2, point1);
+                        }
+                    }
+                }
+                else if (point2.GetComponent<pointProperties>().Directions()[0])// if east
+                {
+                    if (point1.transform.position.z == point2.transform.position.z) // north doorway left of east
                     {
                         if (point1.transform.position.x + minDoorwaySpacing < point2.transform.position.x)// north below east
                         {
@@ -139,6 +169,16 @@ public class HallwayGeneration : MonoBehaviour
                     if (point1.transform.position.z + minDoorwaySpacing < point2.transform.position.z) // south right of east
                     {
                         if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x) // south above east
+                        {
+                            CornerPoint(point2, point1);
+                        }
+                    }
+                }
+                else if (point2.GetComponent<pointProperties>().Directions()[1])// if east
+                {
+                    if (point1.transform.position.z == point2.transform.position.z) // north doorway left of east
+                    {
+                        if (point1.transform.position.x - minDoorwaySpacing > point2.transform.position.x)// north below east
                         {
                             CornerPoint(point2, point1);
                         }
@@ -198,8 +238,7 @@ public class HallwayGeneration : MonoBehaviour
 
             distance1 = Vector3.Distance(point1.transform.position, cornerPoint.transform.position);
             distance2 = Vector3.Distance(point2.transform.position, cornerPoint.transform.position);
-            if (!Physics.CheckBox(new Vector3((cornerPoint.transform.position.x - point1.transform.position.x)/2, 0, cornerPoint.transform.position.z), new Vector3((distance1)/2, 10, (distance2) / 2)) && !Physics.CheckBox(new Vector3(cornerPoint.transform.position.x, 0, (cornerPoint.transform.position.z - point2.transform.position.z)/2), new Vector3((distance2) / 2, 10, (distance1)/2)))
-            {
+
                 point1.GetComponent<pointProperties>().hasUsed();
                 point1.GetComponent<pointProperties>().isPoint1();
                 point1.GetComponent<pointProperties>().otherPint(point2);
@@ -207,8 +246,6 @@ public class HallwayGeneration : MonoBehaviour
                 point2.GetComponent<pointProperties>().isPoint2();
                 point2.GetComponent<pointProperties>().otherPint(point1);
                 GenerateMarkers(point1, point2, cornerPoint);
-            }
-                
         }
         
     }
