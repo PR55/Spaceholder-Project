@@ -692,6 +692,7 @@ MonoBehaviour:
   FloorPrefabz: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   cornerPrefab: {fileID: 4989877825108431975, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
   cornerPointPrefab: {fileID: 8685157536316081146, guid: d9128bb889c3d364b94b49fb32816ae6, type: 3}
+  minDoorwaySpacing: 10
 --- !u!4 &1432182817
 Transform:
   m_ObjectHideFlags: 0
@@ -1094,12 +1095,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: {x: 500, y: 500}
   roomsChoice:
-  - {fileID: 2723304889514055184, guid: a038b08a216d3f041a9868223d785a89, type: 3}
+  - {fileID: 6353943269830221841, guid: b7c1a98de2e111346a7df14bc1fbd905, type: 3}
   - {fileID: 3324983927326278082, guid: dc8fb568184d6fc409bdab95d69613be, type: 3}
   totalAmountAllowed: 15
   minSpacing: 10
   spawnMarkerObject: {fileID: 602839991075942652, guid: a42491104497d7044ab235dc3f23df0b, type: 3}
   allDoorWays: []
+  pointsDoorwaysMandatory: []
   pointsDoorways: []
   hallwayGeneration: {fileID: 1432182816}
 --- !u!4 &2017435017

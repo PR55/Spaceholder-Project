@@ -55,6 +55,15 @@ public class Generaterooms : MonoBehaviour
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            AdditionalConnections();
+        }
+    }
+
     public void GenerateRooms()
     {
         ClearAlls();
@@ -173,8 +182,10 @@ public class Generaterooms : MonoBehaviour
                         }
                     }
                 }
-                if(closestPoint != null)
-                hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+                if (closestPoint != null)
+                    hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+
+
 
                 closestPoint = null;
             }
@@ -187,7 +198,73 @@ public class Generaterooms : MonoBehaviour
         hallways = new GameObject[hallwayGeneration.hallwayColelction().Length];
         hallways = hallwayGeneration.hallwayColelction();
 
+        AdditionalConnections();
+
         Resources.UnloadUnusedAssets();
+    }
+
+    void AdditionalConnections()
+    {
+        allDoorWays.Clear();
+
+        foreach(pointProperties a in GameObject.FindObjectsOfType<pointProperties>())
+        {
+            if(!allDoorWays.Contains(a))
+            {
+                if (a.useCheck() == false)
+                {
+                    allDoorWays.Add(a);
+                }
+                    
+            }
+        }
+
+        pointsDoorways = null;
+        pointsDoorways = new pointProperties[allDoorWays.Count];
+        pointsDoorways = allDoorWays.ToArray();
+
+        pointProperties closestPoint = null;
+        foreach (pointProperties a in pointsDoorways)
+        {
+            if (a.useCheck() == false)
+            {
+                foreach (pointProperties b in pointsDoorways)
+                {
+                    if (b != a)
+                    {
+                        if (b.useCheck() == false)
+                        {
+                            if (b.parentCheck().transform != a.parentCheck().transform)
+                            {
+                                if (closestPoint != null)
+                                {
+                                    if (Vector3.Distance(a.gameObject.transform.position, b.gameObject.transform.position) < Vector3.Distance(a.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                    {
+                                        closestPoint = b;
+                                    }
+                                }
+                                else
+                                {
+                                    closestPoint = b;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (closestPoint != null)
+                    hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+
+
+
+                closestPoint = null;
+            }
+        }
+        foreach (pointProperties a in pointsDoorways)
+        {
+            a.doorChAct();
+        }
+        hallways = null;
+        hallways = new GameObject[hallwayGeneration.hallwayColelction().Length];
     }
 
     void ClearAlls()

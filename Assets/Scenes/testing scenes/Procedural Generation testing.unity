@@ -144,48 +144,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!1 &499046597
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 499046599}
-  - component: {fileID: 499046598}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!192 &499046598
-OcclusionArea:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499046597}
-  serializedVersion: 2
-  m_Size: {x: 550, y: 100, z: 550}
-  m_Center: {x: 0, y: 0, z: 0}
-  m_IsViewVolume: 1
---- !u!4 &499046599
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 499046597}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &543582562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -574,11 +532,11 @@ MonoBehaviour:
   endPoint: {fileID: 0}
   cornerPoint: {fileID: 0}
   pointMarkers: {fileID: 7447700018173525876, guid: 696ea1d200ff0094cbd344533b493df2, type: 3}
-  FloorPrefabx: {fileID: 6525598586264553328, guid: f670256d2a65d914eb529af95bb949ab, type: 3}
-  FloorPrefabz: {fileID: 6525598586264553328, guid: 4d6c7dc07c8986b44aebd07c7352be7a, type: 3}
+  FloorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
+  FloorPrefabz: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   cornerPrefab: {fileID: 4989877825108431975, guid: 1dd0af1900d6c864e9f9fa447203eb46, type: 3}
   cornerPointPrefab: {fileID: 8685157536316081146, guid: d9128bb889c3d364b94b49fb32816ae6, type: 3}
-  minDoorwaySpacing: 6.25
+  minDoorwaySpacing: 6
 --- !u!4 &1432182817
 Transform:
   m_ObjectHideFlags: 0
@@ -981,9 +939,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: {x: 450, y: 450}
   roomsChoice:
-  - {fileID: 2723304889514055184, guid: a038b08a216d3f041a9868223d785a89, type: 3}
+  - {fileID: 3324983927326278082, guid: dc8fb568184d6fc409bdab95d69613be, type: 3}
   - {fileID: 6353943269830221841, guid: b7c1a98de2e111346a7df14bc1fbd905, type: 3}
-  totalAmountAllowed: 5
+  totalAmountAllowed: 15
   minSpacing: 50
   spawnMarkerObject: {fileID: 602839991075942652, guid: a42491104497d7044ab235dc3f23df0b, type: 3}
   allDoorWays: []
@@ -1165,6 +1123,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1016847600976078745, guid: 829a90443c0419845a3a910ccae5beb2, type: 3}
+      propertyPath: spaceTakenx
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016847600976078745, guid: 829a90443c0419845a3a910ccae5beb2, type: 3}
+      propertyPath: spaceTakenz
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3159150752833200845, guid: 829a90443c0419845a3a910ccae5beb2, type: 3}
       propertyPath: m_Name
       value: Start Room
