@@ -26,6 +26,7 @@ public class Generaterooms : MonoBehaviour
     bool isCollide = false;
 
     public List<pointProperties> allDoorWays;
+    public pointProperties[] pointsDoorwaysMandatory;
     public pointProperties[] pointsDoorways;
     public HallwayGeneration hallwayGeneration;
 
@@ -33,6 +34,9 @@ public class Generaterooms : MonoBehaviour
     private void Start()
     {
         spawnMarker = Instantiate(spawnMarkerObject).transform;
+
+        spawnMarker.position = Vector3.zero;
+
         roomsActive = new GameObject[totalAmountAllowed + 2];
         roomsActiveSpawn = new GameObject[totalAmountAllowed];
         roomsActive[0] = GameObject.Find("Start Room");
@@ -54,34 +58,33 @@ public class Generaterooms : MonoBehaviour
     public void GenerateRooms()
     {
         ClearAlls();
-        hallwayGeneration.ClearAll();
+
+        zero();
+
         UnityEngine.Random.seed = DateTime.UtcNow.Millisecond;
         int i = 0;
-        while(i < totalAmountAllowed)
+        while (i < totalAmountAllowed)
         {
-            spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x/2, range.x/2), 0, UnityEngine.Random.Range(-range.y/2, range.y/2));
+            
             var RoomChoice = roomsChoice[UnityEngine.Random.Range(0, roomsChoice.Length)];
-            foreach (GameObject room in roomsActive)
+
+            if (Physics.CheckBox(spawnMarker.position, new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2,10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) && Vector3.zero != spawnMarker.position)
             {
-                if(room != null)
-                {
-                    if((((spawnMarker.position.z + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y/2)) > ((room.transform.position.z + (room.GetComponent<RoomAttribute>().RoomDimensions().y/2)) + minSpacing) || ((spawnMarker.position.z - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) < (room.transform.position.z - (room.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) + minSpacing)) && ((spawnMarker.position.x + (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) > (room.transform.position.x + (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)) || ((spawnMarker.position.x - (RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x / 2) < (room.transform.position.x - (room.GetComponent<RoomAttribute>().RoomDimensions().x / 2)) + minSpacing)))
-                    {
-                        isCollide = false;
-                    }
-                    else
-                    {
-                        isCollide = true;
-                        break;
-                        
-                    }
-                }
+                    isCollide = true;
+            }
+            else if(Vector3.zero == spawnMarker.position)
+            {
+                isCollide = false;
+            }
+            else
+            {
+                    isCollide = false;
             }
 
-            if(isCollide)
+            if (isCollide)
             {
-                //Debug.Log("Collision");
-                //i++;
+                Debug.Log("Collision");
+                i++;
             }
             else
             {
@@ -100,12 +103,13 @@ public class Generaterooms : MonoBehaviour
                 i++;
             }
             isCollide = false;
+            spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x / 2, range.x / 2), 0, UnityEngine.Random.Range(-range.y / 2, range.y / 2));
 
         }
         pointsDoorways = new pointProperties[allDoorWays.Count];
         pointsDoorways = allDoorWays.ToArray();
         pointProperties closestPoint = null;
-        foreach (pointProperties a in pointsDoorways)
+        foreach (pointProperties a in pointsDoorwaysMandatory)
         {
             if (!a.useCheck())
             {
@@ -114,6 +118,43 @@ public class Generaterooms : MonoBehaviour
                     if (b != a)
                     {
                         if (!b.useCheck())
+                        {
+                            if (b.parentCheck().transform != a.parentCheck().transform)
+                            {
+                                if (closestPoint != null)
+                                {
+                                    if (Vector3.Distance(a.gameObject.transform.position, b.gameObject.transform.position) < Vector3.Distance(a.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                    {
+                                        closestPoint = b;
+                                    }
+                                }
+                                else
+                                {
+                                    closestPoint = b;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (closestPoint != null)
+                    hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+
+                closestPoint = null;
+            }
+        }
+        foreach (pointProperties a in pointsDoorwaysMandatory)
+        {
+            a.doorChAct();
+        }
+        foreach (pointProperties a in pointsDoorways)
+        {
+            if (a.useCheck() == false)
+            {
+                foreach (pointProperties b in pointsDoorways)
+                {
+                    if (b != a)
+                    {
+                        if (b.useCheck() == false)
                         {
                             if (b.parentCheck().transform != a.parentCheck().transform)
                             {
@@ -151,6 +192,8 @@ public class Generaterooms : MonoBehaviour
 
     void ClearAlls()
     {
+        
+
         roomsActiveSpawn = new GameObject[GameObject.FindObjectsOfType<RoomAttribute>().Length];
 
         int v = 0;
@@ -180,7 +223,6 @@ public class Generaterooms : MonoBehaviour
                 }
             }
         }
-        
         allDoorWays.Clear();
         pointsDoorways = null;
         roomsActive = new GameObject[totalAmountAllowed + 2];
@@ -203,7 +245,16 @@ public class Generaterooms : MonoBehaviour
         }
         pointsDoorways = null;
         hallways = null;
+
+
+        hallwayGeneration.ClearAll();
         Resources.UnloadUnusedAssets();
+    }
+
+    void zero()
+    {
+        spawnMarker.position = Vector3.zero;
+        Invoke("wait", 2f);
     }
 
     private void OnDrawGizmos()
