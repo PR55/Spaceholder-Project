@@ -27,17 +27,26 @@ public class HallwayGeneration : MonoBehaviour
     GameObject[] markers2;
     GameObject[] hallways;
 
-    public GameObject[] hallwayColelction()
+    bool hallwayCollide = false;
+
+    List<GameObject> allHallways = new List<GameObject>();
+
+    private void Update()
     {
-        int i = 0;
-        hallways = null;
-        hallways = new GameObject[GameObject.FindObjectsOfType<FloorBehaviour>().Length];
-        foreach (FloorBehaviour floor in GameObject.FindObjectsOfType<FloorBehaviour>())
+    }
+
+    void addToList(GameObject[] hallway)
+    {
+        foreach(GameObject a in hallway)
         {
-            hallways[i] = floor.gameObject;
-            i++;
+            if(a != null && !allHallways.Contains(a))
+                allHallways.Add(a.gameObject);
         }
-        return hallways;
+    }
+
+    public List<GameObject> hallwayColelction()
+    {
+        return allHallways;
     }
     public void pointCheck(GameObject point1, GameObject point2)
     {
@@ -204,7 +213,7 @@ public class HallwayGeneration : MonoBehaviour
         if(point1.transform.position.z == point2.transform.position.z)
         {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
-            if (!Physics.CheckBox(new Vector3((point2.transform.position.x - point1.transform.position.x) / 2, .1f, point1.transform.position.z), new Vector3((distance1) / 2, 10, 2.5f)))
+            if (!Physics.CheckBox(new Vector3((point2.transform.position.x - point1.transform.position.x) / 2, .1f, point1.transform.position.z), new Vector3((distance1 + 3) / 2, 10, 2.5f)))
             {
                 point1.GetComponent<pointProperties>().hasUsed();
                 point1.GetComponent<pointProperties>().isPoint1();
@@ -219,7 +228,7 @@ public class HallwayGeneration : MonoBehaviour
         else if(point1.transform.position.x == point2.transform.position.x)
         {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
-            if (!Physics.CheckBox(new Vector3(point1.transform.position.x, 0, (point2.transform.position.z - point1.transform.position.z)/2), new Vector3(2.5f, 10, (distance1)/2)))
+            if (!Physics.CheckBox(new Vector3(point1.transform.position.x, 0, (point2.transform.position.z - point1.transform.position.z) / 2), new Vector3(2.5f, 10, (distance1 + 3) / 2)))
             {
                 point1.GetComponent<pointProperties>().hasUsed();
                 point1.GetComponent<pointProperties>().isPoint1();
@@ -228,9 +237,9 @@ public class HallwayGeneration : MonoBehaviour
                 point2.GetComponent<pointProperties>().isPoint2();
                 point2.GetComponent<pointProperties>().otherPint(point1);
                 GenerateMarkers(point1, point2, null, true);
-                
+
             }
-                
+
         }
         else if (swapped)
         {
@@ -240,21 +249,24 @@ public class HallwayGeneration : MonoBehaviour
             distance1 = Vector3.Distance(point2.transform.position, cornerPoint.transform.position);
             distance2 = Vector3.Distance(point1.transform.position, cornerPoint.transform.position);
 
-            if (!Physics.CheckBox(new Vector3(point2.transform.position.x, 0, cornerPoint.transform.position.z - point2.transform.position.z), new Vector3(5, 3, ((distance1 -5) / 2))))
+
+
+            if (!Physics.CheckBox(new Vector3(point2.transform.position.x, 0, (cornerPoint.transform.position.z - point2.transform.position.z)), new Vector3((distance1 + 3) / 2, 5, 3)) && !Physics.CheckBox(new Vector3(cornerPoint.transform.position.x - point1.transform.position.x, 0, point1.transform.position.z), new Vector3(3, 5, (distance1 + 3) / 2)))
             {
-                if (!Physics.CheckBox(new Vector3(cornerPoint.transform.position.x - point1.transform.position.x, 0, point1.transform.position.z), new Vector3(((distance2 - 5) / 2), 3, 5)))
+                if(!Physics.CheckBox(cornerPoint.transform.position, new Vector3(cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x/2, 5, cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))
                 {
                     point1.GetComponent<pointProperties>().hasUsed();
-                    point1.GetComponent<pointProperties>().isPoint1();
-                    point1.GetComponent<pointProperties>().otherPint(point2);
                     point2.GetComponent<pointProperties>().hasUsed();
                     point2.GetComponent<pointProperties>().isPoint2();
                     point2.GetComponent<pointProperties>().otherPint(point1);
-                    GenerateMarkers(point2, point1, cornerPoint);
+                    GenerateMarkers(point1, point2, cornerPoint);
                 }
+                
             }
+
+
         }
-        else
+        else if (!swapped)
         {
             Debug.Log("Not Swapped");
             cornerPoint = Instantiate(cornerPointPrefab, new Vector3(point1.transform.position.x, 0, point2.transform.position.z), Quaternion.identity);
@@ -262,25 +274,63 @@ public class HallwayGeneration : MonoBehaviour
             distance1 = Vector3.Distance(point1.transform.position, cornerPoint.transform.position);
             distance2 = Vector3.Distance(point2.transform.position, cornerPoint.transform.position);
 
-            if (!Physics.CheckBox(new Vector3(point1.transform.position.x, 0, cornerPoint.transform.position.z - point1.transform.position.z), new Vector3(5, 3, ((distance1-5) / 2))))
+
+            if (!Physics.CheckBox(new Vector3(point1.transform.position.x, 0, (cornerPoint.transform.position.z - point1.transform.position.z)), new Vector3((distance1 + 3) / 2, 5, 3)) && !Physics.CheckBox(new Vector3(cornerPoint.transform.position.x - point2.transform.position.x, 0, point2.transform.position.z), new Vector3(3, 5, (distance1 + 3) / 2)))
             {
-                if (!Physics.CheckBox(new Vector3(cornerPoint.transform.position.x - point2.transform.position.x, 0, point2.transform.position.z), new Vector3(((distance2-5) / 2), 3, 5)))
+                if (!Physics.CheckBox(cornerPoint.transform.position, new Vector3(cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2, 5, cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))
                 {
                     point1.GetComponent<pointProperties>().hasUsed();
                     point1.GetComponent<pointProperties>().isPoint1();
                     point1.GetComponent<pointProperties>().otherPint(point2);
                     point2.GetComponent<pointProperties>().hasUsed();
-                    point2.GetComponent<pointProperties>().isPoint2();
-                    point2.GetComponent<pointProperties>().otherPint(point1);
                     GenerateMarkers(point1, point2, cornerPoint);
                 }
             }
 
         }
-        
+
     }
 
     
+    public void FullClear()
+    {
+        if (markers1 != null)
+        {
+            for (int a = 0; a < markers1.Length; a++)
+            {
+                Destroy(markers1[a]);
+            }
+            markers1 = null;
+        }
+        if (markers2 != null)
+        {
+            for (int a = 0; a < markers2.Length; a++)
+            {
+                Destroy(markers2[a]);
+            }
+            markers2 = null;
+        }
+        if (hallways != null)
+        {
+            for (int a = 0; a < hallways.Length; a++)
+            {
+                Destroy(hallways[a]);
+            }
+            hallways = null;
+        }
+        GameObject[] tempHalls = new GameObject[allHallways.Count];
+        tempHalls = allHallways.ToArray();
+
+        foreach(GameObject a in tempHalls)
+        {
+            Destroy(a);
+        }
+
+        allHallways = new List<GameObject>();
+
+        Resources.UnloadUnusedAssets();
+    }
+
     public void ClearAll()
     {
         if (markers1 != null)
@@ -317,63 +367,127 @@ public class HallwayGeneration : MonoBehaviour
         if(pointMid != null)
         {
             float i = 0;
-            float distance3 = Mathf.Floor((distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())-((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x/2)/ FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
-            float distance4 = Mathf.Floor((distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y/2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
-            markers1 = null;
-            
-            Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
-            markers1 = null;
-            if (Mathf.CeilToInt(distance3) < 0)
+            if(pointStart.GetComponent<pointProperties>().Point1())
             {
-                Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
-                markers1 = new GameObject[Mathf.CeilToInt(distance3)*-1];
-            }
-            else
-            {
-                Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
-                markers1 = new GameObject[Mathf.CeilToInt(distance3)];
-            }
+                float distance3 = Mathf.Floor((distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
+                float distance4 = Mathf.Floor((distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
+                markers1 = null;
 
-            markers2 = null;
-            if(Mathf.CeilToInt(distance4) < 0)
-            {
-                Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
-                markers2 = new GameObject[Mathf.CeilToInt(distance4)*-1];
-            }
-            else
-            {
-                Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
-                markers2 = new GameObject[Mathf.CeilToInt(distance4)];
-            }
-            
-            while (i < markers1.Length)
-            {
-
-                if (pointStart.transform.position.z < pointMid.transform.position.z)
+                Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                markers1 = null;
+                if (Mathf.CeilToInt(distance3) < 0)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x , 0, ((pointEnd.transform.position.z - (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                    markers1 = new GameObject[Mathf.CeilToInt(distance3) * -1];
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x , 0, ((pointEnd.transform.position.z + (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                    markers1 = new GameObject[Mathf.CeilToInt(distance3)];
                 }
 
-                i++;
-            }
-            i = 0;
-            while (i <markers2.Length)
-            {
-                if (pointEnd.transform.position.x > pointMid.transform.position.x)
+                markers2 = null;
+                if (Mathf.CeilToInt(distance4) < 0)
                 {
-                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
+                    markers2 = new GameObject[Mathf.CeilToInt(distance4) * -1];
                 }
                 else
                 {
-                    markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
+                    markers2 = new GameObject[Mathf.CeilToInt(distance4)];
                 }
 
+                while (i < markers1.Length)
+                {
 
-                i++;
+                    if (pointStart.transform.position.z < pointMid.transform.position.z)
+                    {
+                        markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointMid.transform.position.z - (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    }
+                    else
+                    {
+                        markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointMid.transform.position.z + (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    }
+
+                    i++;
+                }
+                i = 0;
+                while (i < markers2.Length)
+                {
+                    if (pointEnd.transform.position.x > pointMid.transform.position.x)
+                    {
+                        markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointMid.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    }
+                    else
+                    {
+                        markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointMid.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    }
+
+
+                    i++;
+                }
+            }
+            else
+            {
+                float distance3 = Mathf.Floor((distance1 / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
+                float distance4 = Mathf.Floor((distance2 / FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - ((cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2) / FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()));
+                markers1 = null;
+
+                Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                markers1 = null;
+                if (Mathf.CeilToInt(distance3) < 0)
+                {
+                    Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                    markers1 = new GameObject[Mathf.CeilToInt(distance3) * -1];
+                }
+                else
+                {
+                    Debug.Log("Markers 1 size: " + Mathf.CeilToInt(distance3).ToString());
+                    markers1 = new GameObject[Mathf.CeilToInt(distance3)];
+                }
+
+                markers2 = null;
+                if (Mathf.CeilToInt(distance4) < 0)
+                {
+                    Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
+                    markers2 = new GameObject[Mathf.CeilToInt(distance4) * -1];
+                }
+                else
+                {
+                    Debug.Log("Markers 2 size: " + Mathf.CeilToInt(distance4).ToString());
+                    markers2 = new GameObject[Mathf.CeilToInt(distance4)];
+                }
+
+                while (i < markers1.Length)
+                {
+
+                    if (pointStart.transform.position.z < pointMid.transform.position.z)
+                    {
+                        markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointMid.transform.position.z - (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    }
+                    else
+                    {
+                        markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(cornerPoint.transform.position.x, 0, ((pointMid.transform.position.z + (((i + 1)) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().y / 2)))), new Quaternion(0, 0, 0, 1)));
+                    }
+
+                    i++;
+                }
+                i = 0;
+                while (i < markers2.Length)
+                {
+                    if (pointEnd.transform.position.x < pointMid.transform.position.x)
+                    {
+                        markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointMid.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) + (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    }
+                    else
+                    {
+                        markers2[(int)i] = (Instantiate(pointMarkers, new Vector3(pointMid.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()) - (cornerPrefab.GetComponent<RoomAttribute>().RoomDimensions().x / 2), 0, cornerPoint.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    }
+
+
+                    i++;
+                }
             }
             int j = 0;
             hallways = new GameObject[markers1.Length + markers2.Length + 1];
@@ -418,10 +532,7 @@ public class HallwayGeneration : MonoBehaviour
                 markers1 = null;
                 markers2 = null;
             }
-            
-                
-            
-
+            addToList(hallways);
         }
         else
         {
@@ -474,6 +585,7 @@ public class HallwayGeneration : MonoBehaviour
                     }
                     markers1 = null;
                 }
+                addToList(hallways);
             }
             else
             {
@@ -520,6 +632,7 @@ public class HallwayGeneration : MonoBehaviour
                     }
                     markers1 = null;
                 }
+                addToList(hallways);
             }
 
 

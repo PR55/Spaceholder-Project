@@ -12,6 +12,10 @@ public class GenerateRommsWthButton : Editor
 
         if(Application.isPlaying)
         {
+            if (GUILayout.Button("Create Grid"))
+            {
+                rooms.GridCreate();
+            }
             if (GUILayout.Button("Create Rooms"))
             {
                 rooms.GenerateRooms();

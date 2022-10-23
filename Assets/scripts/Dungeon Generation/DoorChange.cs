@@ -13,4 +13,10 @@ public class DoorChange : MonoBehaviour
         wall.SetActive(!point.useCheck());
         this.gameObject.SetActive(point.useCheck());
     }
+
+    public void DoorReset()
+    {
+        wall.SetActive(true);
+        this.gameObject.SetActive(true);
+    }
 }

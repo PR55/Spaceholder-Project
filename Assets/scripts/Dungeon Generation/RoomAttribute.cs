@@ -12,6 +12,20 @@ public class RoomAttribute : MonoBehaviour
     private float spaceTakenx = 3;
     [SerializeField]
     private float spaceTakenz = 3;
+    [SerializeField]
+    private bool isStart = false;
+
+    private void Start()
+    {
+        if(!isStart)
+        {
+            foreach(pointProperties point in doorways)
+            {
+                point.checkForRooms();
+            }
+        }
+    }
+
 
     public Vector2 RoomDimensions()
     {
@@ -23,6 +37,8 @@ public class RoomAttribute : MonoBehaviour
     {
         return doorways;
     }
+
+    
 
     private void OnDrawGizmos()
     {

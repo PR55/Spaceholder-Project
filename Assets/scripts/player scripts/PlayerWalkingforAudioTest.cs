@@ -9,129 +9,59 @@ public class PlayerWalkingforAudioTest : MonoBehaviour
     public Vector3 collisionForce;
 
     public Vector3 thrustForce;
-    public Transform forcePoint;
-
-    public Vector3 thrustForceLeft;
-    public Transform forcePointLeft;
-
-    public Vector3 thrustForceRight;
-    public Transform forcePointRight;
-
-    private Rigidbody bodyMain;
-
-    public bool forceapplied;
+    
 
     bool hitGorund = false;
+
+    float mouseX;
+    float mouseY;
+
+    public float mouseSensitivity = 100f;
+
+    public Transform player;
+
+    float xRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        forceapplied = false;
-        bodyMain = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
-    {
-        if (forceapplied)
-        {
-            bodyMain.AddForce(force, ForceMode.Impulse);
-        }
-        else
-        {
-
-        }
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
 
-        if(Input.GetKeyDown(KeyCode.F))
+        mouseX = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+
+        xRotation -= mouseX;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, -0f);
+        player.Rotate(Vector3.up * mouseY);
+        if (Input.GetKey(KeyCode.W))
         {
-            if (forceapplied)
-            {
-                forceapplied = false;
-            }
-            else
-            {
-                forceapplied = true;
-
-            }
-                
+            this.gameObject.transform.Translate(new Vector3(0, 0, thrustForce.z * Time.deltaTime));
         }
 
-        
-            if (hitGorund)
-            {
-                return;
-            }
-            else
-            {
-                if (Input.GetKey(KeyCode.W))
-                {
-                    this.gameObject.transform.Translate(new Vector3(0, 0, thrustForce.z * Time.deltaTime));
-                }
-
-                if (Input.GetKey(KeyCode.S))
-                {
-                    this.gameObject.transform.Translate(new Vector3(0, 0, -1 * thrustForce.z * Time.deltaTime));
-                }
-                if (Input.GetKey(KeyCode.A))
-                {
-
-                    this.gameObject.transform.Rotate(new Vector3(0, -100 * Time.deltaTime, 0), Space.World);
-                }
-
-                if (Input.GetKey(KeyCode.D))
-                {
-
-                    this.gameObject.transform.Rotate(new Vector3(0, 100 * Time.deltaTime, 0), Space.World);
-                }
-
-                
-            
-            
-        }
-       
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (Input.GetKey(KeyCode.S))
         {
-            if(forceapplied)
-            {
-                hitGorund = true;
-                bodyMain.AddForceAtPosition(collisionForce, collision.collider.transform.position);
-
-            }
-            
-            
-        
+            this.gameObject.transform.Translate(new Vector3(0, 0, -1 * thrustForce.z * Time.deltaTime));
         }
-        else
+        if (Input.GetKey(KeyCode.A))
         {
 
+            this.gameObject.transform.Translate(new Vector3(-1 * thrustForce.z * Time.deltaTime, 0, 0));
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+
+            this.gameObject.transform.Translate(new Vector3(thrustForce.z * Time.deltaTime, 0, 0));
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            if(forceapplied)
-            {
-                hitGorund = false;
-            }
-            
-        }
-        else
-        {
-
-        }
-    }
+    
 }
