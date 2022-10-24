@@ -204,6 +204,7 @@ public class pointProperties : MonoBehaviour
                         if (distanceCheckXClose - 5 <= Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) && Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) <= distanceCheckXFar + 5)
                         {
                             point.hasUsed();
+                            hasUsed();
                         }
                     }
                 }
@@ -214,6 +215,7 @@ public class pointProperties : MonoBehaviour
                         if (distanceCheckXClose - 5 <= Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) && Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) <= distanceCheckXFar + 5)
                         {
                             point.hasUsed();
+                            hasUsed();
                         }
                     }
                 }
@@ -224,6 +226,7 @@ public class pointProperties : MonoBehaviour
                         if (distanceCheckZClose - 5 <= Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) && Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) <= distanceCheckZFar + 5)
                         {
                             point.hasUsed();
+                            hasUsed();
                         }
                     }
                 }
@@ -234,6 +237,7 @@ public class pointProperties : MonoBehaviour
                         if (distanceCheckZClose - 5 <= Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) && Vector3.Distance(this.gameObject.transform.position, point.gameObject.transform.position) <= distanceCheckZFar + 5)
                         {
                             point.hasUsed();
+                            hasUsed();
                         }
                     }
                 }
