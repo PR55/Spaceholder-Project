@@ -405,6 +405,9 @@ MonoBehaviour:
   direction: 00010000
   doorParent: {fileID: 2265350421663452783}
   overallParent: {fileID: 3324983927464997363}
+  floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
+  floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
+  desiredLength: 0
 --- !u!1 &3324983926698951539
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +578,9 @@ MonoBehaviour:
   direction: 01000000
   doorParent: {fileID: 2265350421297887868}
   overallParent: {fileID: 3324983927464997363}
+  floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
+  floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
+  desiredLength: 0
 --- !u!1 &3324983927025477646
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,6 +627,9 @@ MonoBehaviour:
   direction: 00000100
   doorParent: {fileID: 2265350421999226704}
   overallParent: {fileID: 3324983927464997363}
+  floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
+  floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
+  desiredLength: 0
 --- !u!1 &3324983927083870271
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,6 +676,9 @@ MonoBehaviour:
   direction: 00000001
   doorParent: {fileID: 2265350420849749772}
   overallParent: {fileID: 3324983927464997363}
+  floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
+  floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
+  desiredLength: 0
 --- !u!1 &3324983927153726218
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +773,7 @@ MonoBehaviour:
   - {fileID: 3324983927025477633}
   spaceTakenx: 33
   spaceTakenz: 30
+  isStart: 0
 --- !u!1 &3324983927432455165
 GameObject:
   m_ObjectHideFlags: 0
