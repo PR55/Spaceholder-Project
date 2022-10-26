@@ -8,6 +8,10 @@ public class Generaterooms : MonoBehaviour
 
     public Vector2 range = new Vector2(20, 20);
 
+    public GameObject gridRepresent;
+
+    public Transform gridParent;
+
     public GameObject[] roomsChoice;
 
     public int totalAmountAllowed = 5;
@@ -23,12 +27,17 @@ public class Generaterooms : MonoBehaviour
 
     GameObject[] hallways;
 
+    
+
     bool isCollide = false;
 
     public List<pointProperties> allDoorWays;
     public pointProperties[] pointsDoorwaysMandatory;
     public pointProperties[] pointsDoorways;
     public HallwayGeneration hallwayGeneration;
+
+    Vector3[] spawnPoints;
+    GameObject[] spawnedPoints;
 
     // Start is called before the first frame update
     private void Start()
@@ -54,12 +63,64 @@ public class Generaterooms : MonoBehaviour
                 }
             }
         }
+        GridCreate();
+    }
+
+    private void FixedUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            GridCreate();
+        }
+    }
+
+    public void GridCreate()
+    {
+        if(spawnedPoints != null)
+        {
+            foreach (GameObject a in spawnedPoints)
+            {
+                if (a != null)
+                {
+                    Destroy(a);
+                }
+            }
+        }
+        
+        int xSize = Mathf.FloorToInt(range.x/minSpacing);
+        int ySize = Mathf.FloorToInt(range.y/minSpacing);
+        spawnPoints = new Vector3[(xSize) * (ySize)];
+        for (int i = 0, y = 0; y < ySize; y++)
+        {
+            for (int x = 0; x < xSize; x++, i++)
+            {
+                spawnPoints[i] = new Vector3(this.transform.position.x + ((minSpacing*(x))), 0 , this.transform.position.z + ((minSpacing * y)));
+            }
+        }
+        spawnedPoints = new GameObject[spawnPoints.Length];
+        int j = 0;
+        foreach (Vector3 coord in spawnPoints)
+        {
+            spawnedPoints[j] = Instantiate(gridRepresent, coord, Quaternion.identity);
+            spawnedPoints[j].transform.parent = gridParent;
+            j += 1;
+        }
     }
     public void GenerateRooms()
     {
         ClearAlls();
 
-        zero();
+        if (spawnedPoints != null)
+        {
+            foreach (GameObject a in spawnedPoints)
+            {
+                if (a != null)
+                {
+                    Destroy(a);
+                }
+            }
+        }
+        spawnedPoints = null;
 
         UnityEngine.Random.seed = DateTime.UtcNow.Millisecond;
         int i = 0;
@@ -67,24 +128,19 @@ public class Generaterooms : MonoBehaviour
         {
             
             var RoomChoice = roomsChoice[UnityEngine.Random.Range(0, roomsChoice.Length)];
+            spawnMarker.position = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length-1)];
+            if (spawnMarker.gameObject.GetComponent<BoxChildCollider>() != null)
+            {
+                spawnMarker.gameObject.GetComponent<BoxChildCollider>().SetBounds(new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x + minSpacing, 10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y + minSpacing));
 
-            if (Physics.CheckBox(spawnMarker.position, new Vector3(RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().x/2,10, RoomChoice.GetComponent<RoomAttribute>().RoomDimensions().y / 2)) && Vector3.zero != spawnMarker.position)
-            {
-                    isCollide = true;
+                isCollide = spawnMarker.gameObject.GetComponent<BoxChildCollider>().CollideCheck();
             }
-            else if(Vector3.zero == spawnMarker.position)
-            {
-                isCollide = false;
-            }
-            else
-            {
-                    isCollide = false;
-            }
+                
 
             if (isCollide)
             {
-                Debug.Log("Collision");
-                i++;
+                //Debug.Log("Collision");
+                //i++;
             }
             else
             {
@@ -102,56 +158,26 @@ public class Generaterooms : MonoBehaviour
                 
                 i++;
             }
-            isCollide = false;
-            spawnMarker.position = new Vector3(UnityEngine.Random.Range(-range.x / 2, range.x / 2), 0, UnityEngine.Random.Range(-range.y / 2, range.y / 2));
 
+            
+
+            isCollide = false;
         }
+
+
+        Resources.UnloadUnusedAssets();
+        Resources.UnloadUnusedAssets();
         pointsDoorways = new pointProperties[allDoorWays.Count];
         pointsDoorways = allDoorWays.ToArray();
         pointProperties closestPoint = null;
-        foreach (pointProperties a in pointsDoorwaysMandatory)
-        {
-            if (!a.useCheck())
-            {
-                foreach (pointProperties b in pointsDoorways)
-                {
-                    if (b != a)
-                    {
-                        if (!b.useCheck())
-                        {
-                            if (b.parentCheck().transform != a.parentCheck().transform)
-                            {
-                                if (closestPoint != null)
-                                {
-                                    if (Vector3.Distance(a.gameObject.transform.position, b.gameObject.transform.position) < Vector3.Distance(a.gameObject.transform.position, closestPoint.gameObject.transform.position))
-                                    {
-                                        closestPoint = b;
-                                    }
-                                }
-                                else
-                                {
-                                    closestPoint = b;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (closestPoint != null)
-                    hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
-
-                closestPoint = null;
-            }
-        }
-        foreach (pointProperties a in pointsDoorwaysMandatory)
-        {
-            a.doorChAct();
-        }
         foreach (pointProperties a in pointsDoorways)
         {
-            if (a.useCheck() == false)
+            
+            if(!a.useCheck())
             {
                 foreach (pointProperties b in pointsDoorways)
                 {
+
                     if (b != a)
                     {
                         if (b.useCheck() == false)
@@ -172,21 +198,21 @@ public class Generaterooms : MonoBehaviour
                             }
                         }
                     }
-                }
-                if(closestPoint != null)
-                hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
 
-                closestPoint = null;
+
+                }
             }
+            if (closestPoint != null)
+                hallwayGeneration.pointCheck(a.gameObject, closestPoint.gameObject);
+            closestPoint = null;
         }
         foreach (pointProperties a in pointsDoorways)
         {
             a.doorChAct();
         }
         hallways = null;
-        hallways = new GameObject[hallwayGeneration.hallwayColelction().Length];
-        hallways = hallwayGeneration.hallwayColelction();
-
+        hallways = new GameObject[hallwayGeneration.hallwayColelction().Count];
+        hallways = hallwayGeneration.hallwayColelction().ToArray();
         Resources.UnloadUnusedAssets();
     }
 
@@ -247,29 +273,9 @@ public class Generaterooms : MonoBehaviour
         hallways = null;
 
 
-        hallwayGeneration.ClearAll();
+        hallwayGeneration.FullClear();
         Resources.UnloadUnusedAssets();
     }
 
-    void zero()
-    {
-        spawnMarker.position = Vector3.zero;
-        Invoke("wait", 2f);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(new Vector3(range.x / 4, this.gameObject.transform.position.y + 1, range.y / 4), new Vector3(range.x/2,2,range.y/2));
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(new Vector3(range.x / -4, this.gameObject.transform.position.y + 1, range.y / 4), new Vector3(range.x / 2, 2, range.y / 2));
-        
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(range.x / -4, this.gameObject.transform.position.y + 1, range.y / -4), new Vector3(range.x / 2, 2, range.y / 2));
-        
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(new Vector3(range.x / 4, this.gameObject.transform.position.y + 1, range.y / -4), new Vector3(range.x / 2, 2, range.y / 2));
-        
-    }
+    
 }
