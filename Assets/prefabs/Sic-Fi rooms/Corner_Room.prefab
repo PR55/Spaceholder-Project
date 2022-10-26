@@ -99,12 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000000
+  direction: 00000100
   doorParent: {fileID: 351626981865345011}
   overallParent: {fileID: 4911003410179007889}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 5
 --- !u!1 &4456460925000137098
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,12 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000000
+  direction: 00000001
   doorParent: {fileID: 351626982070967973}
   overallParent: {fileID: 4911003410179007889}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 5
 --- !u!1 &4911003408277801927
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911003409709075617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 9.52}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4911003410179007888}
@@ -526,12 +526,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000000
+  direction: 01000000
   doorParent: {fileID: 351626983181098289}
   overallParent: {fileID: 4911003410179007889}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 5
 --- !u!1 &6154633496190048583
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,12 +575,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000000
+  direction: 00010000
   doorParent: {fileID: 351626982305706164}
   overallParent: {fileID: 4911003410179007889}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 5
 --- !u!1001 &4911003408151556935
 PrefabInstance:
   m_ObjectHideFlags: 0

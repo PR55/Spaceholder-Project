@@ -402,12 +402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00010000
+  direction: 01000000
   doorParent: {fileID: 2265350421663452783}
   overallParent: {fileID: 3324983927464997363}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 10
 --- !u!1 &3324983926698951539
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,12 +575,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 01000000
+  direction: 00010000
   doorParent: {fileID: 2265350421297887868}
   overallParent: {fileID: 3324983927464997363}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 10
 --- !u!1 &3324983927025477646
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,12 +624,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000100
+  direction: 00000001
   doorParent: {fileID: 2265350421999226704}
   overallParent: {fileID: 3324983927464997363}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 10
 --- !u!1 &3324983927083870271
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,12 +673,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2780b3018c7309c4fb4243ddeb014221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 00000001
+  direction: 00000100
   doorParent: {fileID: 2265350420849749772}
   overallParent: {fileID: 3324983927464997363}
   floorPrefabZ: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   floorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
-  desiredLength: 0
+  desiredLength: 10
 --- !u!1 &3324983927153726218
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +771,7 @@ MonoBehaviour:
   - {fileID: 3324983926982850129}
   - {fileID: 3324983927083870257}
   - {fileID: 3324983927025477633}
-  spaceTakenx: 33
+  spaceTakenx: 30
   spaceTakenz: 30
   isStart: 0
 --- !u!1 &3324983927432455165
