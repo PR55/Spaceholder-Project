@@ -50,8 +50,8 @@ public class HallwayGeneration : MonoBehaviour
     }
     public void CornerPoint(GameObject point1, GameObject point2, bool isZ = false)
     {
-
-        
+        if(!Physics.CheckBox((point1.transform.position + point2.transform.position)/2,new Vector3(3,3,3)))
+        {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
             point1.GetComponent<pointProperties>().hasUsed();
             point1.GetComponent<pointProperties>().isPoint1();
@@ -60,7 +60,7 @@ public class HallwayGeneration : MonoBehaviour
             point2.GetComponent<pointProperties>().isPoint2();
             point2.GetComponent<pointProperties>().otherPint(point1);
             GenerateMarkers(point1, point2, isZ);
-        
+        }
     }
 
     
@@ -117,23 +117,23 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.z < pointEnd.transform.position.z)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i + 1) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i+1) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+                    
+
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i + 1) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i+1) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+                    
                 }
 
                 i++;
             }
             int j = 0;
 
-            hallways = new GameObject[markers1.Length ];
+            hallways = new GameObject[markers1.Length];
             if (markers1 != null)
             {
-                //hallways[j] = Instantiate(FloorPrefabz, pointStart.transform.position, FloorPrefabz.transform.rotation);
-                //hallways[j].transform.parent = hallwayHolder.transform;
-                //j++;
                 foreach (GameObject mark in markers1)
                 {
                     if (mark.transform.position != pointEnd.transform.position)
@@ -144,9 +144,6 @@ public class HallwayGeneration : MonoBehaviour
 
                     j++;
                 }
-                //hallways[j] = Instantiate(FloorPrefabz, pointEnd.transform.position, FloorPrefabz.transform.rotation);
-                //hallways[j].transform.parent = hallwayHolder.transform;
-                //j++;
                 for (int a = 0; a < markers1.Length; a++)
                 {
                     Destroy(markers1[a]);
@@ -165,11 +162,14 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.x < pointEnd.transform.position.x)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()), 0, pointStart.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + (((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
+                    
+
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - ((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace()), 0, pointStart.transform.position.z), new Quaternion(0, 0, 0, 1)));
+                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - (((i + 1) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
+                    
                 }
 
                 i++;
@@ -179,9 +179,6 @@ public class HallwayGeneration : MonoBehaviour
             hallways = new GameObject[markers1.Length];
             if (markers1 != null)
             {
-                //hallways[j] = Instantiate(FloorPrefabx, pointStart.transform.position, FloorPrefabx.transform.rotation);
-                //hallways[j].transform.parent = hallwayHolder.transform;
-                //j++;
                 foreach (GameObject mark in markers1)
                 {
                     if (mark.transform.position != pointEnd.transform.position)
@@ -192,9 +189,6 @@ public class HallwayGeneration : MonoBehaviour
 
                     j++;
                 }
-                //hallways[j] = Instantiate(FloorPrefabx, pointEnd.transform.position, FloorPrefabx.transform.rotation);
-                //hallways[j].transform.parent = hallwayHolder.transform;
-                //j++;
                 for (int a = 0; a < markers1.Length; a++)
                 {
                     Destroy(markers1[a]);
