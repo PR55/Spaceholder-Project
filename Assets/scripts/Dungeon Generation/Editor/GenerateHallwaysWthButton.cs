@@ -13,7 +13,7 @@ public class GenerateHallwaysWthButton : Editor
         {
             if (GUILayout.Button("Create Hallways"))
             {
-                hallway.pointCheck(hallway.startPoint, hallway.endPoint);
+                hallway.CornerPoint(hallway.startPoint, hallway.endPoint, true);
             }
         }
         

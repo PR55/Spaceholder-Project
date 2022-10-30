@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class RoomGeneration : MonoBehaviour
 {
+    [Header("Other Scripts")]
+    public GridSpawn gridSpawn;
+    public HallwayGeneration hallwayGeneration;
+
+    //if (i == Mathf.FloorToInt(spawnedRooms.Length / 2)) half to guarantee end room spawn
+
     [Header("Current Attributes")]
     [SerializeField]
     private GameObject startRoom;
@@ -29,69 +36,15 @@ public class RoomGeneration : MonoBehaviour
     GameObject[] spawnedRooms;
     GameObject builtEndRoom;
 
-    float greatestSizeZ = 0;
-    float smallestSizeZ = 0;
-    float greatestSizeX = 0;
-    float smallestSizeX = 0;
-
     [Header("Test Activation")]
     [SerializeField]
     private bool testing;
 
+    GameObject[] spawnedPoints;
+    List<GameObject> spawnedPointsChoice = new List<GameObject>();
+    List<pointProperties> doorways = new List<pointProperties>();
     public void Start()
     {
-        foreach (GameObject a in roomChoices)//decide the close and far ranges per a point
-        {
-            if(greatestSizeZ == 0)
-            {
-                greatestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            else if (greatestSizeZ < a.GetComponent<RoomAttribute>().RoomDimensions().y)
-            {
-                greatestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            if (greatestSizeX == 0)
-            {
-                greatestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            else if (greatestSizeZ < a.GetComponent<RoomAttribute>().RoomDimensions().x)
-            {
-                greatestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            if (smallestSizeZ == 0)
-            {
-                smallestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            else if (smallestSizeZ > a.GetComponent<RoomAttribute>().RoomDimensions().y)
-            {
-                smallestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            if (smallestSizeX == 0)
-            {
-                smallestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            else if (smallestSizeZ > a.GetComponent<RoomAttribute>().RoomDimensions().x)
-            {
-                smallestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-        }
-        if (greatestSizeZ < endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y)
-        {
-            greatestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y;
-        }
-        else if (smallestSizeZ > endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y)
-        {
-            smallestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y;
-        }
-        if (greatestSizeX < endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x)
-        {
-            greatestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x;
-        }
-        else if (smallestSizeX > endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x)
-        {
-            smallestSizeX = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x;
-        }
-
         if(testing)
             GenerateRooms();
     }
@@ -106,104 +59,190 @@ public class RoomGeneration : MonoBehaviour
 
     public void GenerateRooms()
     {
+        gridSpawn.SetOrigin(startRoom.transform.position);
+        gridSpawn.SpawnGrid();
         spawnedRooms = new GameObject[amountWanted + 2];
         spawnedRooms[0] = startRoom;
-
-        int doorwayAccessIndex = 0;
-        int i = 1;
-
-        while(i < spawnedRooms.Length)
+        foreach (pointProperties a in spawnedRooms[0].GetComponent<RoomAttribute>().Doorways())
         {
-            int accessIndex = 0;
-            GameObject recentRoom;
-            int roomIndexNotNull = 0;
-            int roomIndexChoice;
-            if (roomChoices.Length == 1)
+            if (!doorways.Contains(a))
             {
-                roomIndexChoice = 0;
+                doorways.Add(a);
+            }
+        }
+        for (int i = 0; i < amountWanted + 1;)
+        {
+            UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
+            int randomIndex = UnityEngine.Random.Range(1, gridSpawn.GridPoints().Length);
+            if(!spawnedPointsChoice.Contains(gridSpawn.GridPoints()[randomIndex]))
+            {
+                spawnedPointsChoice.Add(gridSpawn.GridPoints()[randomIndex]);
+                i++;
+            }
+        }
+
+        spawnedPoints = new GameObject[spawnedPointsChoice.Count];
+        spawnedPoints = spawnedPointsChoice.ToArray();
+        int j = 1;
+        while(j < spawnedRooms.Length)
+        {
+            if (j == Mathf.FloorToInt(spawnedRooms.Length / 2) && builtEndRoom == null) //if
+            {
+                UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
+                int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
+                if(!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
+                {
+                    spawnedRooms[j] = Instantiate(endRoomPrefab, spawnedPoints[randomIndex].transform.position, Quaternion.identity);
+                    foreach (pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
+                    {
+                        if (!doorways.Contains(a))
+                        {
+                            doorways.Add(a);
+                        }
+                    }
+                    builtEndRoom = spawnedRooms[j];
+                    spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
+                    j++;
+                }
+                
             }
             else
             {
-                roomIndexChoice = Mathf.FloorToInt(Random.Range(0, roomChoices.Length - 1));
-            }
-
-            foreach(GameObject a in spawnedRooms)
-            {
-                if(a != null)
+                UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
+                int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
+                int randomIndex2 = UnityEngine.Random.Range(0, roomChoices.Length);
+                if (!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
                 {
-                    roomIndexNotNull += 1;
-                }
-            }
-            accessIndex = Mathf.FloorToInt(Random.Range(0, roomIndexNotNull));
-
-            doorwayAccessIndex = Mathf.FloorToInt(Random.Range(0, spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways().Length - 1));
-
-            if (!spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].useCheck() || i == 1)
-            {
-                if (i == Mathf.FloorToInt(spawnedRooms.Length / 2))
-                {
-                    recentRoom = spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].BuildRoom(endRoomPrefab,roomParent,hallwayParent, true);
-                    if(recentRoom != null)
+                    spawnedRooms[j] = Instantiate(roomChoices[randomIndex2], spawnedPoints[randomIndex].transform.position, Quaternion.identity);
+                    spawnedRooms[j].transform.parent = roomParent; 
+                    foreach(pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
                     {
-                        if (doorwayAccessIndex == 0)
+                        if(!doorways.Contains(a))
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[1].hasUsed();
+                            doorways.Add(a);
                         }
-                        else if (doorwayAccessIndex == 1)
+                    }
+                    spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
+                    j++;
+                }
+                
+            }
+
+            
+        }
+
+        pointProperties[] doorway = new pointProperties[doorways.Count];
+        doorway = doorways.ToArray();
+        GameObject closestRoom = null;
+        int direction = 4;
+
+        foreach(GameObject a in spawnedRooms)
+        {
+            foreach(GameObject b in spawnedRooms)
+            {
+                // Check for closest room, then check points to see if used
+                if(closestRoom!= null && Vector3.Distance(a.transform.position, b.transform.position) < Vector3.Distance(a.transform.position, closestRoom.transform.position))
+                {
+                    if(!a.GetComponent<RoomAttribute>().Doorways()[0].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[1].useCheck())
+                    {
+                        if(a.transform.position.x == b.transform.position.x && a.transform.position.z < b.transform.position.z)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[0].hasUsed();
+                            closestRoom = b;
+                            direction = 0;
                         }
-                        else if (doorwayAccessIndex == 2)
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[1].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[0].useCheck())
+                    {
+                        if (a.transform.position.x == b.transform.position.x && a.transform.position.z > b.transform.position.z)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[3].hasUsed();
+                            closestRoom = b;
+                            direction = 1;
                         }
-                        else if (doorwayAccessIndex == 3)
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[2].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[3].useCheck())
+                    {
+                        if (a.transform.position.z == b.transform.position.z && a.transform.position.x < b.transform.position.x)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[2].hasUsed();
+                            closestRoom = b;
+                            direction = 2;
                         }
-                        spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].hasUsed();
-                        spawnedRooms[i] = recentRoom;
-                        builtEndRoom = spawnedRooms[i];
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[3].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[2].useCheck())
+                    {
+                        if (a.transform.position.z == b.transform.position.z && a.transform.position.x > b.transform.position.x)
+                        {
+                            closestRoom = b;
+                            direction = 3;
+                        }
                     }
                 }
                 else
                 {
-                    recentRoom = spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].BuildRoom(roomChoices[roomIndexChoice], roomParent, hallwayParent, false);
-                    if (recentRoom != null)
+                    if (!a.GetComponent<RoomAttribute>().Doorways()[0].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[1].useCheck())
                     {
-                        if (doorwayAccessIndex == 0)
+                        if (a.transform.position.x == b.transform.position.x && a.transform.position.z < b.transform.position.z)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[1].hasUsed();
+                            closestRoom = b;
+                            direction = 0;
                         }
-                        else if (doorwayAccessIndex == 1)
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[1].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[0].useCheck())
+                    {
+                        if (a.transform.position.x == b.transform.position.x && a.transform.position.z > b.transform.position.z)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[0].hasUsed();
+                            closestRoom = b;
+                            direction = 1;
                         }
-                        else if (doorwayAccessIndex == 2)
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[2].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[3].useCheck())
+                    {
+                        if (a.transform.position.z == b.transform.position.z && a.transform.position.x < b.transform.position.x)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[3].hasUsed();
+                            closestRoom = b;
+                            direction = 2;
                         }
-                        else if (doorwayAccessIndex == 3)
+                    }
+                    else if (!a.GetComponent<RoomAttribute>().Doorways()[3].useCheck() && !b.GetComponent<RoomAttribute>().Doorways()[2].useCheck())
+                    {
+                        if (a.transform.position.z == b.transform.position.z && a.transform.position.x > b.transform.position.x)
                         {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[2].hasUsed();
+                            closestRoom = b;
+                            direction = 3;
                         }
-
-                        spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].hasUsed();
-                        spawnedRooms[i] = recentRoom;
                     }
                 }
-                foreach (pointProperties a in FindObjectsOfType<pointProperties>())
-                {
-                    a.checkForRooms();
-                }
-                i++;
             }
+            if (closestRoom != null)
+            {
+                if (direction == 0)
+                {
+                    hallwayGeneration.CornerPoint(a.GetComponent<RoomAttribute>().Doorways()[0].gameObject, closestRoom.GetComponent<RoomAttribute>().Doorways()[1].gameObject, true);
+                }
+                else if (direction == 1)
+                {
+                    hallwayGeneration.CornerPoint(a.GetComponent<RoomAttribute>().Doorways()[1].gameObject, closestRoom.GetComponent<RoomAttribute>().Doorways()[0].gameObject, true);
+                }
+                else if (direction == 2)
+                {
+                    hallwayGeneration.CornerPoint(a.GetComponent<RoomAttribute>().Doorways()[2].gameObject, closestRoom.GetComponent<RoomAttribute>().Doorways()[3].gameObject, false);
+                }
+                else if (direction == 3)
+                {
+                    hallwayGeneration.CornerPoint(a.GetComponent<RoomAttribute>().Doorways()[3].gameObject, closestRoom.GetComponent<RoomAttribute>().Doorways()[2].gameObject, false);
+                }
+                direction = 4;
+                closestRoom = null;
 
+            }
         }
-        foreach(pointProperties a in FindObjectsOfType<pointProperties>())
+        
+        foreach (pointProperties a in doorway)
         {
             a.doorChAct();
         }
+
+        gridSpawn.GridDestroy();
+
         Resources.UnloadUnusedAssets();
 
     }
@@ -230,26 +269,10 @@ public class RoomGeneration : MonoBehaviour
                 doors.pointReset();
                 doors.doorReset();
             }
+            spawnedPoints = null;
+            doorways.Clear();
             Resources.UnloadUnusedAssets();
             GenerateRooms();
         }
     }
-
-    public float XLargest()
-    {
-        return greatestSizeX;
-    }
-    public float ZLargest()
-    {
-        return greatestSizeZ;
-    }
-    public float XSmallest()
-    {
-        return smallestSizeX;
-    }
-    public float ZSmallest()
-    {
-        return smallestSizeZ;
-    }
-
 }
