@@ -19,6 +19,7 @@ public class GridSpawn : MonoBehaviour
         GridDestroy();
         gridPoints = new GameObject[gridX * gridZ];
         int i = 0;
+
         for (int x = 0; x < gridX; x++)
         {
             for (int z = 0; z < gridZ; z++)
