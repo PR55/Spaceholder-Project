@@ -13,22 +13,39 @@ public class GridSpawn : MonoBehaviour
 
     GameObject[] gridPoints;
 
-    public void SpawnGrid()
+    public void SpawnGrid(bool State)
     {
         gridPoints = null;
         GridDestroy();
         gridPoints = new GameObject[gridX * gridZ];
         int i = 0;
 
-        for (int x = 0; x < gridX; x++)
+
+        if(!State)
         {
-            for (int z = 0; z < gridZ; z++)
+            for (int x = 0; x < gridX; x++)
             {
-                Vector3 spawnPosition = new Vector3(x * spacingOffset, 0, z * spacingOffset) + gridOrigin;
-                gridPoints[i] = Instantiate(gridPoint, spawnPosition, Quaternion.identity);
-                i++;
+                for (int z = 0; z < gridZ; z++)
+                {
+                    Vector3 spawnPosition = new Vector3(x * spacingOffset, 0, z * spacingOffset) + gridOrigin;
+                    gridPoints[i] = Instantiate(gridPoint, spawnPosition, Quaternion.identity);
+                    i++;
+                }
             }
         }
+        else
+        {
+            for (int x = 0; x < gridX; x++)
+            {
+                for (int z = 0; z < gridZ; z++)
+                {
+                    Vector3 spawnPosition = gridOrigin - new Vector3(x * spacingOffset, 0, z * spacingOffset);
+                    gridPoints[i] = Instantiate(gridPoint, spawnPosition, Quaternion.identity);
+                    i++;
+                }
+            }
+        }
+        
     }
 
     public GameObject[] GridPoints()

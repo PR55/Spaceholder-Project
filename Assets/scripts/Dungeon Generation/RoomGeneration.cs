@@ -43,6 +43,9 @@ public class RoomGeneration : MonoBehaviour
     GameObject[] spawnedPoints;
     List<GameObject> spawnedPointsChoice = new List<GameObject>();
     List<pointProperties> doorways = new List<pointProperties>();
+
+    private bool isEvenLev = false;
+
     public void Start()
     {
         if(testing)
@@ -60,7 +63,7 @@ public class RoomGeneration : MonoBehaviour
     public void GenerateRooms()
     {
         gridSpawn.SetOrigin(startRoom.transform.position);
-        gridSpawn.SpawnGrid();
+        gridSpawn.SpawnGrid(isEvenLev);
         spawnedRooms = new GameObject[amountWanted + 2];
         spawnedRooms[0] = startRoom;
         foreach (pointProperties a in spawnedRooms[0].GetComponent<RoomAttribute>().Doorways())
@@ -70,10 +73,22 @@ public class RoomGeneration : MonoBehaviour
                 doorways.Add(a);
             }
         }
+
+        spawnedRooms[1] = Instantiate(endRoomPrefab, gridSpawn.GridPoints()[gridSpawn.GridPoints().Length - 1].transform.position, Quaternion.identity);
+        foreach (pointProperties a in spawnedRooms[1].GetComponent<RoomAttribute>().Doorways())
+        {
+            if (!doorways.Contains(a))
+            {
+                doorways.Add(a);
+            }
+        }
+        builtEndRoom = spawnedRooms[1];
+        gridSpawn.GridPoints()[gridSpawn.GridPoints().Length - 1].GetComponent<GridPoint>().hasUsed();
+
         for (int i = 0; i < amountWanted + 1;)
         {
             UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
-            int randomIndex = UnityEngine.Random.Range(1, gridSpawn.GridPoints().Length);
+            int randomIndex = UnityEngine.Random.Range(1, gridSpawn.GridPoints().Length-1);
             if(!spawnedPointsChoice.Contains(gridSpawn.GridPoints()[randomIndex]))
             {
                 spawnedPointsChoice.Add(gridSpawn.GridPoints()[randomIndex]);
@@ -83,53 +98,27 @@ public class RoomGeneration : MonoBehaviour
 
         spawnedPoints = new GameObject[spawnedPointsChoice.Count];
         spawnedPoints = spawnedPointsChoice.ToArray();
-        int j = 1;
+        int j = 2;
         //spawn rooms at random points
         while(j < spawnedRooms.Length)
         {
-            if (j == Mathf.FloorToInt(spawnedRooms.Length / 2) && builtEndRoom == null) //if
+            UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
+            int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
+            int randomIndex2 = UnityEngine.Random.Range(0, roomChoices.Length);
+            if (!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
             {
-                UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
-                int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
-                if(!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
+                spawnedRooms[j] = Instantiate(roomChoices[randomIndex2], spawnedPoints[randomIndex].transform.position, Quaternion.identity);
+                spawnedRooms[j].transform.parent = roomParent;
+                foreach (pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
                 {
-                    spawnedRooms[j] = Instantiate(endRoomPrefab, spawnedPoints[randomIndex].transform.position, Quaternion.identity);
-                    foreach (pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
+                    if (!doorways.Contains(a))
                     {
-                        if (!doorways.Contains(a))
-                        {
-                            doorways.Add(a);
-                        }
+                        doorways.Add(a);
                     }
-                    builtEndRoom = spawnedRooms[j];
-                    spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
-                    j++;
                 }
-                
+                spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
+                j++;
             }
-            else
-            {
-                UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
-                int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
-                int randomIndex2 = UnityEngine.Random.Range(0, roomChoices.Length);
-                if (!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
-                {
-                    spawnedRooms[j] = Instantiate(roomChoices[randomIndex2], spawnedPoints[randomIndex].transform.position, Quaternion.identity);
-                    spawnedRooms[j].transform.parent = roomParent; 
-                    foreach(pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
-                    {
-                        if(!doorways.Contains(a))
-                        {
-                            doorways.Add(a);
-                        }
-                    }
-                    spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
-                    j++;
-                }
-                
-            }
-
-            
         }
 
         pointProperties[] doorway = new pointProperties[doorways.Count];
@@ -309,6 +298,8 @@ public class RoomGeneration : MonoBehaviour
                 doors.pointReset();
                 doors.doorReset();
             }
+
+            isEvenLev = !isEvenLev;
 
             builtEndRoom = null;
             spawnedPointsChoice.Clear();

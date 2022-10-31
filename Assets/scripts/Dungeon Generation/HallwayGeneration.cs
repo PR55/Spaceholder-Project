@@ -5,34 +5,35 @@ using UnityEngine;
 public class HallwayGeneration : MonoBehaviour
 {
     
-
+    [Header("Hierarchy Objects")]
     public GameObject hallwayHolder;
 
-    public GameObject startPoint;
-    public GameObject endPoint;
-    public GameObject cornerPoint;
+    GameObject collideCheck;
 
+    [Header("Prefabs")]
     public GameObject pointMarkers;
     public GameObject FloorPrefabx;
     public GameObject FloorPrefabz;
-    public GameObject cornerPrefab;
-    public GameObject cornerPointPrefab;
+    public GameObject collideCheckPrefab;
+
+    private HallwayCheck hallwayCheck;
 
     float distance1;
-    float distance2;
-
-    public float minDoorwaySpacing = 10f;
-
     GameObject[] markers1;
-    GameObject[] markers2;
     GameObject[] hallways;
-
-    bool hallwayCollide = false;
-
     List<GameObject> allHallways = new List<GameObject>();
 
-    private void Update()
+    private void Awake()
     {
+        if(collideCheck == null)
+        {
+            collideCheck = Instantiate(collideCheckPrefab);
+        }
+
+        if(collideCheck.GetComponent<HallwayCheck>() != null)
+        {
+            hallwayCheck = collideCheck.GetComponent<HallwayCheck>();
+        }
     }
 
     void addToList(GameObject[] hallway)
@@ -50,7 +51,11 @@ public class HallwayGeneration : MonoBehaviour
     }
     public void CornerPoint(GameObject point1, GameObject point2, bool isZ = false)
     {
-        if(!Physics.CheckBox((point1.transform.position + point2.transform.position)/2,new Vector3(3,3,3)))
+        if(collideCheck != null)
+        {
+            collideCheck.transform.position = (point1.transform.position + point2.transform.position) / 2;
+        }
+        if(!hallwayCheck.collideCheck())
         {
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
             point1.GetComponent<pointProperties>().hasUsed();
@@ -73,14 +78,6 @@ public class HallwayGeneration : MonoBehaviour
                 Destroy(markers1[a]);
             }
             markers1 = null;
-        }
-        if (markers2 != null)
-        {
-            for (int a = 0; a < markers2.Length; a++)
-            {
-                Destroy(markers2[a]);
-            }
-            markers2 = null;
         }
         if (hallways != null)
         {
@@ -197,9 +194,6 @@ public class HallwayGeneration : MonoBehaviour
             }
             addToList(hallways);
         }
-
-
-        Debug.Log("Straight hallway");
     }
         
 
