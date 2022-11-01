@@ -8,7 +8,8 @@ public class GridSpawn : MonoBehaviour
 
     public int gridX;
     public int gridZ;
-    public float spacingOffset;
+    public float spacingOffsetX = 115;
+    public float spacingOffsetZ = 115;
     Vector3 gridOrigin = Vector3.zero;
 
     GameObject[] gridPoints;
@@ -27,7 +28,7 @@ public class GridSpawn : MonoBehaviour
             {
                 for (int z = 0; z < gridZ; z++)
                 {
-                    Vector3 spawnPosition = new Vector3(x * spacingOffset, 0, z * spacingOffset) + gridOrigin;
+                    Vector3 spawnPosition = new Vector3(x * spacingOffsetX, 0, z * spacingOffsetZ) + gridOrigin;
                     gridPoints[i] = Instantiate(gridPoint, spawnPosition, Quaternion.identity);
                     i++;
                 }
@@ -39,7 +40,7 @@ public class GridSpawn : MonoBehaviour
             {
                 for (int z = 0; z < gridZ; z++)
                 {
-                    Vector3 spawnPosition = gridOrigin - new Vector3(x * spacingOffset, 0, z * spacingOffset);
+                    Vector3 spawnPosition = gridOrigin - new Vector3(x * spacingOffsetX, 0, z * spacingOffsetZ);
                     gridPoints[i] = Instantiate(gridPoint, spawnPosition, Quaternion.identity);
                     i++;
                 }

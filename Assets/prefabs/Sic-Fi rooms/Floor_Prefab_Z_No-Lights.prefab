@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 357e53e47b8e7a947b41aa249627ff48, type: 2}
+  - {fileID: 2100000, guid: e1886b1944612294284ced01e3bd5172, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spacing: 3
+  childCollider: {fileID: 0}
 --- !u!1 &8425940108557843791
 GameObject:
   m_ObjectHideFlags: 0
