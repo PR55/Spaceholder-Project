@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,14 @@ using UnityEngine;
 [System.Serializable]
 public class RoomGeneration : MonoBehaviour
 {
+    [Header("Other Scripts")]
+    public GridSpawn gridSpawn;
+    public HallwayGeneration hallwayGeneration;
+
+    //if (i == Mathf.FloorToInt(spawnedRooms.Length / 2)) half to guarantee end room spawn
+
     [Header("Current Attributes")]
-    [SerializeField]
+    public GameObject startRoomPrefab;
     private GameObject startRoom;
     [Header("Prefabs")]
     [SerializeField]
@@ -15,7 +22,7 @@ public class RoomGeneration : MonoBehaviour
     private GameObject[] roomChoices;
 
     [Header("Attributes")]
-    [SerializeField, Tooltip("Starting amount of Rooms to build")]
+    [SerializeField, Tooltip("Starting amount of Rooms to build.\n Determined by Spawn Grid Size:\n y = (gridX * gridZ) - 2")]
     private int amountWanted = 3;
     [SerializeField]
     private int maximumIncreaseRate = 3;
@@ -29,70 +36,31 @@ public class RoomGeneration : MonoBehaviour
     GameObject[] spawnedRooms;
     GameObject builtEndRoom;
 
-    float greatestSizeZ = 0;
-    float smallestSizeZ = 0;
-    float greatestSizeX = 0;
-    float smallestSizeX = 0;
-
     [Header("Test Activation")]
     [SerializeField]
     private bool testing;
 
+    GameObject[] spawnedPoints;
+    List<GameObject> spawnedPointsChoice = new List<GameObject>();
+    List<pointProperties> doorways = new List<pointProperties>();
+
+    private bool isEvenLev = false;
+
     public void Start()
     {
-        foreach (GameObject a in roomChoices)//decide the close and far ranges per a point
+        if (startRoom == null)
         {
-            if(greatestSizeZ == 0)
+            if(GameObject.FindGameObjectWithTag("Start Room") == null)
             {
-                greatestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
+                startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity);
             }
-            else if (greatestSizeZ < a.GetComponent<RoomAttribute>().RoomDimensions().y)
+            else
             {
-                greatestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
+                startRoom = GameObject.FindGameObjectWithTag("Start Room");
             }
-            if (greatestSizeX == 0)
-            {
-                greatestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            else if (greatestSizeZ < a.GetComponent<RoomAttribute>().RoomDimensions().x)
-            {
-                greatestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            if (smallestSizeZ == 0)
-            {
-                smallestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            else if (smallestSizeZ > a.GetComponent<RoomAttribute>().RoomDimensions().y)
-            {
-                smallestSizeZ = a.GetComponent<RoomAttribute>().RoomDimensions().y;
-            }
-            if (smallestSizeX == 0)
-            {
-                smallestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
-            else if (smallestSizeZ > a.GetComponent<RoomAttribute>().RoomDimensions().x)
-            {
-                smallestSizeX = a.GetComponent<RoomAttribute>().RoomDimensions().x;
-            }
+            
         }
-        if (greatestSizeZ < endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y)
-        {
-            greatestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y;
-        }
-        else if (smallestSizeZ > endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y)
-        {
-            smallestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().y;
-        }
-        if (greatestSizeX < endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x)
-        {
-            greatestSizeZ = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x;
-        }
-        else if (smallestSizeX > endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x)
-        {
-            smallestSizeX = endRoomPrefab.GetComponent<RoomAttribute>().RoomDimensions().x;
-        }
-
-        if(testing)
+        if (testing)
             GenerateRooms();
     }
 
@@ -106,104 +74,353 @@ public class RoomGeneration : MonoBehaviour
 
     public void GenerateRooms()
     {
+        gridSpawn.SetOrigin(startRoom.transform.position);
+        gridSpawn.SpawnGrid(isEvenLev);
         spawnedRooms = new GameObject[amountWanted + 2];
         spawnedRooms[0] = startRoom;
-
-        int doorwayAccessIndex = 0;
-        int i = 1;
-
-        while(i < spawnedRooms.Length)
+        foreach (pointProperties a in spawnedRooms[0].GetComponent<RoomAttribute>().Doorways())
         {
-            int accessIndex = 0;
-            GameObject recentRoom;
-            int roomIndexNotNull = 0;
-            int roomIndexChoice;
-            if (roomChoices.Length == 1)
+            if (!doorways.Contains(a))
             {
-                roomIndexChoice = 0;
+                doorways.Add(a);
             }
-            else
-            {
-                roomIndexChoice = Mathf.FloorToInt(Random.Range(0, roomChoices.Length - 1));
-            }
+        }
+        gridSpawn.GridPoints()[0].GetComponent<GridPoint>().hasUsed();
 
-            foreach(GameObject a in spawnedRooms)
+        spawnedRooms[1] = Instantiate(endRoomPrefab, gridSpawn.GridPoints()[gridSpawn.GridPoints().Length - 1].transform.position, Quaternion.identity);
+        foreach (pointProperties a in spawnedRooms[1].GetComponent<RoomAttribute>().Doorways())
+        {
+            if (!doorways.Contains(a))
             {
-                if(a != null)
+                doorways.Add(a);
+            }
+        }
+        builtEndRoom = spawnedRooms[1];
+        gridSpawn.GridPoints()[gridSpawn.GridPoints().Length - 1].GetComponent<GridPoint>().hasUsed();
+
+        foreach (GameObject grid in gridSpawn.GridPoints())
+        {
+            if(!spawnedPointsChoice.Contains(grid) && grid != null && !grid.GetComponent<GridPoint>().useCheck())
+            {
+                spawnedPointsChoice.Add(grid);
+            }
+        }
+       
+
+        spawnedPoints = new GameObject[spawnedPointsChoice.Count];
+        spawnedPoints = spawnedPointsChoice.ToArray();
+        int j = 2;
+        //spawn rooms at random points
+        while(j < spawnedRooms.Length)
+        {
+            UnityEngine.Random.InitState(DateTime.UtcNow.Millisecond);
+            int randomIndex = UnityEngine.Random.Range(0, spawnedPoints.Length);
+            int randomIndex2 = UnityEngine.Random.Range(0, roomChoices.Length);
+            if (!spawnedPoints[randomIndex].GetComponent<GridPoint>().useCheck())
+            {
+                spawnedRooms[j] = Instantiate(roomChoices[randomIndex2], spawnedPoints[randomIndex].transform.position, Quaternion.identity);
+                spawnedRooms[j].transform.parent = roomParent;
+                foreach (pointProperties a in spawnedRooms[j].GetComponent<RoomAttribute>().Doorways())
                 {
-                    roomIndexNotNull += 1;
-                }
-            }
-            accessIndex = Mathf.FloorToInt(Random.Range(0, roomIndexNotNull));
-
-            doorwayAccessIndex = Mathf.FloorToInt(Random.Range(0, spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways().Length - 1));
-
-            if (!spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].useCheck() || i == 1)
-            {
-                if (i == Mathf.FloorToInt(spawnedRooms.Length / 2))
-                {
-                    recentRoom = spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].BuildRoom(endRoomPrefab,roomParent,hallwayParent, true);
-                    if(recentRoom != null)
+                    if (!doorways.Contains(a))
                     {
-                        if (doorwayAccessIndex == 0)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[1].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 1)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[0].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 2)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[3].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 3)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[2].hasUsed();
-                        }
-                        spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].hasUsed();
-                        spawnedRooms[i] = recentRoom;
-                        builtEndRoom = spawnedRooms[i];
+                        doorways.Add(a);
                     }
                 }
-                else
-                {
-                    recentRoom = spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].BuildRoom(roomChoices[roomIndexChoice], roomParent, hallwayParent, false);
-                    if (recentRoom != null)
-                    {
-                        if (doorwayAccessIndex == 0)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[1].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 1)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[0].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 2)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[3].hasUsed();
-                        }
-                        else if (doorwayAccessIndex == 3)
-                        {
-                            recentRoom.GetComponent<RoomAttribute>().Doorways()[2].hasUsed();
-                        }
+                spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
+                j++;
+            }
+        }
 
-                        spawnedRooms[accessIndex].GetComponent<RoomAttribute>().Doorways()[doorwayAccessIndex].hasUsed();
-                        spawnedRooms[i] = recentRoom;
+        pointProperties[] doorway = new pointProperties[doorways.Count];
+        doorway = doorways.ToArray();
+        pointProperties closestPoint = null;
+        bool wasNull = false;
+
+        //Used to connect Doorways
+        foreach (pointProperties pointA in doorways)
+        {
+            if(!pointA.useCheck())
+            {
+                foreach (pointProperties pointB in doorways)
+                {
+                    if(closestPoint != null)
+                    {
+                        if(!pointB.useCheck())
+                        {
+                            if(pointA.parentCheck() != pointB.parentCheck())
+                            {
+                                if(Vector3.Distance(pointA.gameObject.transform.position, pointB.gameObject.transform.position) < Vector3.Distance(pointA.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                {
+                                    if (pointA.Directions()[0] && pointB.Directions()[1])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z < pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[1] && pointB.Directions()[0])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z > pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[2] && pointB.Directions()[3])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x < pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[3] && pointB.Directions()[2])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x > pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(closestPoint == null)
+                        {
+                            if (!pointB.useCheck())
+                            {
+                                if (pointA.parentCheck() != pointB.parentCheck())
+                                {
+                                    if (pointA.Directions()[0] && pointB.Directions()[1])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z < pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[1] && pointB.Directions()[0])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z > pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[2] && pointB.Directions()[3])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x < pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[3] && pointB.Directions()[2])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x > pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                foreach (pointProperties a in FindObjectsOfType<pointProperties>())
+
+                if(!wasNull && closestPoint != null)
                 {
-                    a.checkForRooms();
+                    if(closestPoint.Directions()[0] || closestPoint.Directions()[1])
+                    {
+                        hallwayGeneration.CornerPoint(pointA.gameObject, closestPoint.gameObject, true);
+                    }
+                    else if (closestPoint.Directions()[2] || closestPoint.Directions()[3])
+                    {
+                        hallwayGeneration.CornerPoint(pointA.gameObject, closestPoint.gameObject, false);
+                    }
+                    closestPoint = null;
+                    wasNull = false;
                 }
-                i++;
+
+            }
+            
+        }
+        //double check connections
+        foreach (pointProperties pointA in doorways)
+        {
+            if (!pointA.useCheck())
+            {
+                foreach (pointProperties pointB in doorways)
+                {
+                    if (closestPoint != null)
+                    {
+                        if (!pointB.useCheck())
+                        {
+                            if (pointA.parentCheck() != pointB.parentCheck())
+                            {
+                                if (Vector3.Distance(pointA.gameObject.transform.position, pointB.gameObject.transform.position) < Vector3.Distance(pointA.gameObject.transform.position, closestPoint.gameObject.transform.position))
+                                {
+                                    if (pointA.Directions()[0] && pointB.Directions()[1])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z < pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[1] && pointB.Directions()[0])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z > pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[2] && pointB.Directions()[3])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x < pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[3] && pointB.Directions()[2])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x > pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (closestPoint == null)
+                        {
+                            if (!pointB.useCheck())
+                            {
+                                if (pointA.parentCheck() != pointB.parentCheck())
+                                {
+                                    if (pointA.Directions()[0] && pointB.Directions()[1])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z < pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[1] && pointB.Directions()[0])
+                                    {
+                                        if (pointA.gameObject.transform.position.x == pointB.gameObject.transform.position.x)
+                                        {
+                                            if (pointA.gameObject.transform.position.z > pointB.gameObject.transform.position.z)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[2] && pointB.Directions()[3])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x < pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                    else if (pointA.Directions()[3] && pointB.Directions()[2])
+                                    {
+                                        if (pointA.gameObject.transform.position.z == pointB.gameObject.transform.position.z)
+                                        {
+                                            if (pointA.gameObject.transform.position.x > pointB.gameObject.transform.position.x)
+                                            {
+                                                closestPoint = pointB;
+                                                wasNull = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (!wasNull && closestPoint != null)
+                {
+                    if (closestPoint.Directions()[0] || closestPoint.Directions()[1])
+                    {
+                        hallwayGeneration.CornerPoint(pointA.gameObject, closestPoint.gameObject, true);
+                    }
+                    else if (closestPoint.Directions()[2] || closestPoint.Directions()[3])
+                    {
+                        hallwayGeneration.CornerPoint(pointA.gameObject, closestPoint.gameObject, false);
+                    }
+                    closestPoint = null;
+                    wasNull = false;
+                }
+
             }
 
         }
-        foreach(pointProperties a in FindObjectsOfType<pointProperties>())
+        //used to switch on and off doors
+        foreach (pointProperties a in doorway)
         {
             a.doorChAct();
         }
+
+        gridSpawn.GridDestroy();
+
         Resources.UnloadUnusedAssets();
 
     }
@@ -230,26 +447,20 @@ public class RoomGeneration : MonoBehaviour
                 doors.pointReset();
                 doors.doorReset();
             }
+
+            isEvenLev = !isEvenLev;
+
+            builtEndRoom = null;
+            spawnedPointsChoice.Clear();
+            spawnedPoints = null;
+            doorways.Clear();
             Resources.UnloadUnusedAssets();
             GenerateRooms();
         }
     }
 
-    public float XLargest()
+    public GameObject EndRoomCurrent()
     {
-        return greatestSizeX;
+        return builtEndRoom;
     }
-    public float ZLargest()
-    {
-        return greatestSizeZ;
-    }
-    public float XSmallest()
-    {
-        return smallestSizeX;
-    }
-    public float ZSmallest()
-    {
-        return smallestSizeZ;
-    }
-
 }

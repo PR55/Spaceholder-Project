@@ -15,17 +15,6 @@ public class RoomAttribute : MonoBehaviour
     [SerializeField]
     private bool isStart = false;
 
-    private void Start()
-    {
-        if(!isStart)
-        {
-            foreach(pointProperties point in doorways)
-            {
-                point.checkForRooms();
-            }
-        }
-    }
-
 
     public Vector2 RoomDimensions()
     {

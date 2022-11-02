@@ -7,7 +7,7 @@ public class DoorController : MonoBehaviour
 
     public int detectionRange = 5;
 
-    pointProperties childPoint;
+    public pointProperties childPoint;
 
     bool playerDetected = false;
 
@@ -17,7 +17,7 @@ public class DoorController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         doorAnimation = GetComponent<Animator>();
 

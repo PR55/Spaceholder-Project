@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 0
+  m_CurrentQuality: 1
   m_QualitySettings:
   - serializedVersion: 2
     name: Very Low
@@ -150,8 +150,8 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: cb91b427378692c46abef1fc01c3be1c, type: 2}
     excludedTargetPlatforms:
-    - Standalone
     - Android
+    - Standalone
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -188,8 +188,8 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: cb91b427378692c46abef1fc01c3be1c, type: 2}
     excludedTargetPlatforms:
-    - Standalone
     - Android
+    - Standalone
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 4
@@ -226,8 +226,8 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: cb91b427378692c46abef1fc01c3be1c, type: 2}
     excludedTargetPlatforms:
-    - Standalone
     - Android
+    - Standalone
   m_PerPlatformDefaultQuality:
     Android: 1
     Lumin: 5

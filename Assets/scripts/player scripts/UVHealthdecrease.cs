@@ -22,29 +22,29 @@ public class UVHealthdecrease : MonoBehaviour
     void Update()
     {
         //controls the overall exposure weight by comparing the health to see when it increases and decreases 
-        float healthExposure = access.CurrentHealth();
-        if (m.GetFloat("_EmissiveExposureWeight") < healthExposure && tabletInArm) 
-        {
-            m.SetFloat("_EmissiveExposureWeight", healthExposure);
-            Debug.Log("Stable");
-        }
-        else if (m.GetFloat("_EmissiveExposureWeight") > healthExposure && tabletInArm)
-        {
-            float curExposure = m.GetFloat("_EmissiveExposureWeight");
-            m.SetFloat("_EmissiveExposureWeight", curExposure - decreaseRate);
-            Debug.Log("Decreasing");
-        }
-        else if (m.GetFloat("_EmissiveExposureWeight") > 1f && !tabletInArm)
-        {
-            m.SetFloat("_EmissiveExposureWeight", 1f);
-            Debug.Log("Stable");
-        }
-        else if (m.GetFloat("_EmissiveExposureWeight") < 1f && !tabletInArm)
-        {
-            float curExposure = m.GetFloat("_EmissiveExposureWeight");
-            m.SetFloat("_EmissiveExposureWeight", curExposure + decreaseRate);
-            Debug.Log("Increasing");
-        }
+        //float healthExposure = access.CurrentHealth();
+        //if (m.GetFloat("_EmissiveExposureWeight") < healthExposure && tabletInArm) 
+        //{
+        //    m.SetFloat("_EmissiveExposureWeight", healthExposure);
+        //    Debug.Log("Stable");
+        //}
+        //else if (m.GetFloat("_EmissiveExposureWeight") > healthExposure && tabletInArm)
+        //{
+        //    float curExposure = m.GetFloat("_EmissiveExposureWeight");
+        //    m.SetFloat("_EmissiveExposureWeight", curExposure - decreaseRate);
+        //    Debug.Log("Decreasing");
+        //}
+        //else if (m.GetFloat("_EmissiveExposureWeight") > 1f && !tabletInArm)
+        //{
+        //    m.SetFloat("_EmissiveExposureWeight", 1f);
+        //    Debug.Log("Stable");
+        //}
+        //else if (m.GetFloat("_EmissiveExposureWeight") < 1f && !tabletInArm)
+        //{
+        //    float curExposure = m.GetFloat("_EmissiveExposureWeight");
+        //    m.SetFloat("_EmissiveExposureWeight", curExposure + decreaseRate);
+        //    Debug.Log("Increasing");
+        //}
         
     }
 
