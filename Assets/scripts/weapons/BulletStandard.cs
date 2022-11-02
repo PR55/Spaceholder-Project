@@ -12,11 +12,15 @@ public class BulletStandard : MonoBehaviour
 
     Transform firePont;
 
+    SphereCollider sphereCollider;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        sphereCollider = GetComponent<SphereCollider>();
         rigidbody = GetComponent<Rigidbody>();
         Destroy(this.gameObject, lifetime);
+
     }
 
     private void FixedUpdate()
@@ -29,6 +33,17 @@ public class BulletStandard : MonoBehaviour
     public Rigidbody bulletRigid()
     {
         return rigidbody;
+    }
+
+    public void ColliderstoIgnore(MeshCollider[] colliders = null)
+    {
+        if(colliders!=null)
+        {
+            foreach (MeshCollider collider in colliders)
+            {
+                Physics.IgnoreCollision(sphereCollider, collider, true);
+            }
+        }
     }
 
     public void firePoint(Transform spawn)

@@ -13,7 +13,8 @@ public class RifleSciFi : MonoBehaviour
     private float fireRate = 0f;
     [SerializeField]
     private bool isVR = true;
-
+    [SerializeField]
+    private MeshCollider[] objectColliders;
 
     bool fullAuto = false;
 
@@ -35,41 +36,15 @@ public class RifleSciFi : MonoBehaviour
 
     private void Update()
     {
-        if(!isVR)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                if (fullAuto)
-                {
-                    fullAuto = false;
-                }
-                else
-                {
-                    fullAuto = true;
-                }
-            }
-
-            if (fullAuto)
-            {
-                if (Input.GetMouseButton(0) && fireCooldown! > .5)
-                {
-                    FireBullet();
-                }
-            }
-            else
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    FireBullet();
-                }
-            }
-        }
+        
     }
 
 
     public void FireBullet()
     {
         BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
+
+        spawnedProjectile.ColliderstoIgnore(objectColliders);
 
         spawnedProjectile.firePoint(firePoint);
 
