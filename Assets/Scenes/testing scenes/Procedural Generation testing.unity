@@ -1400,8 +1400,8 @@ MonoBehaviour:
   gridPoint: {fileID: 1363186821364877657, guid: 01ddefe7daa76bc48bafb10b44264de3, type: 3}
   gridX: 5
   gridZ: 5
-  spacingOffsetX: 76
-  spacingOffsetZ: 42.5
+  spacingOffsetX: 36.5
+  spacingOffsetZ: 36.5
 --- !u!114 &1910913723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,11 +1474,15 @@ PrefabInstance:
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[0]
       value: 
-      objectReference: {fileID: 3324983927326278082, guid: 1e2ce0d6bfebcdd49ba19bfb318c2d28, type: 3}
+      objectReference: {fileID: 3324983927326278082, guid: dc8fb568184d6fc409bdab95d69613be, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[1]
       value: 
-      objectReference: {fileID: 3324983927326278082, guid: dc8fb568184d6fc409bdab95d69613be, type: 3}
+      objectReference: {fileID: 1318349142568333208, guid: 4ec571a8f59fa564abd563fe77c4be1d, type: 3}
+    - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
+      propertyPath: roomChoices.Array.data[2]
+      value: 
+      objectReference: {fileID: 1318349142568333208, guid: 4ec571a8f59fa564abd563fe77c4be1d, type: 3}
     - target: {fileID: 1101216789422016895, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: m_RootOrder
       value: 3

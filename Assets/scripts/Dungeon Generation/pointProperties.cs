@@ -7,12 +7,10 @@ using UnityEngine;
 public class pointProperties : MonoBehaviour
 {
     
-    [Tooltip("Designation is relative to center of prefabe world transform:\n0 - North (Z positive)\n1 - South (Z Negative)\n2 - East (X Positive)\n3 - West (X Negative)")]
+    [Tooltip("Designation is relative to center of prefab world transform:\n0 - North (Z positive)\n1 - South (Z Negative)\n2 - East (X Positive)\n3 - West (X Negative)")]
     public bool[] direction = new bool[4]; // 0 - North 1 - South 2 - East 3 - West
     public GameObject doorParent;
     public GameObject overallParent;
-    public GameObject floorPrefabZ;
-    public GameObject floorPrefabx;
     public int desiredLength = 5;
 
     GameObject[] floors;
