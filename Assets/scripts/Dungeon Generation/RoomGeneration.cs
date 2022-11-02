@@ -22,7 +22,7 @@ public class RoomGeneration : MonoBehaviour
     private GameObject[] roomChoices;
 
     [Header("Attributes")]
-    [SerializeField, Tooltip("Starting amount of Rooms to build")]
+    [SerializeField, Tooltip("Starting amount of Rooms to build.\n Determined by Spawn Grid Size:\n y = (gridX * gridZ) - 2")]
     private int amountWanted = 3;
     [SerializeField]
     private int maximumIncreaseRate = 3;
