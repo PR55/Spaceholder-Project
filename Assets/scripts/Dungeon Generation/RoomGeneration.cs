@@ -50,7 +50,15 @@ public class RoomGeneration : MonoBehaviour
     {
         if (startRoom == null)
         {
-            startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity);
+            if(GameObject.FindGameObjectWithTag("Start Room") == null)
+            {
+                startRoom = Instantiate(startRoomPrefab, Vector3.zero, Quaternion.identity);
+            }
+            else
+            {
+                startRoom = GameObject.FindGameObjectWithTag("Start Room");
+            }
+            
         }
         if (testing)
             GenerateRooms();
