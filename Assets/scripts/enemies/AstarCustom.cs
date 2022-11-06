@@ -1,0 +1,162 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Pathfinding;
+public class AstarCustom : AIPath
+{
+    
+    public enum State
+    {
+        STOP,
+        PATROL,
+        INVESTIGATE,
+        CHASE,
+        ATTACK
+    }
+    //Patrol Properties
+    bool patrol = true;
+    bool playerSpotted = false;
+    bool investigate = false;
+    private State currentState = State.PATROL;
+    public float checkWait = 1f;
+    public Transform visualBody;
+
+    //weapon Properties
+    public EnemyWeapon enemyWeapon;
+
+
+    //Sight Properties
+    public GameObject viewPoint;
+    public float sightTimer = .2f;
+    public LayerMask targetMask;
+    public LayerMask obstructionMask;
+    public float radiusSight;
+    [Range(0, 360)]
+    public float angle;
+    bool canSeePlayer;
+
+    //Misc. Properties
+    PatrolAttributes patrolAttributes;
+    Transform player;
+    
+
+
+    private void Start()
+    {
+        base.Start();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        StartCoroutine(FOVRoutine());
+    }
+
+    private void FixedUpdate()
+    {
+        base.FixedUpdate();
+
+    }
+    private void Update()
+    {
+        if(currentState == State.PATROL)
+        {
+            base.Update();
+            if (reachedDestination)
+            {
+                patrolAttributes.nextIndex();
+            }
+        }
+        else if(currentState == State.CHASE)
+        {
+            if(reachedDestination)
+            {
+                visualBody.LookAt(target);
+                enemyWeapon.lookAtPlayer(target);
+                enemyWeapon.fireWeapon(targetMask);
+            }
+            else
+            {
+                if (visualBody.localRotation != Quaternion.identity)
+                    visualBody.localRotation = Quaternion.identity;
+                base.Update();
+            }
+        }
+        else if (currentState == State.STOP)
+        {
+            if (patrol)
+            {
+                currentState = State.PATROL;
+                patrolAttributes.ResumeMove();
+
+            }
+            else if (playerSpotted)
+            {
+                currentState = State.CHASE;
+                patrolAttributes.chasePlayer(player);
+            }
+            else if(!patrol && !playerSpotted && !investigate)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        if(canSeePlayer && !playerSpotted)
+        {
+            currentState = State.STOP;
+            patrol = false;
+            playerSpotted = true;
+        }
+        else if(!canSeePlayer && !patrol)
+        {
+            currentState = State.STOP;
+            patrol = true;
+            playerSpotted = false;
+        }
+        
+
+    }
+    public void patrolAttribute(PatrolAttributes pointHolder)
+    {
+        patrolAttributes = pointHolder;
+    }
+
+    public void forceStop()
+    {
+        patrol = false;
+        playerSpotted = false;
+        investigate = false;
+        currentState = State.STOP;
+    }
+
+    private IEnumerator FOVRoutine()
+    {
+        while(true)
+        {
+            yield return sightTimer;
+            FieldOfViewCheck();
+        }
+
+    }
+    private void FieldOfViewCheck()
+    {
+        Collider[] rangeChecks = Physics.OverlapSphere(visualBody.transform.position, radiusSight, targetMask);
+
+        if (rangeChecks.Length != 0)
+        {
+            Transform target = rangeChecks[0].transform;
+            Vector3 directionToTarget = (target.position - visualBody.transform.position).normalized;
+
+            if (Vector3.Angle(visualBody.transform.forward, directionToTarget) < angle / 2)
+            {
+                float distanceToTarget = Vector3.Distance(visualBody.transform.position, target.position);
+
+                if (!Physics.Raycast(visualBody.transform.position, directionToTarget, distanceToTarget, obstructionMask))
+                    canSeePlayer = true;
+                else
+                    canSeePlayer = false;
+            }
+            else
+                canSeePlayer = false;
+        }
+        else if (canSeePlayer)
+            canSeePlayer = false;
+    }
+
+}

@@ -128,21 +128,10 @@ public class HallwayGeneration : MonoBehaviour
             }
             int j = 0;
 
-            hallways = new GameObject[markers1.Length + 1];
+            hallways = new GameObject[markers1.Length];
             if (markers1 != null)
             {
-                if (pointStart.transform.position.z < pointEnd.transform.position.z)
-                {
-                    hallways[j] = Instantiate(FloorPrefabz, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + (FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace()/2.5f)), FloorPrefabz.transform.rotation);
-                    hallways[j].transform.parent = hallwayHolder.transform;
-                    j++;
-                }
-                else
-                {
-                    hallways[j] = Instantiate(FloorPrefabz, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - (FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace() / 2.5f)), FloorPrefabz.transform.rotation);
-                    hallways[j].transform.parent = hallwayHolder.transform;
-                    j++;
-                }
+                
                     
                 foreach (GameObject mark in markers1)
                 {
@@ -186,21 +175,10 @@ public class HallwayGeneration : MonoBehaviour
             }
             int j = 0;
 
-            hallways = new GameObject[markers1.Length + 1];
+            hallways = new GameObject[markers1.Length];
             if (markers1 != null)
             {
-                if (pointStart.transform.position.x < pointEnd.transform.position.x)
-                {
-                    hallways[j] = Instantiate(FloorPrefabx, new Vector3(pointStart.transform.position.x + (FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace() / 2.5f), 0, pointStart.transform.position.z), FloorPrefabz.transform.rotation);
-                    hallways[j].transform.parent = hallwayHolder.transform;
-                    j++;
-                }
-                else
-                {
-                    hallways[j] = Instantiate(FloorPrefabx, new Vector3(pointStart.transform.position.x - (FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace() / 2.5f), 0, pointStart.transform.position.z), FloorPrefabz.transform.rotation);
-                    hallways[j].transform.parent = hallwayHolder.transform;
-                    j++;
-                }
+                
                 foreach (GameObject mark in markers1)
                 {
                     if (mark.transform.position != pointEnd.transform.position)
@@ -218,6 +196,7 @@ public class HallwayGeneration : MonoBehaviour
                 markers1 = null;
             }
             addToList(hallways);
+            Resources.UnloadUnusedAssets();
         }
     }
         

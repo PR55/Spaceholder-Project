@@ -34,15 +34,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: bulletStandard
-  m_Shader: {fileID: -6465566751694194690, guid: 5889fa53c19402942a673d457cf2a3e9, type: 3}
-  m_ShaderKeywords: _DISABLE_SSR_TRANSPARENT _EMISSIVE_SIMPLE _IS_ANGELRING_OFF _IS_CLIPPING_OFF
-    _IS_OUTLINE_CLIPPING_NO _NORMALMAP_TANGENT_SPACE _OUTLINE_POS
+  m_Shader: {fileID: 4800000, guid: 766736548846cdf459a9766614dcccab, type: 3}
+  m_ShaderKeywords: _ _DISABLE_SSR_TRANSPARENT _EMISSIVE_SIMPLE _IS_ANGELRING_OFF
+    _IS_CLIPPING_OFF _IS_OUTLINE_CLIPPING_NO _NORMALMAP_TANGENT_SPACE _OUTLINE_POS
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
     IgnoreProjection: False
+    RenderType: Opaque
   disabledShaderPasses:
   - DistortionVectors
   - MOTIONVECTORS
@@ -370,7 +371,7 @@ Material:
     - _HeightPoMAmplitude: 2
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
-    - _HighColor_Power: 0
+    - _HighColor_Power: 1
     - _HighlightOverridden: 0
     - _HighlightVisible: 1
     - _InvTilingScale: 1
@@ -462,7 +463,7 @@ Material:
     - _SecondShadeVisible: 1
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0
-    - _Smoothness: -5
+    - _Smoothness: -9.42
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SmoothnessTextureChannel: 0
@@ -554,9 +555,9 @@ Material:
     - _EmissionColor: {r: 766.9961, g: 0, b: 0, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 4.237095, g: 0, b: 0, a: 1}
+    - _Emissive_Color: {r: 1, g: 1, b: 1, a: 1}
     - _FirstShadeMaskColor: {r: 0, g: 1, b: 1, a: 1}
-    - _HighColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighColor: {r: 1, g: 0.94274926, b: 0, a: 1}
     - _HighlightMaskColor: {r: 1, g: 1, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
