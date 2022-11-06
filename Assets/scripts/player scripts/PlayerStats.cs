@@ -5,19 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
-
-
+    [Header("Player Stats")]
     public float maxHealth = 100f;
-    
-    public float health;
-    public bool decreaseHealth;
-    public float waitTime = 30.0f;
-
     public float regenSpeed = 10f;
-
+    [Tooltip("Time until regen starts")]
     public float waitTimeToHeal = 10.0f;
 
+    [Header("Load Management")]
+    [Tooltip("Scene to load on player death")]
+    public int sceneIndex = 0;
+
+    [HideInInspector]
+    public float health;
+
     float healTimer = 0;
+    bool decreaseHealth;
+    float waitTime = 30.0f;
 
     void Start()
     {
@@ -80,7 +83,7 @@ public class PlayerStats : MonoBehaviour
 
         if(health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(sceneIndex);
         }
 
     }
