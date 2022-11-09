@@ -15,7 +15,6 @@ public class DoorController : MonoBehaviour
 
     Transform playerTransform;
 
-
     // Start is called before the first frame update
     void Awake()
     {
