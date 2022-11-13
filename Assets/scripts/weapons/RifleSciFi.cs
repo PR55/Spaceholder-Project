@@ -18,8 +18,14 @@ public class RifleSciFi : MonoBehaviour
 
     bool fullAuto = false;
 
+    public Quaternion rotationModifier = Quaternion.identity;
+
     float fireCooldown = 0;
+
+    public AudioSource audioSource;
+
     BulletStandard bulletStandard;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,15 +40,14 @@ public class RifleSciFi : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        
-    }
-
-
     public void FireBullet()
     {
-        BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
+        if (audioSource.isPlaying)
+            audioSource.Stop();
+
+        audioSource.Play();
+
+        BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, new Quaternion(firePoint.rotation.x + rotationModifier.x, firePoint.rotation.y + rotationModifier.y, firePoint.rotation.z + rotationModifier.z, 1)).GetComponent<BulletStandard>();
 
         spawnedProjectile.ColliderstoIgnore(objectColliders);
 

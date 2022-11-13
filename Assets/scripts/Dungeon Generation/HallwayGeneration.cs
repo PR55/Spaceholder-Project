@@ -114,13 +114,13 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.z < pointEnd.transform.position.z)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
                     
 
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
                     
                 }
 
@@ -161,13 +161,13 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.x < pointEnd.transform.position.x)
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + (((i + .5f) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x + (((i + .5f) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
                     
 
                 }
                 else
                 {
-                    markers1[(int)i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - (((i + .5f) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x - (((i + .5f) * FloorPrefabx.GetComponent<FloorBehaviour>().GetSpace())), 0, pointStart.transform.position.z), Quaternion.identity));
                     
                 }
 

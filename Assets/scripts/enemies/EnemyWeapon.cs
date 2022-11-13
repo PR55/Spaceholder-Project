@@ -18,7 +18,6 @@ public class EnemyWeapon : MonoBehaviour
 
     private void Awake()
     {
-        deactivateLine();
     }
 
     private void FixedUpdate()

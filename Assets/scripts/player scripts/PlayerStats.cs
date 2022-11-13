@@ -15,6 +15,9 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("Scene to load on player death")]
     public int sceneIndex = 0;
 
+    [SerializeField]
+    private Transform playerCenter;
+
     [HideInInspector]
     public float health;
 
@@ -22,10 +25,16 @@ public class PlayerStats : MonoBehaviour
     bool decreaseHealth;
     float waitTime = 30.0f;
 
+    IOCcam iOCcam;
+
     void Start()
     {
         decreaseHealth = false;
         health = maxHealth;
+        if (GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>() != null)
+        {
+            iOCcam = GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>();
+        }
     }
 
     private void FixedUpdate()
@@ -83,9 +92,20 @@ public class PlayerStats : MonoBehaviour
 
         if(health <= 0)
         {
+            if (iOCcam != null)
+                iOCcam.DisposeNow();
+            Resources.UnloadUnusedAssets();
             SceneManager.LoadScene(sceneIndex);
         }
 
+    }
+
+    public Transform playerTarget()
+    {
+        if (playerCenter == null)
+            return this.gameObject.transform;
+        else
+            return playerCenter;
     }
 
 }

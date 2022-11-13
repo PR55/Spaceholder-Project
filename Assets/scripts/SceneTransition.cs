@@ -7,9 +7,15 @@ public class SceneTransition : MonoBehaviour
 
     RunReport runReport;
 
+    IOCcam iOCcam;
+
     private void Start()
     {
-        runReport = GameObject.FindObjectOfType<RunReport>();
+        if (GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>() != null)
+        {
+            iOCcam = GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>();
+        }
+        runReport = FindObjectOfType<RunReport>();
     }
 
     public void SceneManage(int Scene)
@@ -24,6 +30,8 @@ public class SceneTransition : MonoBehaviour
         }
         else
         {
+
+            Resources.UnloadUnusedAssets();
             SceneManager.LoadScene(Scene);
         }
     }

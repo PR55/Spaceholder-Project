@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BulletStandard : MonoBehaviour
 {
+
     public float projectileSpeed = 5f;
 
     public float lifetime = 4;
+
+    public int damage = 15;
 
     Rigidbody rigidbody;
 
@@ -25,9 +28,10 @@ public class BulletStandard : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody.AddForce(transform.forward * projectileSpeed); // controls speed on spawn
-                                                                 // substitue with the firepoint to do tracking
-                                                                 // could also used with the negative forward of object based on where a raycast hits for tracking, where hit point is rotated 180 on the y axis
+        rigidbody.AddForce(transform.forward * projectileSpeed);
+        // controls speed on spawn
+        // substitue with the firepoint to do tracking
+        // could also used with the negative forward of object based on where a raycast hits for tracking, where hit point is rotated 180 on the y axis
     }
 
     public Rigidbody bulletRigid()
@@ -53,6 +57,10 @@ public class BulletStandard : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<enemyDirectory>().healthLocation().dealDamge(damage);
+        }
         Destroy(this.gameObject);
     }
 

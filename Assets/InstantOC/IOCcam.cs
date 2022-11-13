@@ -36,12 +36,31 @@ public class IOCcam : MonoBehaviour {
 	private int[] sphereIndices = new int[2048];
 
 	void Awake () {
+		Setup();
+	}
+
+	public void DisposeNow()
+    {
+		if (cGroup != null)
+		{
+			cGroup.Dispose();
+			cGroup = null;
+		}
+	}
+
+	public void Setup()
+    {
+		if (cGroup != null)
+		{
+			cGroup.Dispose();
+			cGroup = null;
+		}
 		cam = GetComponent<Camera>();
 		hit = new RaycastHit();
-		if(viewDistance == 0) viewDistance = 100;
+		if (viewDistance == 0) viewDistance = 100;
 		cam.farClipPlane = viewDistance;
 		haltonIndex = 0;
-		if(this.GetComponent<SphereCollider>() == null)
+		if (this.GetComponent<SphereCollider>() == null)
 		{
 			var coll = gameObject.AddComponent<SphereCollider>();
 			coll.radius = 1f;
@@ -60,7 +79,12 @@ public class IOCcam : MonoBehaviour {
 		cGroup = null;
 	}
 
-	public void AddBoundingSphere(BoundingSphere sphere){
+    private void OnDestroy()
+    {
+		DisposeNow();
+    }
+
+    public void AddBoundingSphere(BoundingSphere sphere){
 		spheres[boundingSphereCounter] = sphere;
 		boundingSphereCounter++;
 		cGroup.SetBoundingSphereCount(boundingSphereCounter);
