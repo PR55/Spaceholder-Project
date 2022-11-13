@@ -13,4 +13,9 @@ public class RunChecker : MonoBehaviour
         runReport.checkScene();
 
     }
+
+    public RunReport runTracker()
+    {
+        return runReport;
+    }
 }

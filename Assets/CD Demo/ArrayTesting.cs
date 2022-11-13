@@ -187,8 +187,13 @@ public class ArrayTesting : MonoBehaviour
 
     public void SetSongs()
     {
-        if (Playlist.Count > maxDiscSize)
-            Playlist.RemoveRange(maxDiscSize + 1, Playlist.Count - maxDiscSize);
+        playlistReal = null;
+        index = 0;
+        if (Playlist.Count > maxDiscSize+1)
+        {
+            Playlist.RemoveRange(maxDiscSize + 1, Playlist.Count - maxDiscSize + 1);
+        }
+            
         playlistReal = Playlist.ToArray();
         maxDiscSize = playlistReal.Length - 1;
         foreach (AudioSource Player in audioPlayer)

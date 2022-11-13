@@ -11,7 +11,9 @@ public class StereoManager : MonoBehaviour
     GameObject currentCD;
 
     public bool insertCD;
-    
+
+    bool Playing = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,6 @@ public class StereoManager : MonoBehaviour
                 if(socketInteractor.selectTarget.gameObject!= null)
                 {
                     currentCD = socketInteractor.selectTarget.gameObject;
-                    currentCD.GetComponent<InteractableGravity>().beingHeld();
                     AssignObject(socketInteractor.selectTarget.gameObject.GetComponent<ArrayTesting>());
                 }
                 
@@ -63,13 +64,20 @@ public class StereoManager : MonoBehaviour
     public void PlayMusic()
     {
         if (arrayTesting != null)
-            arrayTesting.PlayMusic();
-    }
-
-    public void PauseMusic()
-    {
-        if (arrayTesting != null)
-            arrayTesting.StopMusic();
+        {
+            if (Playing)
+            {
+                arrayTesting.StopMusic();
+                Playing = false;
+            }
+            else
+            {
+                arrayTesting.PlayMusic();
+                Playing = true;
+            }
+            
+        }
+            
     }
 
     public void restartMusic()

@@ -6,12 +6,20 @@ public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealthTotal = 50;
 
+    [SerializeField]
+    private int pointReward = 50;
+
     private int enemyHealth = 0;
 
     AstarCustom astarAccess;
 
+    RunReport runReport;
+
     private void Awake()
     {
+        if (FindObjectOfType<RunReport>() != null)
+            runReport = FindObjectOfType<RunReport>();
+
         enemyHealth = enemyHealthTotal;
         astarAccess = this.gameObject.GetComponent<AstarCustom>();
     }
@@ -22,6 +30,10 @@ public class EnemyHealth : MonoBehaviour
 
         if(enemyHealth <= 0)
         {
+            if(runReport != null)
+            {
+                runReport.addToScore(pointReward);
+            }
             astarAccess.StopAllCoroutines();
             astarAccess.forceStop();
         }
