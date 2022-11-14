@@ -8,7 +8,7 @@ public class EnemyWeapon : MonoBehaviour
 
     public Transform firePoint;
 
-    public LineRenderer lineRendererFire;
+    public AudioSource audioSource;
 
     public float intervalDeactivate = 1f;
 
@@ -32,6 +32,12 @@ public class EnemyWeapon : MonoBehaviour
     {
         if(fireTimer <= 0)
         {
+            if(audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                audioSource.time = 0;
+            }
+            audioSource.Play();
             Instantiate(enemyBullet, firePoint.position, firePoint.rotation);
             fireTimer = fireWait + Time.fixedDeltaTime;
         }
@@ -43,10 +49,4 @@ public class EnemyWeapon : MonoBehaviour
     {
         this.transform.LookAt(player);
     }
-
-    void deactivateLine()
-    {
-        lineRendererFire.enabled = false;
-    }
-
 }

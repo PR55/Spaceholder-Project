@@ -17,6 +17,8 @@ public class ArrayTesting : MonoBehaviour
     private List<AudioClip> Playlist;
     [SerializeField, Range(10,22000)]
     private float[] songFrequencyAmounts;
+    [SerializeField, Range(1, 10)]
+    private float[] songFrequencyQAmounts;
 
     int index = 0;
 
@@ -64,6 +66,7 @@ public class ArrayTesting : MonoBehaviour
                 {
                     Player.clip = playlistReal[index];
                     Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
+                    Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
                     Player.Play();
                 }
                 audioTimer = playlistReal[index].length + Time.deltaTime;
@@ -76,6 +79,7 @@ public class ArrayTesting : MonoBehaviour
                 {
                     Player.clip = playlistReal[index];
                     Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
+                    Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
                     Player.Play();
                 }
                 audioTimer = playlistReal[index].length + Time.deltaTime;
@@ -108,6 +112,7 @@ public class ArrayTesting : MonoBehaviour
                     {
                         Player.clip = playlistReal[index];
                         Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
+                        Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
                         Player.Play();
                     }
                     audioTimer = playlistReal[index].length + Time.deltaTime;
@@ -119,6 +124,7 @@ public class ArrayTesting : MonoBehaviour
                     {
                         Player.clip = playlistReal[index];
                         Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
+                        Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
                         Player.Play();
                     }
                     audioTimer = playlistReal[index].length + Time.deltaTime;
@@ -200,6 +206,7 @@ public class ArrayTesting : MonoBehaviour
         {
             Player.clip = playlistReal[index];
             Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
+            Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
 
         }
         audioTimer = playlistReal[index].length + Time.deltaTime;

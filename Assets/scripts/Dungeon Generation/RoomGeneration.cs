@@ -439,10 +439,10 @@ public class RoomGeneration : MonoBehaviour
     {
         if(endRoom != startRoom)
         {
-            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            foreach (AstarCustom enemy in FindObjectsOfType<AstarCustom>())
             {
-                enemy.GetComponent<AstarCustom>().StopAllCoroutines();
-                Destroy(enemy);
+                enemy.forceStop();
+                Destroy(enemy.gameObject);
             }
 
             startRoom = endRoom;

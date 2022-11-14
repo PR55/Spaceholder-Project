@@ -35,6 +35,9 @@ public class AstarCustom : AIPath
     public float angle;
     bool canSeePlayer;
 
+    public float endReachPatrol;
+    public float endReachChase;
+
     //Misc. Properties
     PatrolAttributes patrolAttributes;
     Transform player;
@@ -84,12 +87,14 @@ public class AstarCustom : AIPath
             if (patrol)
             {
                 currentState = State.PATROL;
+                endReachedDistance = endReachPatrol;
                 patrolAttributes.ResumeMove();
 
             }
             else if (playerSpotted)
             {
                 currentState = State.CHASE;
+                endReachedDistance = endReachChase;
                 patrolAttributes.chasePlayer(player);
             }
             else if(!patrol && !playerSpotted && !investigate)
@@ -119,6 +124,7 @@ public class AstarCustom : AIPath
 
     public void forceStop()
     {
+        StopAllCoroutines();
         patrol = false;
         playerSpotted = false;
         investigate = false;

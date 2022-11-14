@@ -135,7 +135,8 @@ public class AstarCustomEditor : EditorBase
 			PropertyField("funnelSimplification");
 		}
 
-		FloatField("endReachedDistance", min: 0f);
+		FloatField("endReachPatrol", min: 0f);
+		FloatField("endReachChase", min: 0f);
 
 		if (isAIPath)
 		{
