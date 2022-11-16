@@ -8,6 +8,8 @@ public class RoomAttribute : MonoBehaviour
 {
     public pointProperties[] doorways;
 
+    public PatrolAttributes patrolController;
+
     [SerializeField]
     private float spaceTakenx = 3;
     [SerializeField]
@@ -27,7 +29,15 @@ public class RoomAttribute : MonoBehaviour
         return doorways;
     }
 
-    
+    public void SpawnEnemy()
+    {
+        patrolController.EnemySpawn();
+    }
+
+    public void killEnemies()
+    {
+        patrolController.roomDestroy();
+    }
 
     private void OnDrawGizmos()
     {

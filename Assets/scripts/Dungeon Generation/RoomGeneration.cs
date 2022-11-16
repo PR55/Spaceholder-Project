@@ -9,7 +9,8 @@ public class RoomGeneration : MonoBehaviour
     [Header("Other Scripts")]
     public GridSpawn gridSpawn;
     public HallwayGeneration hallwayGeneration;
-
+    [SerializeField]
+    private AstarPath astarPath;
     //if (i == Mathf.FloorToInt(spawnedRooms.Length / 2)) half to guarantee end room spawn
 
     [Header("Current Attributes")]
@@ -420,6 +421,15 @@ public class RoomGeneration : MonoBehaviour
         }
 
         gridSpawn.GridDestroy();
+        astarPath.Scan();
+
+        foreach(GameObject room in spawnedRooms)
+        {
+            if(room.GetComponent<RoomAttribute>() != null && room != startRoom && room != builtEndRoom)
+            {
+                room.GetComponent<RoomAttribute>().SpawnEnemy();
+            }
+        }
 
         Resources.UnloadUnusedAssets();
 
@@ -429,6 +439,12 @@ public class RoomGeneration : MonoBehaviour
     {
         if(endRoom != startRoom)
         {
+            foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                enemy.GetComponent<AstarCustom>().StopAllCoroutines();
+                Destroy(enemy);
+            }
+
             startRoom = endRoom;
 
             foreach(GameObject room in spawnedRooms)
