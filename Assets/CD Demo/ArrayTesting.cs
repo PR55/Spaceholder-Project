@@ -9,7 +9,6 @@ public class ArrayTesting : MonoBehaviour
 
 
     int audioPlayerIndex = 0;
-    public GameObject[] audiosources;
     public AudioSource[] audioPlayer;
     
 
@@ -42,9 +41,8 @@ public class ArrayTesting : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        audiosources = GameObject.FindGameObjectsWithTag("SpeakersShip");
-        audioPlayer = new AudioSource[audiosources.Length];
-        foreach (GameObject a in audiosources)
+        audioPlayer = new AudioSource[GameObject.FindGameObjectsWithTag("SpeakersShip").Length];
+        foreach (GameObject a in GameObject.FindGameObjectsWithTag("SpeakersShip"))
         {
 
             audioPlayer[audioPlayerIndex] = a.GetComponent<AudioSource>();
