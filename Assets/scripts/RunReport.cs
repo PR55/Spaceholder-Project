@@ -35,19 +35,22 @@ public class RunReport : MonoBehaviour
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
                 DontDestroyOnLoad(this.gameObject);
+                ResetVals();
                 sceneChecked = true;
+                Resources.UnloadUnusedAssets();
             }
             else if (SceneManager.GetActiveScene().buildIndex == reportScreenIndex)
             {
                 levelRunning = false;
                 if(reportComplete)
                 {
-                    SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
                     sceneChecked = true;
                 }
+                Resources.UnloadUnusedAssets();
             }
             else if (SceneManager.GetActiveScene().buildIndex == mainLevelIndex)
             {
+                Resources.UnloadUnusedAssets();
                 sceneChecked = true;
                 levelRunning = true;
             }
@@ -60,6 +63,7 @@ public class RunReport : MonoBehaviour
 
     }
 
+    
 
     public void checkScene()
     {
@@ -94,6 +98,14 @@ public class RunReport : MonoBehaviour
     public void reportCompleted()
     {
         reportComplete = true;
+    }
+
+    public void ResetVals()
+    {
+        reportComplete = false;
+        totalScore = 0;
+        timePlaying = TimeSpan.Zero;
+        elapsedTime = 0;
     }
 
 }
