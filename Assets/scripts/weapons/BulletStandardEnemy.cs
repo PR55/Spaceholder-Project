@@ -58,9 +58,8 @@ public class BulletStandardEnemy : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<PlayerStats>().TakeDamage(damageToDeal);
-            Destroy(this.gameObject);
         }
-        
+        Destroy(this.gameObject);
     }
 
 }
