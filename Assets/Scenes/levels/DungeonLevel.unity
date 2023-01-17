@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5e601a5a473d24895a57784e9f4e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reportPrefab: {fileID: 0}
 --- !u!114 &601484093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,7 +359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a271dd32a3a8848bb1e4879787105f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelReportIndex: 2
+  levelReportIndex: 3
+  changeScene: 0
+  scene: 3
 --- !u!1 &675765560
 GameObject:
   m_ObjectHideFlags: 0

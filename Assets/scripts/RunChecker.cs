@@ -5,10 +5,21 @@ using UnityEngine;
 public class RunChecker : MonoBehaviour
 {
     RunReport runReport;
+
+    public GameObject reportPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        runReport = FindObjectOfType<RunReport>();
+        
+
+        if(FindObjectOfType<RunReport>() != null)
+        {
+            runReport = FindObjectOfType<RunReport>();
+        }
+        else
+        {
+            runReport = Instantiate(reportPrefab).GetComponent<RunReport>();
+        }
 
         runReport.checkScene();
 
