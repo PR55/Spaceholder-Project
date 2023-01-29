@@ -16,6 +16,9 @@ public class HallwayGeneration : MonoBehaviour
     public GameObject FloorPrefabz;
     public GameObject collideCheckPrefab;
 
+    [Header("")]
+    public float hallwayBuffer = 1;
+
     private HallwayCheck hallwayCheck;
 
     float distance1;
@@ -114,14 +117,14 @@ public class HallwayGeneration : MonoBehaviour
 
                 if (pointStart.transform.position.z < pointEnd.transform.position.z)
                 {
-                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
-                    
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z + ((i + .5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+
 
                 }
                 else
                 {
-                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i+.5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
-                    
+                    markers1[i] = (Instantiate(pointMarkers, new Vector3(pointStart.transform.position.x, 0, pointStart.transform.position.z - ((i + .5f) * FloorPrefabz.GetComponent<FloorBehaviour>().GetSpace())), Quaternion.identity));
+
                 }
 
                 i++;
@@ -131,8 +134,8 @@ public class HallwayGeneration : MonoBehaviour
             hallways = new GameObject[markers1.Length];
             if (markers1 != null)
             {
-                
-                    
+
+
                 foreach (GameObject mark in markers1)
                 {
                     if (mark.transform.position != pointEnd.transform.position)

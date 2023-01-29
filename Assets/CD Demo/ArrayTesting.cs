@@ -9,15 +9,11 @@ public class ArrayTesting : MonoBehaviour
 
 
     int audioPlayerIndex = 0;
-    public AudioSource[] audioPlayer;
+    public AudioSource audioPlayer;
     
 
     [SerializeField]
     private List<AudioClip> Playlist;
-    [SerializeField, Range(10,22000)]
-    private float[] songFrequencyAmounts;
-    [SerializeField, Range(1, 10)]
-    private float[] songFrequencyQAmounts;
 
     int index = 0;
 
@@ -41,14 +37,7 @@ public class ArrayTesting : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        audioPlayer = new AudioSource[GameObject.FindGameObjectsWithTag("SpeakersShip").Length];
-        foreach (GameObject a in GameObject.FindGameObjectsWithTag("SpeakersShip"))
-        {
-
-            audioPlayer[audioPlayerIndex] = a.GetComponent<AudioSource>();
-            audioPlayerIndex++;
-        }
-
+        SetSongs();
         songIsPaused = true;
     }
 
@@ -60,26 +49,16 @@ public class ArrayTesting : MonoBehaviour
             if(index >= maxDiscSize)
             {
                 index = 0;
-                foreach (AudioSource Player in audioPlayer)
-                {
-                    Player.clip = playlistReal[index];
-                    Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
-                    Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
-                    Player.Play();
-                }
+                audioPlayer.clip = playlistReal[index];
+                audioPlayer.Play();
                 audioTimer = playlistReal[index].length + Time.deltaTime;
 
             }
             else
             {
                 index++;
-                foreach (AudioSource Player in audioPlayer)
-                {
-                    Player.clip = playlistReal[index];
-                    Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
-                    Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
-                    Player.Play();
-                }
+                audioPlayer.clip = playlistReal[index];
+                audioPlayer.Play();
                 audioTimer = playlistReal[index].length + Time.deltaTime;
             }
 
@@ -89,42 +68,32 @@ public class ArrayTesting : MonoBehaviour
         
         if(previousSong || restartSong)
         {
+
             if(restartSong)
             {
-                foreach (AudioSource Player in audioPlayer)
-                {
-                    Player.Stop();
-                    Player.time = 0f;
-                    Player.Play();
-                    audioTimer = playlistReal[index].length + Time.deltaTime;
-                }
+                audioPlayer.Stop();
+                audioPlayer.time = 0f;
+                audioPlayer.Play();
+                audioTimer = playlistReal[index].length + Time.deltaTime;
                 restartSong = false;
 
             }
             else
             {
+                audioPlayer.Stop();
                 if (index <= 0)
                 {
-                    index = maxDiscSize;
-                    foreach (AudioSource Player in audioPlayer)
-                    {
-                        Player.clip = playlistReal[index];
-                        Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
-                        Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
-                        Player.Play();
-                    }
+                    index = playlistReal.Length-1;
+                    audioPlayer.clip = playlistReal[index];
+                    audioPlayer.Play();
                     audioTimer = playlistReal[index].length + Time.deltaTime;
+
                 }
                 else
                 {
                     index--;
-                    foreach (AudioSource Player in audioPlayer)
-                    {
-                        Player.clip = playlistReal[index];
-                        Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
-                        Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
-                        Player.Play();
-                    }
+                    audioPlayer.clip = playlistReal[index];
+                    audioPlayer.Play();
                     audioTimer = playlistReal[index].length + Time.deltaTime;
                 }
                 previousSong = false;
@@ -134,12 +103,9 @@ public class ArrayTesting : MonoBehaviour
 
         if(playMusic)
         {
-            if(songIsPaused = true)
+            if(songIsPaused == true)
             {
-                foreach (AudioSource Player in audioPlayer)
-                {
-                    Player.Play();
-                }
+                audioPlayer.Play();
                 songIsPaused = false;
             }
             playMusic = false;
@@ -147,10 +113,7 @@ public class ArrayTesting : MonoBehaviour
 
         if(stopMusic)
         {
-            foreach (AudioSource Player in audioPlayer)
-            {
-                Player.Pause();
-            }
+            audioPlayer.Pause();
             
             songIsPaused = true;
             stopMusic = false;
@@ -200,13 +163,7 @@ public class ArrayTesting : MonoBehaviour
             
         playlistReal = Playlist.ToArray();
         maxDiscSize = playlistReal.Length - 1;
-        foreach (AudioSource Player in audioPlayer)
-        {
-            Player.clip = playlistReal[index];
-            Player.gameObject.GetComponent<AudioHighPassFilter>().cutoffFrequency = songFrequencyAmounts[index];
-            Player.gameObject.GetComponent<AudioHighPassFilter>().highpassResonanceQ = songFrequencyQAmounts[index];
-
-        }
+        audioPlayer.clip = playlistReal[index];
         audioTimer = playlistReal[index].length + Time.deltaTime;
     }
     public AudioClip[] currentSongList()
@@ -216,10 +173,6 @@ public class ArrayTesting : MonoBehaviour
     public int currentListIndex()
     {
         return index;
-    }
-    public float[] frequencyAmounts()
-    {
-        return songFrequencyAmounts;
     }
     
 

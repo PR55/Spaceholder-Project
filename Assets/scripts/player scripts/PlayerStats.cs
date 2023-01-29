@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.XR.Interaction.Toolkit;
 public class PlayerStats : MonoBehaviour
 {
     [Header("Player Stats")]
@@ -15,8 +15,14 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("Scene to load on player death")]
     public int sceneIndex = 0;
 
+
+    [Header("Player Body")]
     [SerializeField]
     private Transform playerCenter;
+
+    [Header("Player Interaction")]
+    [SerializeField]
+    private XRRayInteractor uiInteraction;
 
     [HideInInspector]
     public float health;
@@ -51,6 +57,23 @@ public class PlayerStats : MonoBehaviour
         {
             healTimer -= Time.fixedDeltaTime;
         }
+
+        if(uiInteraction != null)
+        {
+            if (uiInteraction.hasHover)
+            {
+                uiInteraction.gameObject.GetComponent<XRInteractorLineVisual>().gameObject.SetActive(true);
+                uiInteraction.gameObject.GetComponent<LineRenderer>().gameObject.SetActive(true);
+            }
+            else if (!uiInteraction.hasHover)
+            {
+                uiInteraction.gameObject.GetComponent<XRInteractorLineVisual>().gameObject.SetActive(false);
+                uiInteraction.gameObject.GetComponent<LineRenderer>().gameObject.SetActive(false);
+            }
+        }
+
+        
+
     }
 
     void Update()

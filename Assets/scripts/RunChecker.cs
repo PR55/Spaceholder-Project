@@ -10,18 +10,13 @@ public class RunChecker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
 
-        if(FindObjectOfType<RunReport>() != null)
+
+        if (FindObjectOfType<RunReport>() != null)
         {
             runReport = FindObjectOfType<RunReport>();
+            runReport.checkScene();
         }
-        else
-        {
-            runReport = Instantiate(reportPrefab).GetComponent<RunReport>();
-        }
-
-        runReport.checkScene();
 
     }
 

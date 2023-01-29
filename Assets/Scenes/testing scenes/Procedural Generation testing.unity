@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713276748}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43c623a05fc5442fcba27a128ec2559a, type: 3}
   m_Name: 
@@ -1216,8 +1216,8 @@ MonoBehaviour:
   gridPoint: {fileID: 1363186821364877657, guid: 01ddefe7daa76bc48bafb10b44264de3, type: 3}
   gridX: 5
   gridZ: 5
-  spacingOffsetX: 50
-  spacingOffsetZ: 50
+  spacingOffsetX: 39
+  spacingOffsetZ: 39
 --- !u!114 &1910913723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1235,6 +1235,7 @@ MonoBehaviour:
   FloorPrefabx: {fileID: 5305132114017069756, guid: 6da99aca2a234cf488855e85c233e566, type: 3}
   FloorPrefabz: {fileID: 8173900872479242687, guid: e73fc701f13947342bbabaf0c45cd056, type: 3}
   collideCheckPrefab: {fileID: 7661254412969416503, guid: 96fa7654f66f04c4481af4d0eb09b57a, type: 3}
+  hallwayBuffer: 0
 --- !u!1 &1922289449
 GameObject:
   m_ObjectHideFlags: 0

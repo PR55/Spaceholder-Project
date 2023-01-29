@@ -15,7 +15,6 @@ public class musicList : MonoBehaviour
         transfer = arrayTesting;
         audioClipsHolder = arrayTesting.currentSongList();
         index = arrayTesting.currentListIndex();
-        frequencies = arrayTesting.frequencyAmounts();
         StartTransfer();
     }
 
