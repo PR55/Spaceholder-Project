@@ -38,7 +38,9 @@ public class SceneTransition : MonoBehaviour
             Debug.Log("Report not Finished");
             if(runReport.reportProgress())
             {
+                Resources.UnloadUnusedAssets();
                 SceneManager.LoadScene(Scene);
+
             }
         }
         else
