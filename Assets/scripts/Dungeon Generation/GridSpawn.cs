@@ -10,6 +10,7 @@ public class GridSpawn : MonoBehaviour
     public int gridZ;
     public float spacingOffsetX = 115;
     public float spacingOffsetZ = 115;
+
     Vector3 gridOrigin = Vector3.zero;
 
     GameObject[] gridPoints;
@@ -67,6 +68,11 @@ public class GridSpawn : MonoBehaviour
             }
         }
        
+    }
+
+    public float spacingReturn()
+    {
+        return spacingOffsetX;
     }
 
     public void SetOrigin(Vector3 StartRoom)

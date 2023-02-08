@@ -31,7 +31,8 @@ public class RoomAttribute : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        patrolController.EnemySpawn();
+        if(patrolController != null)
+            patrolController.EnemySpawn();
     }
 
     public void killEnemies()

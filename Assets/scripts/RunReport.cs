@@ -39,7 +39,7 @@ public class RunReport : MonoBehaviour
                 sceneChecked = true;
                 Resources.UnloadUnusedAssets();
             }
-            else if (SceneManager.GetActiveScene().buildIndex == reportScreenIndex)
+            else if (SceneManager.GetActiveScene().buildIndex == reportScreenIndex && sceneChecked == false)
             {
                 levelRunning = false;
                 if(reportComplete)
@@ -48,8 +48,9 @@ public class RunReport : MonoBehaviour
                 }
                 Resources.UnloadUnusedAssets();
             }
-            else if (SceneManager.GetActiveScene().buildIndex == mainLevelIndex)
+            else if (SceneManager.GetActiveScene().buildIndex == mainLevelIndex && sceneChecked == true)
             {
+                ResetVals();
                 Resources.UnloadUnusedAssets();
                 sceneChecked = true;
                 levelRunning = true;
