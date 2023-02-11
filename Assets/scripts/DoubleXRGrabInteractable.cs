@@ -40,14 +40,14 @@ public class DoubleXRGrabInteractable : XRGrabInteractable
         Vector3 directionBetweenAttaches = (secondAttach.position - firstAttach.position) + attachOffset;
         Quaternion rotationFromAttachToForward = Quaternion.FromToRotation(directionBetweenAttaches, transform.forward);
 
-        Quaternion targetRotation = Quaternion.LookRotation(directionBetweenHands, firstHand.up);
+        Quaternion targetRotation = Quaternion.LookRotation(directionBetweenHands + attachOffset, firstHand.up);
 
         Vector3 worldDirectionFromHandleToBase = transform.position - firstAttach.position;
         Vector3 localDirectionFromHandleToBase = transform.InverseTransformDirection(worldDirectionFromHandleToBase);
 
         Vector3 targetPosition = firstHand.position + targetRotation * localDirectionFromHandleToBase;
 
-        transform.SetPositionAndRotation(targetPosition, targetRotation * rotationFromAttachToForward);
+        transform.SetPositionAndRotation(targetPosition, targetRotation);
 
     }
 
