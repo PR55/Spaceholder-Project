@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+  m_AmbientSkyColor: {r: 0.101960786, g: 0.101960786, b: 0.101960786, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 697dcc1a69e1a2c4ea5db483875ede85, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -650,8 +650,8 @@ MonoBehaviour:
   gridPoint: {fileID: 1363186821364877657, guid: 01ddefe7daa76bc48bafb10b44264de3, type: 3}
   gridX: 5
   gridZ: 5
-  spacingOffsetX: 40
-  spacingOffsetZ: 40
+  spacingOffsetX: 39
+  spacingOffsetZ: 39
 --- !u!114 &1910913723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,35 +770,43 @@ PrefabInstance:
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: endRoomPrefab
       value: 
-      objectReference: {fileID: 8624724862236537752, guid: 743fc2ea46ee5e04593fa39492745c7b, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: 955f0aeedc8b1c349b93c91f1074e37e, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: startRoomPrefab
       value: 
-      objectReference: {fileID: 8970011898744114624, guid: 6952fc8a7aa548f4f861ae28145710bd, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: 7839d7a173a991940b7faa831325359d, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: hallwayGeneration
       value: 
       objectReference: {fileID: 1910913723}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[0]
       value: 
-      objectReference: {fileID: 3324983927326278082, guid: dc8fb568184d6fc409bdab95d69613be, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: 955f0aeedc8b1c349b93c91f1074e37e, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[1]
       value: 
-      objectReference: {fileID: 6213266274983929399, guid: 32f47f4a68b08804b945e2fa71ee8db0, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: 7839d7a173a991940b7faa831325359d, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[2]
       value: 
-      objectReference: {fileID: 1059790944900138965, guid: 7839d7a173a991940b7faa831325359d, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: 8c96505a3b427214789eac66c8547f93, type: 3}
     - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: roomChoices.Array.data[3]
       value: 
-      objectReference: {fileID: 1059790944900138965, guid: 7839d7a173a991940b7faa831325359d, type: 3}
+      objectReference: {fileID: 1059790944900138965, guid: d3fa50ecec2cafd4a8706519f9f7ea39, type: 3}
+    - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
+      propertyPath: roomChoices.Array.data[4]
+      value: 
+      objectReference: {fileID: 1059790944900138965, guid: 31c0bf4fd165c8749b63f502ba5a5d99, type: 3}
+    - target: {fileID: 1101216789422016894, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
+      propertyPath: roomChoices.Array.data[5]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1101216789422016895, guid: 49c244ce61a0cbf47af8e0f631deb4c0, type: 3}
       propertyPath: m_RootOrder
       value: 4
