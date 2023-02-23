@@ -125,6 +125,18 @@ public class ArrayTesting : MonoBehaviour
         }
     }
 
+    public void changeState()
+    {
+        if(songIsPaused)
+        {
+            PlayMusic(); 
+        }
+        else if (!songIsPaused)
+        {
+            StopMusic();
+        }
+    }
+
     public void PlayMusic()
     {
         playMusic = true;

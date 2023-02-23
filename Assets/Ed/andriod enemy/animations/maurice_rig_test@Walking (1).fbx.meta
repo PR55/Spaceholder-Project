@@ -1,0 +1,613 @@
+fileFormatVersion: 2
+guid: d784e9b7f45485740bb16f8ce31f4cc9
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -203655887218126122
+    second: Walking (1)
+  - first:
+      74: -1610863427237328480
+    second: Walking
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walking
+      takeName: mixamo.com
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 98
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: maurice_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: maurice_Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: maurice_rig_test@Walking (1)(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig
+      parentName: maurice_rig_test@Walking (1)(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: wriststraps_low1
+      parentName: rig
+      position: {x: -0, y: 0.10814823, z: -0.011296353}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform9
+      parentName: wriststraps_low1
+      position: {x: -0, y: -0.10814823, z: 0.011296353}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulderhalo_low1
+      parentName: rig
+      position: {x: -0, y: 0.1357663, z: -0.009317404}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform11
+      parentName: shoulderhalo_low1
+      position: {x: -0, y: -0.1357663, z: 0.009317404}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: calfguards_low1
+      parentName: rig
+      position: {x: -0, y: 0.024040198, z: -0.008170872}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform1
+      parentName: calfguards_low1
+      position: {x: -0, y: -0.024040198, z: 0.008170872}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: wristguards_low1
+      parentName: rig
+      position: {x: -0, y: 0.10245068, z: -0.006174414}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform5
+      parentName: wristguards_low1
+      position: {x: -0, y: -0.10245068, z: 0.006174414}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: mouthbag_low1
+      parentName: rig
+      position: {x: -0, y: 0.14564012, z: -0.0031443774}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform2
+      parentName: mouthbag_low1
+      position: {x: -0, y: -0.14564012, z: 0.0031443774}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: helmet_low1
+      parentName: rig
+      position: {x: -0.00002188961, y: 0.15171751, z: -0.005201727}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform13
+      parentName: helmet_low1
+      position: {x: 0.00002188961, y: -0.15171751, z: 0.005201727}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: shoulderpads_low1
+      parentName: rig
+      position: {x: -0, y: 0.13121904, z: -0.01207261}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform3
+      parentName: shoulderpads_low1
+      position: {x: -0, y: -0.13121904, z: 0.01207261}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: kneejoints_low1
+      parentName: rig
+      position: {x: -0, y: 0.048843134, z: -0.002840454}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform17
+      parentName: kneejoints_low1
+      position: {x: -0, y: -0.048843134, z: 0.002840454}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: belt_low1
+      parentName: rig
+      position: {x: -0, y: 0.08503359, z: -0.0049823145}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform12
+      parentName: belt_low1
+      position: {x: -0, y: -0.08503359, z: 0.0049823145}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: chestGuard_low1
+      parentName: rig
+      position: {x: -0, y: 0.1227456, z: 0.0011461329}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform4
+      parentName: chestGuard_low1
+      position: {x: -0, y: -0.1227456, z: -0.0011461329}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: earmuff_low1
+      parentName: rig
+      position: {x: -0, y: 0.15081929, z: -0.0063041993}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform10
+      parentName: earmuff_low1
+      position: {x: -0, y: -0.15081929, z: 0.0063041993}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body_low1
+      parentName: rig
+      position: {x: 0.000052188527, y: 0.081049696, z: -0.0040001827}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform15
+      parentName: Body_low1
+      position: {x: -0.000052188527, y: -0.081049696, z: 0.0040001827}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eyes1
+      parentName: rig
+      position: {x: -0.000005875879, y: 0.15202467, z: 0.0010668032}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform16
+      parentName: eyes1
+      position: {x: 0.000005875879, y: -0.15202467, z: -0.0010668032}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: battery_low1
+      parentName: rig
+      position: {x: 0.0002499153, y: 0.12253599, z: -0.019872481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform6
+      parentName: battery_low1
+      position: {x: -0.0002499153, y: -0.12253599, z: 0.019872481}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thighguards_low1
+      parentName: rig
+      position: {x: -0, y: 0.066648856, z: -0.00092065125}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform14
+      parentName: thighguards_low1
+      position: {x: -0, y: -0.066648856, z: 0.00092065125}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: necktubes_low1
+      parentName: rig
+      position: {x: -0, y: 0.13854197, z: -0.006489927}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform8
+      parentName: necktubes_low1
+      position: {x: -0, y: -0.13854197, z: 0.006489927}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: legtubes_low1
+      parentName: rig
+      position: {x: -0, y: 0.060399856, z: -0.008977184}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform7
+      parentName: legtubes_low1
+      position: {x: -0, y: -0.060399856, z: 0.008977184}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: maurice_rig
+      parentName: maurice_rig_test@Walking (1)(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: maurice_Reference
+      parentName: maurice_rig_test@Walking (1)(Clone)
+      position: {x: 0.0083645135, y: -0.017500581, z: -0.0096568605}
+      rotation: {x: 0.047010247, y: -0.3151687, z: 0.02064638, w: 0.9476457}
+      scale: {x: 1, y: 1, z: 1}
+    - name: maurice_Hips
+      parentName: maurice_Reference
+      position: {x: -0.0012074448, y: 0.103656344, z: 0.00045386236}
+      rotation: {x: 0.2815733, y: -0.3507403, z: -0.6166841, w: 0.6460639}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: maurice_LeftUpLeg
+      parentName: maurice_Hips
+      position: {x: 0.0019411384, y: 0.0017366285, z: 0.009123063}
+      rotation: {x: -0.05676779, y: -0.0077317506, z: 0.9983299, w: 0.0074311867}
+      scale: {x: 1, y: 1.0000001, z: 1.0000004}
+    - name: maurice_LeftLeg
+      parentName: maurice_LeftUpLeg
+      position: {x: -0.040109877, y: 0.00000051256563, z: -0.00000007212606}
+      rotation: {x: 0.00793091, y: -0.0003986689, z: -0.047726344, w: 0.99882895}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000002}
+    - name: maurice_LeftFoot
+      parentName: maurice_LeftLeg
+      position: {x: -0.033982377, y: 0.00000022023488, z: -0.000000009139693}
+      rotation: {x: -0.02159693, y: -0.053590734, z: 0.5026715, w: 0.86254454}
+      scale: {x: 1.0000001, y: 1.0000002, z: 0.99999994}
+    - name: maurice_LeftToeBase
+      parentName: maurice_LeftFoot
+      position: {x: -0.013305651, y: -0.0000000023701638, z: 0.000000009762366}
+      rotation: {x: 0.0000000018626447, y: -0, z: -0.000000022351736, w: 1}
+      scale: {x: 1, y: 1.0000005, z: 0.9999998}
+    - name: maurice_RightUpLeg
+      parentName: maurice_Hips
+      position: {x: 0.0019411384, y: 0.0017366285, z: -0.009123063}
+      rotation: {x: -0.0077233156, y: 0.056767397, z: -0.0074270805, w: 0.99832994}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: maurice_RightLeg
+      parentName: maurice_RightUpLeg
+      position: {x: 0.04010991, y: -0.0000006102517, z: 0.00000006343241}
+      rotation: {x: 0.007943636, y: -0.00039953357, z: -0.04773506, w: 0.99882835}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: maurice_RightFoot
+      parentName: maurice_RightLeg
+      position: {x: 0.033982404, y: -0.00000022552663, z: 0.0000000027244889}
+      rotation: {x: -0.021614812, y: -0.05358027, z: 0.5026762, w: 0.86254203}
+      scale: {x: 0.9999997, y: 0.99999994, z: 0.9999997}
+    - name: maurice_RightToeBase
+      parentName: maurice_RightFoot
+      position: {x: 0.013305657, y: -0.0000000060456165, z: -0.00000000415532}
+      rotation: {x: 0.000025413927, y: 0.00000007078051, z: 0.000000059604638, w: 1}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: maurice_Spine
+      parentName: maurice_Hips
+      position: {x: -0.008872915, y: 2.9822603e-11, z: 0}
+      rotation: {x: 0.00000008940697, y: -0.000000029802322, z: 0.07527372, w: 0.99716294}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
+    - name: maurice_Spine1
+      parentName: maurice_Spine
+      position: {x: -0.00881891, y: 4.780588e-10, z: -8.673617e-21}
+      rotation: {x: 0.000000031961093, y: 0.000000027474439, z: -0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+    - name: maurice_Spine2
+      parentName: maurice_Spine1
+      position: {x: -0.00881891, y: 0.0000000025390607, z: 8.673617e-21}
+      rotation: {x: -0.000000034227433, y: -0.000000057502305, z: -0.0026084257, w: 0.99999666}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: maurice_LeftShoulder
+      parentName: maurice_Spine2
+      position: {x: -0.019084595, y: -0.0025411686, z: 0.007414133}
+      rotation: {x: -0.46106258, y: 0.53611696, z: 0.4610626, w: 0.5361168}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
+    - name: maurice_LeftArm
+      parentName: maurice_LeftShoulder
+      position: {x: -0.011121177, y: 0, z: 6.661338e-18}
+      rotation: {x: 0.75436383, y: 0.019382706, z: 0.016565017, w: 0.6559612}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000005}
+    - name: maurice_LeftForeArm
+      parentName: maurice_LeftArm
+      position: {x: -0.031458694, y: 0.000005494163, z: -0.0000027223837}
+      rotation: {x: -0.003306269, y: -0.020257473, z: -0.030959904, w: 0.9993099}
+      scale: {x: 1, y: 0.9999998, z: 0.9999998}
+    - name: maurice_LeftHand
+      parentName: maurice_LeftForeArm
+      position: {x: -0.018827751, y: -0.00000007382484, z: 0.000000003932421}
+      rotation: {x: -0.00000066964986, y: 0.00000052468374, z: 0.000033764878, w: 1}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1}
+    - name: maurice_RightShoulder
+      parentName: maurice_Spine2
+      position: {x: -0.019084595, y: -0.0025411686, z: -0.007414133}
+      rotation: {x: 0.53611684, y: 0.46106252, z: -0.5361169, w: 0.46106252}
+      scale: {x: 1, y: 1.0000002, z: 1.0000005}
+    - name: maurice_RightArm
+      parentName: maurice_RightShoulder
+      position: {x: 0.011121177, y: -5.3290704e-17, z: 0}
+      rotation: {x: -0.7544187, y: -0.019412398, z: -0.01647759, w: -0.65589947}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000001}
+    - name: maurice_RightForeArm
+      parentName: maurice_RightArm
+      position: {x: 0.03145873, y: -0.00000015608188, z: -0.00000004959002}
+      rotation: {x: -0.0032849307, y: -0.020241713, z: -0.030878156, w: 0.99931276}
+      scale: {x: 0.99999994, y: 1, z: 0.9999998}
+    - name: maurice_RightHand
+      parentName: maurice_RightForeArm
+      position: {x: 0.018827723, y: 0.0000000639238, z: 0.000000006354329}
+      rotation: {x: -0.0000007952038, y: 0.00000003591412, z: 0.00003482595, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 0.9999998}
+    - name: maurice_Neck
+      parentName: maurice_Spine2
+      position: {x: -0.023435215, y: -0.000000009837769, z: 8.673617e-21}
+      rotation: {x: 0.000000051855494, y: 0.000000007358426, z: 0.11946046, w: -0.992839}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1}
+    - name: maurice_Head
+      parentName: maurice_Neck
+      position: {x: -0.009191535, y: -0.000000010131389, z: -8.673617e-21}
+      rotation: {x: -3.5527133e-15, y: -0, z: -3.815748e-16, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000002}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class RifleSciFi : MonoBehaviour
 {
@@ -24,40 +25,99 @@ public class RifleSciFi : MonoBehaviour
 
     BulletStandard bulletStandard;
 
+    public bool useMag;
+
+    Magazine magazine;
+
+    public XRSocketInteractor socketInteractor;
+
+    public void submitMag(XRBaseInteractable interactable)
+    {
+        if (interactable.GetComponent<Magazine>() != null)
+        {
+            magazine = interactable.GetComponent<Magazine>();
+        }
+    }
+
+    public void removeMag(XRBaseInteractable interactable)
+    {
+        magazine = null;
+    }
     // Start is called before the first frame update
     void Start()
     {
         bulletStandard = GetComponent<BulletStandard>();
+
+        if(useMag)
+        {
+            socketInteractor.onSelectEntered.AddListener(submitMag);
+            socketInteractor.onSelectExited.AddListener(removeMag);
+        }
+        
     }
 
     private void FixedUpdate()
     {
         if(fireCooldown >= 0)
         {
-            fireCooldown -= Time.fixedDeltaTime * 1000;
+            fireCooldown -= Time.fixedDeltaTime * .5f;
         }
     }
 
+
+
     public void FireBullet()
     {
-        if (audioSource.isPlaying)
+        if (useMag)
         {
-            audioSource.Stop();
-            audioSource.time = 0;
+            if (magazine != null)
+            {
+                bool test = magazine.shotFired();
+                if (test)
+                {
+                    if (audioSource.isPlaying)
+                    {
+                        audioSource.Stop();
+                        audioSource.time = 0;
+                    }
+
+                    audioSource.Play();
+
+                    BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
+
+                    spawnedProjectile.ColliderstoIgnore(objectColliders);
+
+                    spawnedProjectile.firePoint(firePoint);
+
+                    if (fullAuto)
+                    {
+                        fireCooldown = fireRate + Time.fixedDeltaTime;
+                    }
+                }
+            }
         }
-
-        audioSource.Play();
-
-        BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
-
-        spawnedProjectile.ColliderstoIgnore(objectColliders);
-
-        spawnedProjectile.firePoint(firePoint);
-
-        if(fullAuto)
+        else
         {
-            fireCooldown = fireRate + Time.fixedDeltaTime;
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+                audioSource.time = 0;
+            }
+
+            audioSource.Play();
+
+            BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
+
+            spawnedProjectile.ColliderstoIgnore(objectColliders);
+
+            spawnedProjectile.firePoint(firePoint);
+
+            if (fullAuto)
+            {
+                fireCooldown = fireRate + Time.fixedDeltaTime;
+            }
         }
+        
     }
 
 }
