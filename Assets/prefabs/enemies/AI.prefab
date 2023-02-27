@@ -424,50 +424,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.75
-  height: 2
+  radius: 0.05
+  height: 0.2
   canMove: 1
-  maxSpeed: 3
+  maxSpeed: 2
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
   centerOffsetCompatibility: NaN
-  repathRateCompatibility: 0.5
+  repathRateCompatibility: NaN
   canSearchCompability: 0
   orientation: 0
   enableRotation: 1
   autoRepath:
     mode: 2
-    interval: 1
+    interval: 0.5
     sensitivity: 10
     maximumInterval: 2
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
-  rotationSpeed: 32400
-  slowdownDistance: 0.2
-  pickNextWaypointDist: 2
-  endReachedDistance: 5
+  rotationSpeed: 270
+  slowdownDistance: 1
+  pickNextWaypointDist: 0.6
+  endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
+  whenCloseToDestination: 1
   constrainInsideGraph: 0
   checkWait: 1
-  visualBody: {fileID: 6165339841892377326}
+  visualBody: {fileID: 0}
   enemyWeapon: {fileID: 0}
-  viewPoint: {fileID: 4237575517820555307}
+  viewPoint: {fileID: 0}
   sightTimer: 0.2
   targetMask:
     serializedVersion: 2
     m_Bits: 64
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 917504
-  radiusSight: 10
-  angle: 100
-  endReachPatrol: 1
-  endReachChase: 5
+    m_Bits: 8384959
+  radiusSight: 46.78
+  angle: 115
+  endReachPatrol: 2
+  endReachChase: 6
+  player: {fileID: 0}
 --- !u!114 &3194455485089363228
 MonoBehaviour:
   m_ObjectHideFlags: 0

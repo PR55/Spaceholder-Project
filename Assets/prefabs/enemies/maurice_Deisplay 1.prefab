@@ -956,7 +956,7 @@ GameObject:
   - component: {fileID: 7767728927357704186}
   - component: {fileID: 5965433314528061926}
   - component: {fileID: 5965433314528061925}
-  - component: {fileID: 891116335974350756}
+  - component: {fileID: 3817752760445947204}
   m_Layer: 0
   m_Name: maurice_Deisplay 1
   m_TagString: Untagged
@@ -973,7 +973,7 @@ Transform:
   m_GameObject: {fileID: 7425852616913108422}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children:
   - {fileID: 4263582294535316449}
   - {fileID: 2210728504722644214}
@@ -1047,10 +1047,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.5
-  height: 2
+  radius: 0.05
+  height: 0.2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 2
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
     serializedVersion: 2
@@ -1068,29 +1068,29 @@ MonoBehaviour:
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 0.6
-  pickNextWaypointDist: 2
+  rotationSpeed: 270
+  slowdownDistance: 1
+  pickNextWaypointDist: 0.6
   endReachedDistance: 0.2
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 0
+  whenCloseToDestination: 1
   constrainInsideGraph: 0
   checkWait: 1
   visualBody: {fileID: 7801990684645451644}
-  enemyWeapon: {fileID: 0}
+  enemyWeapon: {fileID: 5965433313444980596}
   viewPoint: {fileID: 5965433314532734283}
   sightTimer: 0.2
   targetMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   obstructionMask:
     serializedVersion: 2
-    m_Bits: 0
-  radiusSight: 0
-  angle: 0
-  endReachPatrol: 0
-  endReachChase: 0
+    m_Bits: 8384959
+  radiusSight: 46.78
+  angle: 115
+  endReachPatrol: 2
+  endReachChase: 6
   player: {fileID: 0}
 --- !u!114 &5965433314528061925
 MonoBehaviour:
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
---- !u!114 &891116335974350756
+--- !u!114 &3817752760445947204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1135,7 +1135,6 @@ MonoBehaviour:
   version: 1
   target: {fileID: 0}
   overallLooker: {fileID: 7767728927357704186}
-  target: {fileID: 0}
 --- !u!1 &7585563968434329686
 GameObject:
   m_ObjectHideFlags: 0

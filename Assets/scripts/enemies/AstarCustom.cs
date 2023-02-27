@@ -47,8 +47,7 @@ public class AstarCustom : AIPath
     private void Start()
     {
         base.Start();
-        if(player == null)
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().playerTarget();
+        player = FindObjectOfType<PlayerStatsTracker>().curPlayer().playerTarget();
 
         StartCoroutine(FOVRoutine());
     }

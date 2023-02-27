@@ -7,12 +7,7 @@ public static class SaveSystem
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
-        if(Application.dataPath+"/UserData" == null)
-        {
-            Directory.CreateDirectory(Application.dataPath + "/UserData");
-        }
-
-        string path = Application.dataPath+"/UserData/comfortSettings.set";
+        string path = Application.dataPath+"comfortSettings.set";
 
         FileStream stream = new FileStream(path, FileMode.Create);
 
@@ -27,7 +22,7 @@ public static class SaveSystem
 
     public static LocoData LoadLocomotion()
     {
-        string path = Application.dataPath + "/UserData/comfortSettings.set";
+        string path = Application.dataPath + "comfortSettings.set";
 
         if(File.Exists(path))
         {

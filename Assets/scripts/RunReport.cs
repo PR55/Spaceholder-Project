@@ -24,6 +24,7 @@ public class RunReport : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         sceneChecked = false;
     }
 
@@ -32,9 +33,8 @@ public class RunReport : MonoBehaviour
     {
         if (!sceneChecked)
         {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
+            if (SceneManager.GetActiveScene().buildIndex == 1)
             {
-                DontDestroyOnLoad(this.gameObject);
                 ResetVals();
                 sceneChecked = true;
                 Resources.UnloadUnusedAssets();
