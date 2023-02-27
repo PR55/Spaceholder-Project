@@ -21,6 +21,11 @@ public class AstarCustom : AIPath
     public float checkWait = 1f;
     public Transform visualBody;
 
+    public LookTest weaponLook;
+    public LookTest weaponPoint;
+
+    public Animator enemyAnimation;
+
     //weapon Properties
     public EnemyWeapon enemyWeapon;
 
@@ -49,6 +54,11 @@ public class AstarCustom : AIPath
         base.Start();
         player = FindObjectOfType<PlayerStatsTracker>().curPlayer().playerTarget();
 
+        weaponPoint.target = player;
+        weaponPoint.targetFound = true;
+        weaponLook.target = player;
+
+
         StartCoroutine(FOVRoutine());
     }
 
@@ -61,6 +71,14 @@ public class AstarCustom : AIPath
     {
         if(currentState == State.PATROL)
         {
+            if(weaponLook.targetFound)
+            {
+                weaponLook.targetFound = false;
+            }
+            if(!enemyAnimation.GetBool("isWalking"))
+            {
+                enemyAnimation.SetBool("isWalking", true);
+            }
             base.Update();
             if (reachedDestination)
             {
@@ -71,10 +89,22 @@ public class AstarCustom : AIPath
         {
             if(reachedDestination)
             {
+                if (enemyAnimation.GetBool("isWalking"))
+                {
+                    enemyAnimation.SetBool("isWalking", false);
+                }
+                if (!weaponLook.targetFound)
+                {
+                    weaponLook.targetFound = true;
+                }
                 enemyWeapon.fireWeapon(targetMask);
             }
             else
             {
+                if (!enemyAnimation.GetBool("isWalking"))
+                {
+                    enemyAnimation.SetBool("isWalking", true);
+                }
                 base.Update();
             }
         }

@@ -60,9 +60,12 @@ public class AstarCustomEditor : EditorBase
 		PropertyField("visualBody", null, "The model base being used\n to have the enemy face\n the player.");
 		PropertyField("viewPoint");
 		PropertyField("player");
+		PropertyField("enemyAnimation");
 
 		Section("Weapon Function Properties");
 		PropertyField("enemyWeapon");
+		PropertyField("weaponLook");
+		PropertyField("weaponPoint");
 		
 
 		Section("Values Sight");
