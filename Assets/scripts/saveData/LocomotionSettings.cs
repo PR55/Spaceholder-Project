@@ -17,6 +17,8 @@ public class LocomotionSettings : MonoBehaviour
 
     public Text curStateTurn;
 
+    public bool isPlayScene;
+
     private void Awake()
     {
         if(SaveSystem.LoadLocomotion() != null)
@@ -59,33 +61,61 @@ public class LocomotionSettings : MonoBehaviour
 
     public void loadProviders(int moveState, int turnState)
     {
-        if (moveState == 0)
+        if(isPlayScene)
         {
-            teleportationProvider.enabled = true;
-            teleportProvider.SetActive(true);
-            moveProvider.enabled = false;
-
-            curStateLoc.text = "Teleport";
+            if (moveState == 0)
+            {
+                teleportationProvider.enabled = true;
+                teleportProvider.SetActive(true);
+                moveProvider.enabled = false;
+            }
+            else
+            {
+                teleportationProvider.enabled = false;
+                teleportProvider.SetActive(false);
+                moveProvider.enabled = true;
+            }
+            if (turnState == 0)
+            {
+                snapTurnProvider.enabled = true;
+                continuousTurnProvider.enabled = false;
+            }
+            else
+            {
+                snapTurnProvider.enabled = false;
+                continuousTurnProvider.enabled = true;
+            }
         }
         else
         {
-            teleportationProvider.enabled = false;
-            teleportProvider.SetActive(false);
-            moveProvider.enabled = true;
-            curStateLoc.text = "Locomotion";
-        }
-        if (turnState == 0)
-        {
-            snapTurnProvider.enabled = true;
-            continuousTurnProvider.enabled = false;
+            if (moveState == 0)
+            {
+                teleportationProvider.enabled = true;
+                teleportProvider.SetActive(true);
+                moveProvider.enabled = false;
 
-            curStateTurn.text = "Snap Turn";
-        }
-        else
-        {
-            snapTurnProvider.enabled = false;
-            continuousTurnProvider.enabled = true;
-            curStateTurn.text = "Smooth Turn";
+                curStateLoc.text = "Teleport";
+            }
+            else
+            {
+                teleportationProvider.enabled = false;
+                teleportProvider.SetActive(false);
+                moveProvider.enabled = true;
+                curStateLoc.text = "Locomotion";
+            }
+            if (turnState == 0)
+            {
+                snapTurnProvider.enabled = true;
+                continuousTurnProvider.enabled = false;
+
+                curStateTurn.text = "Snap Turn";
+            }
+            else
+            {
+                snapTurnProvider.enabled = false;
+                continuousTurnProvider.enabled = true;
+                curStateTurn.text = "Smooth Turn";
+            }
         }
     }
 
