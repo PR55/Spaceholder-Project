@@ -18,4 +18,15 @@ public class IgnoreColliders : MonoBehaviour
             }
         }
     }
+
+    public void ignoreNew(List<Collider> collider)
+    {
+        foreach (Collider collidera in collider)
+        {
+            foreach (Collider col2 in mainBody.colliders)
+            {
+                Physics.IgnoreCollision(col2, collidera);
+            }
+        }
+    }
 }

@@ -6,8 +6,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class SpawnZone : XRGrabInteractable
 {
+    public IgnoreColliders rifleCollider;
     public GameObject nullMag;
     GameObject magPrefab;
+
+    bool magSpawned;
+
+    private void Start()
+    {
+        magSpawned = false;
+    }
 
     public void ForceEjection(XRBaseInteractor interactor)
     {
@@ -17,7 +25,14 @@ public class SpawnZone : XRGrabInteractable
         {
             magPrefab = nullMag;
         }
-        GameObject newMag = SpawnMag();
+        GameObject newMag;
+        if (!magSpawned)
+        {
+            newMag = SpawnMag();
+            rifleCollider.ignoreNew(newMag.GetComponent<XRGrabInteractable>().colliders);
+            magSpawned = true;
+        }
+        
 
     }
 
@@ -34,6 +49,11 @@ public class SpawnZone : XRGrabInteractable
     public void setMag(GameObject magject)
     {
         magPrefab = magject;
+    }
+
+    public void leaveZone()
+    {
+        magSpawned = false;
     }
 
 }

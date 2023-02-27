@@ -40,13 +40,14 @@ public class AstarCustom : AIPath
 
     //Misc. Properties
     PatrolAttributes patrolAttributes;
-    Transform player;
+    public Transform player;
     
 
 
     private void Start()
     {
         base.Start();
+        if(player == null)
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>().playerTarget();
 
         StartCoroutine(FOVRoutine());
@@ -71,14 +72,10 @@ public class AstarCustom : AIPath
         {
             if(reachedDestination)
             {
-                visualBody.LookAt(target);
-                enemyWeapon.lookAtPlayer(target);
                 enemyWeapon.fireWeapon(targetMask);
             }
             else
             {
-                if (visualBody.localRotation != Quaternion.identity)
-                    visualBody.localRotation = Quaternion.identity;
                 base.Update();
             }
         }
