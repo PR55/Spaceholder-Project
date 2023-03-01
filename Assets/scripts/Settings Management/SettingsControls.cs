@@ -27,4 +27,8 @@ public class SettingsControls : MonoBehaviour
     {
         audioMixer.SetFloat("ambianceVolume", volume);
     }
+    public void SetVolumeVoice(float volume)
+    {
+        audioMixer.SetFloat("voiceVolume", volume);
+    }
 }

@@ -10,13 +10,20 @@ public class IgnoreColliders : MonoBehaviour
     public XRBaseInteractable mainBody;
     private void Awake()
     {
-        foreach (Collider collider in collidersToIgnore.colliders)
+        FindObjectOfType<PlayerStats>().spawnAmmoZone.GetComponent<SpawnZone>().rifleCollider = this;
+
+        if (collidersToIgnore != null && mainBody != null)
         {
-            foreach (Collider col2 in mainBody.colliders)
+            foreach (Collider collider in collidersToIgnore.colliders)
             {
-                Physics.IgnoreCollision(col2, collider);
+                foreach (Collider col2 in mainBody.colliders)
+                {
+
+                    Physics.IgnoreCollision(col2, collider);
+                }
             }
         }
+            
     }
 
     public void ignoreNew(List<Collider> collider)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.SceneManagement;
 public class AstarCustom : AIPath
 {
     
@@ -20,15 +21,12 @@ public class AstarCustom : AIPath
     private State currentState = State.PATROL;
     public float checkWait = 1f;
     public Transform visualBody;
-
-    public LookTest weaponLook;
-    public LookTest weaponPoint;
-
     public Animator enemyAnimation;
 
     //weapon Properties
     public EnemyWeapon enemyWeapon;
-
+    public LookTest weaponLook;
+    public LookTest weaponPoint;
 
     //Sight Properties
     public GameObject viewPoint;
@@ -46,19 +44,28 @@ public class AstarCustom : AIPath
     //Misc. Properties
     PatrolAttributes patrolAttributes;
     public Transform player;
-    
 
+    //loot properties
+    public GameObject[] lootItems;
+    LootTable lootTable;
 
     private void Start()
     {
         base.Start();
         player = FindObjectOfType<PlayerStatsTracker>().curPlayer().playerTarget();
 
-        weaponPoint.target = player;
-        weaponPoint.targetFound = true;
-        weaponLook.target = player;
+        lootTable = FindObjectOfType<LootTable>();
 
+        if(weaponPoint != null)
+        {
+            weaponPoint.target = player;
+            weaponPoint.targetFound = true;
+            weaponLook.target = player;
+        }
+        
 
+        if (visualBody == null)
+            visualBody = this.transform;
         StartCoroutine(FOVRoutine());
     }
 
@@ -71,11 +78,11 @@ public class AstarCustom : AIPath
     {
         if(currentState == State.PATROL)
         {
-            if(weaponLook.targetFound)
+            if(weaponLook != null && weaponLook.targetFound)
             {
                 weaponLook.targetFound = false;
             }
-            if(!enemyAnimation.GetBool("isWalking"))
+            if(enemyAnimation != null && !enemyAnimation.GetBool("isWalking"))
             {
                 enemyAnimation.SetBool("isWalking", true);
             }
@@ -89,11 +96,11 @@ public class AstarCustom : AIPath
         {
             if(reachedDestination)
             {
-                if (enemyAnimation.GetBool("isWalking"))
+                if (enemyAnimation != null && enemyAnimation.GetBool("isWalking"))
                 {
                     enemyAnimation.SetBool("isWalking", false);
                 }
-                if (!weaponLook.targetFound)
+                if (weaponLook != null && !weaponLook.targetFound)
                 {
                     weaponLook.targetFound = true;
                 }
@@ -101,9 +108,13 @@ public class AstarCustom : AIPath
             }
             else
             {
-                if (!enemyAnimation.GetBool("isWalking"))
+                if (enemyAnimation != null && !enemyAnimation.GetBool("isWalking"))
                 {
                     enemyAnimation.SetBool("isWalking", true);
+                }
+                if (weaponLook != null && weaponLook.targetFound)
+                {
+                    weaponLook.targetFound = false;
                 }
                 base.Update();
             }
@@ -143,6 +154,24 @@ public class AstarCustom : AIPath
         
 
     }
+
+    private void OnDestroy()
+    {
+        if(SceneManager.GetActiveScene().isLoaded)
+        {
+            Vector3 enemyPos = transform.position + new Vector3(0, 1.5f, 0);
+            foreach (GameObject loot in lootItems)
+            {
+                if (lootTable.canSpawn(loot))
+                {
+                    Instantiate(loot, enemyPos, loot.transform.rotation);
+                    lootTable.setSpawnState(loot, true);
+                }
+            }
+        }
+        
+    }
+
     public void patrolAttribute(PatrolAttributes pointHolder)
     {
         patrolAttributes = pointHolder;

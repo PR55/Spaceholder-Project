@@ -5,15 +5,15 @@ using UnityEngine;
 public class ReturnToBounds : MonoBehaviour
 {
 
-    public HallwayGeneration hallwayGeneration;
+    public Vector3 respawnOffset;
+
+    public List<GameObject> objectsToWatchFor;
+
+    public RoomGeneration roomGeneration;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
-        {
-            other.gameObject.transform.position = Vector3.zero; 
-        }
-        else
+        if(objectsToWatchFor.Contains(other.gameObject))
         {
             Destroy(other.gameObject);
         }

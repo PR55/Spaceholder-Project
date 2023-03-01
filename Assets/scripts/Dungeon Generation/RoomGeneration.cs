@@ -73,6 +73,11 @@ public class RoomGeneration : MonoBehaviour
         }
     }
 
+    public GameObject firstRoom()
+    {
+        return startRoom;
+    }
+
     public void GenerateRooms()
     {
         gridSpawn.SetOrigin(startRoom.transform.position);

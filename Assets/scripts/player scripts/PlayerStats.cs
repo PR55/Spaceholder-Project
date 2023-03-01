@@ -19,6 +19,7 @@ public class PlayerStats : MonoBehaviour
     [Header("Player Body")]
     [SerializeField]
     private Transform playerCenter;
+    public GameObject spawnAmmoZone;
 
     [Header("Player Interaction")]
     [SerializeField]
@@ -32,6 +33,11 @@ public class PlayerStats : MonoBehaviour
     float waitTime = 30.0f;
 
     IOCcam iOCcam;
+
+    public GameObject returnAmmoZone()
+    {
+        return spawnAmmoZone;
+    }    
 
     void Start()
     {

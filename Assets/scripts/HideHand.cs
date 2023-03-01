@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HideHand : MonoBehaviour
 {
-    public SkinnedMeshRenderer hand;
+    public GameObject hand;
 
     public void hideHand()
     {
-        hand.enabled = false;
+        hand.SetActive(false);
     }
 
     public void showHand()
     {
-        hand.enabled = true;
+        hand.SetActive(true);
     }
 }

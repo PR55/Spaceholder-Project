@@ -66,7 +66,9 @@ public class AstarCustomEditor : EditorBase
 		PropertyField("enemyWeapon");
 		PropertyField("weaponLook");
 		PropertyField("weaponPoint");
-		
+
+		Section("Loot");
+		PropertyField("lootItems");
 
 		Section("Values Sight");
 		PropertyField("radiusSight");

@@ -726,9 +726,6 @@ GameObject:
   - component: {fileID: 1574232004950931382}
   - component: {fileID: 4950122309521710409}
   - component: {fileID: 4950122309521710410}
-  - component: {fileID: 9058889155359040342}
-  - component: {fileID: 9058889155359040341}
-  - component: {fileID: 1983197532998354932}
   m_Layer: 0
   m_Name: maurice_Deisplay 1 1
   m_TagString: Untagged
@@ -763,7 +760,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5220577772009371510}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 8cda7ab9acc4df34fb8a971f3034d86c, type: 3}
   m_Controller: {fileID: 9100000, guid: bdea2db6c9f576c4d9d9f2dc8b35bb47, type: 2}
   m_CullingMode: 1
@@ -806,110 +803,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetFound: 0
   target: {fileID: 0}
---- !u!114 &9058889155359040342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5220577772009371510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 516f78d09cc77b54d9fa75365aff6229, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 5
-  radius: 0.05
-  height: 0.2
-  canMove: 1
-  maxSpeed: 2
-  gravity: {x: NaN, y: NaN, z: NaN}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  centerOffsetCompatibility: NaN
-  repathRateCompatibility: NaN
-  canSearchCompability: 0
-  orientation: 0
-  enableRotation: 1
-  autoRepath:
-    mode: 2
-    interval: 0.5
-    sensitivity: 10
-    maximumInterval: 2
-    visualizeSensitivity: 0
-  targetCompatibility: {fileID: 0}
-  maxAcceleration: -2.5
-  rotationSpeed: 360
-  slowdownDistance: 1
-  pickNextWaypointDist: 0.6
-  endReachedDistance: 0.2
-  alwaysDrawGizmos: 0
-  slowWhenNotFacingTarget: 1
-  whenCloseToDestination: 1
-  constrainInsideGraph: 0
-  checkWait: 1
-  visualBody: {fileID: 4843875929675230668}
-  weaponLook: {fileID: 4950122309362633095}
-  weaponPoint: {fileID: 9058889154660643343}
-  enemyAnimation: {fileID: 1574232004950931382}
-  enemyWeapon: {fileID: 9058889154276027844}
-  viewPoint: {fileID: 9058889155335471099}
-  sightTimer: 0.2
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 64
-  obstructionMask:
-    serializedVersion: 2
-    m_Bits: 8384959
-  radiusSight: 10
-  angle: 57
-  endReachPatrol: 2
-  endReachChase: 6
-  player: {fileID: 0}
---- !u!114 &9058889155359040341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5220577772009371510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  drawGizmos: 1
-  detailedGizmos: 0
-  startEndModifier:
-    addPoints: 0
-    exactStartPoint: 3
-    exactEndPoint: 3
-    useRaycasting: 0
-    mask:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    useGraphRaycasting: 0
-  traversableTags: -1
-  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  graphMask:
-    value: -1
---- !u!114 &1983197532998354932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5220577772009371510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13a788a152f33f48a8ceb71c73f127e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  target: {fileID: 0}
-  overallLooker: {fileID: 4950122309521710410}
 --- !u!1 &5492599893289858313
 GameObject:
   m_ObjectHideFlags: 0

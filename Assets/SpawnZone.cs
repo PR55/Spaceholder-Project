@@ -29,6 +29,7 @@ public class SpawnZone : XRGrabInteractable
         if (!magSpawned)
         {
             newMag = SpawnMag();
+            if(rifleCollider != null)
             rifleCollider.ignoreNew(newMag.GetComponent<XRGrabInteractable>().colliders);
             magSpawned = true;
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.SceneManagement;
 
 public class RifleSciFi : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class RifleSciFi : MonoBehaviour
 
     public XRSocketInteractor socketInteractor;
 
+    LootTable lootTable;
+
     public void submitMag(XRBaseInteractable interactable)
     {
         if (interactable.GetComponent<Magazine>() != null)
@@ -46,7 +49,10 @@ public class RifleSciFi : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         bulletStandard = GetComponent<BulletStandard>();
+
+        lootTable = FindObjectOfType<LootTable>();
 
         if(useMag)
         {
@@ -64,7 +70,13 @@ public class RifleSciFi : MonoBehaviour
         }
     }
 
-
+    private void OnDestroy()
+    {
+        if (SceneManager.GetActiveScene().isLoaded)
+        {
+            lootTable.setSpawnState(this.gameObject, false);
+        }
+    }
 
     public void FireBullet()
     {
