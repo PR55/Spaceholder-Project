@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-
-    public int detectionRange = 5;
-
     public pointProperties childPoint;
 
-    bool playerDetected = false;
-
     Animator doorAnimation;
-
-    Transform playerTransform;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,29 +14,19 @@ public class DoorController : MonoBehaviour
         doorAnimation = GetComponent<Animator>();
 
         childPoint = GetComponentInChildren<pointProperties>();
-
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if(Vector3.Distance(playerTransform.position, this.transform.position) < detectionRange && !playerDetected)
-        {
-            if(childPoint.useCheck())
-                playerDetected = true;
-        }
-        else if (Vector3.Distance(playerTransform.position, this.transform.position) > detectionRange && playerDetected)
-        {
-            if (childPoint.useCheck())
-                playerDetected = false;
-        }
-
-        if (playerDetected && !doorAnimation.GetBool("NearPlayer"))
+        if(other.tag == "Player")
         {
             doorAnimation.SetBool("NearPlayer", true);
         }
-        else if (!playerDetected && doorAnimation.GetBool("NearPlayer"))
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
         {
             doorAnimation.SetBool("NearPlayer", false);
         }

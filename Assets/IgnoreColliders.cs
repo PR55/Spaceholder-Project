@@ -10,6 +10,7 @@ public class IgnoreColliders : MonoBehaviour
     public XRBaseInteractable mainBody;
     private void Awake()
     {
+        if(FindObjectOfType<PlayerStats>().spawnAmmoZone != null)
         FindObjectOfType<PlayerStats>().spawnAmmoZone.GetComponent<SpawnZone>().rifleCollider = this;
 
         if (collidersToIgnore != null && mainBody != null)

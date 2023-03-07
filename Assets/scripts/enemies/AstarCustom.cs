@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Pathfinding;
 using UnityEngine.SceneManagement;
 public class AstarCustom : AIPath
@@ -12,7 +13,8 @@ public class AstarCustom : AIPath
         PATROL,
         INVESTIGATE,
         CHASE,
-        ATTACK
+        ATTACK,
+        DEAD
     }
     //Patrol Properties
     bool patrol = true;
@@ -41,6 +43,9 @@ public class AstarCustom : AIPath
     public float endReachPatrol;
     public float endReachChase;
 
+    //Death Properties
+    public float totalDeathWait = 2f;
+
     //Misc. Properties
     PatrolAttributes patrolAttributes;
     public Transform player;
@@ -62,7 +67,8 @@ public class AstarCustom : AIPath
             weaponPoint.targetFound = true;
             weaponLook.target = player;
         }
-        
+
+        currentState = State.PATROL;
 
         if (visualBody == null)
             visualBody = this.transform;
@@ -119,6 +125,12 @@ public class AstarCustom : AIPath
                 base.Update();
             }
         }
+        else if(currentState == State.DEAD)
+        {
+            if (enemyAnimation.GetBool("Dead") == false)
+                enemyAnimation.SetBool("Dead", true);
+
+        }
         else if (currentState == State.STOP)
         {
             if (patrol)
@@ -136,7 +148,7 @@ public class AstarCustom : AIPath
             }
             else if(!patrol && !playerSpotted && !investigate)
             {
-                Destroy(this.gameObject);
+                currentState = State.DEAD;
             }
         }
         if(canSeePlayer && !playerSpotted)
@@ -218,6 +230,30 @@ public class AstarCustom : AIPath
         }
         else if (canSeePlayer)
             canSeePlayer = false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        UnityEditor.Handles.color = Color.white;
+
+        UnityEditor.Handles.DrawWireArc(viewPoint.transform.position,Vector3.up,Vector3.forward,360,radiusSight);
+
+        Vector3 viewAngle01 = DirectionFromAngle(viewPoint.transform.eulerAngles.y, -angle/2);
+        Vector3 viewAngle02 = DirectionFromAngle(viewPoint.transform.eulerAngles.y, angle / 2);
+
+        UnityEditor.Handles.color = Color.yellow;
+
+        UnityEditor.Handles.DrawLine(viewPoint.transform.position, viewPoint.transform.position+viewAngle01*radiusSight);
+        UnityEditor.Handles.DrawLine(viewPoint.transform.position, viewPoint.transform.position + viewAngle02 * radiusSight);
+    }
+
+    private Vector3 DirectionFromAngle(float eulerY, float angleInDegrees)
+    {
+        angleInDegrees += eulerY;
+
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad),0,Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
 }

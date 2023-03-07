@@ -194,6 +194,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 4507351358489849149}
   wall: {fileID: 5175159321677073045}
+--- !u!135 &3920230047608631197
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677072764739493581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7983738639351351978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +221,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 879694806848766179}
   wall: {fileID: 2783915843313425097}
+--- !u!135 &5354807151482666219
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713430870869018128}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &805532960004046935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +248,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 8302154165081111289}
   wall: {fileID: 6205687498795395893}
+--- !u!135 &452686283620312542
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914461943679583351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2783915843313425097
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +520,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   point: {fileID: 4671241296540588445}
   wall: {fileID: 3586669596837588924}
+--- !u!135 &365990141763324145
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5576035864130601545}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6205687498795395893
 GameObject:
   m_ObjectHideFlags: 0
@@ -3249,6 +3301,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1002534605376720848}
     m_Modifications:
+    - target: {fileID: 1076503569384934094, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1522800607437117712, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: childPoint
       value: 
@@ -3300,6 +3356,10 @@ PrefabInstance:
     - target: {fileID: 3554628145361592643, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: m_Name
       value: CP_v2_Door_North
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223517689942801239, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
@@ -3386,6 +3446,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1002534605376720848}
     m_Modifications:
+    - target: {fileID: 1076503569384934094, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1522800607437117712, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: childPoint
       value: 
@@ -3437,6 +3501,10 @@ PrefabInstance:
     - target: {fileID: 3554628145361592643, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: m_Name
       value: CP_v2_Door_West
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223517689942801239, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
@@ -3791,6 +3859,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1002534605376720848}
     m_Modifications:
+    - target: {fileID: 1076503569384934094, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1522800607437117712, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: childPoint
       value: 
@@ -3842,6 +3914,10 @@ PrefabInstance:
     - target: {fileID: 3554628145361592643, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: m_Name
       value: CP_v2_Door_South
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223517689942801239, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
@@ -9170,6 +9246,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1002534605376720848}
     m_Modifications:
+    - target: {fileID: 1076503569384934094, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1522800607437117712, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: childPoint
       value: 
@@ -9221,6 +9301,10 @@ PrefabInstance:
     - target: {fileID: 3554628145361592643, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
       propertyPath: m_Name
       value: CP_v2_Door_East
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223517689942801239, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8522dc02dcda83349a3f81b7fa844d76, type: 3}
