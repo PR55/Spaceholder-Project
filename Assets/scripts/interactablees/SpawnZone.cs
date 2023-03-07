@@ -2,20 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem.XR;
 
 
 public class SpawnZone : XRGrabInteractable
 {
+    [Header("Required")]
     public IgnoreColliders rifleCollider;
     public GameObject nullMag;
+
+    [Header("Haptic Feedback")]
+    [Range(0,1)]
+    public float intensity;
+    public float duration;
+
     GameObject magPrefab;
 
     bool magSpawned;
-
     private void Start()
     {
         magSpawned = false;
     }
+
 
     public void ForceEjection(XRBaseInteractor interactor)
     {

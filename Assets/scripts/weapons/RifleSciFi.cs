@@ -76,6 +76,11 @@ public class RifleSciFi : MonoBehaviour
         {
             lootTable.setSpawnState(this.gameObject, false);
         }
+        if (useMag)
+        {
+            socketInteractor.onSelectEntered.RemoveListener(submitMag);
+            socketInteractor.onSelectExited.RemoveListener(removeMag);
+        }
     }
 
     public void FireBullet()

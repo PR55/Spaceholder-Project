@@ -455,8 +455,12 @@ MonoBehaviour:
   constrainInsideGraph: 0
   checkWait: 1
   visualBody: {fileID: 0}
+  visBodyOffset: {x: 0, y: 0, z: 0}
+  enemyAnimation: {fileID: 0}
   enemyWeapon: {fileID: 0}
-  viewPoint: {fileID: 0}
+  weaponLook: {fileID: 0}
+  weaponPoint: {fileID: 0}
+  viewPoint: {fileID: 6165339842447372696}
   sightTimer: 0.2
   targetMask:
     serializedVersion: 2
@@ -468,7 +472,9 @@ MonoBehaviour:
   angle: 115
   endReachPatrol: 2
   endReachChase: 6
+  totalDeathWait: 2
   player: {fileID: 0}
+  lootItems: []
 --- !u!114 &3194455485089363228
 MonoBehaviour:
   m_ObjectHideFlags: 0

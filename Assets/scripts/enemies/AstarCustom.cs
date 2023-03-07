@@ -23,6 +23,7 @@ public class AstarCustom : AIPath
     private State currentState = State.PATROL;
     public float checkWait = 1f;
     public Transform visualBody;
+    public Vector3 visBodyOffset;
     public Animator enemyAnimation;
 
     //weapon Properties
@@ -72,6 +73,7 @@ public class AstarCustom : AIPath
 
         if (visualBody == null)
             visualBody = this.transform;
+        visBodyOffset = viewPoint.transform.position - visualBody.transform.position;
         StartCoroutine(FOVRoutine());
     }
 
@@ -112,9 +114,9 @@ public class AstarCustom : AIPath
                 }
                 enemyWeapon.fireWeapon(targetMask);
             }
-            else
+            else if(!reachedDestination)
             {
-                if (enemyAnimation != null && !enemyAnimation.GetBool("isWalking"))
+                if (enemyAnimation != null && !enemyAnimation.GetBool("isWalking") && !reachedDestination)
                 {
                     enemyAnimation.SetBool("isWalking", true);
                 }
