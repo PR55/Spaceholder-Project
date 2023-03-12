@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activateDistance: 20
-  parent: {fileID: 0}
+  parent: {fileID: 1059790944900138965}
 --- !u!1 &5175159321677073045
 GameObject:
   m_ObjectHideFlags: 0
@@ -7192,6 +7192,10 @@ PrefabInstance:
     - target: {fileID: 6887788891677511191, guid: 38069d76da445f44a8e18c95de797bb4, type: 3}
       propertyPath: m_YMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6887788891677511191, guid: 38069d76da445f44a8e18c95de797bb4, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.6255989
       objectReference: {fileID: 0}
     - target: {fileID: 6887788891932903905, guid: 38069d76da445f44a8e18c95de797bb4, type: 3}
       propertyPath: m_Name

@@ -75,6 +75,7 @@ public class AstarCustom : AIPath
             visualBody = this.transform;
         visBodyOffset = viewPoint.transform.position - visualBody.transform.position;
         StartCoroutine(FOVRoutine());
+        
     }
 
     private void FixedUpdate()
@@ -130,7 +131,11 @@ public class AstarCustom : AIPath
         else if(currentState == State.DEAD)
         {
             if (enemyAnimation.GetBool("Dead") == false)
+            {
                 enemyAnimation.SetBool("Dead", true);
+                StartCoroutine(deathDestroy(this.gameObject, 5));
+            }
+                
 
         }
         else if (currentState == State.STOP)
@@ -153,13 +158,13 @@ public class AstarCustom : AIPath
                 currentState = State.DEAD;
             }
         }
-        if(canSeePlayer && !playerSpotted)
+        if(currentState != State.DEAD && currentState != State.STOP && canSeePlayer && !playerSpotted)
         {
             currentState = State.STOP;
             patrol = false;
             playerSpotted = true;
         }
-        else if(!canSeePlayer && !patrol)
+        else if(currentState != State.DEAD && currentState != State.STOP && !canSeePlayer && !patrol)
         {
             currentState = State.STOP;
             patrol = true;
@@ -167,6 +172,14 @@ public class AstarCustom : AIPath
         }
         
 
+    }
+
+    IEnumerator deathDestroy(GameObject enem, float invokeTime)
+    {
+        yield return new WaitForSeconds(invokeTime);
+        this.StopAllCoroutines();
+        Destroy(enem);
+        
     }
 
     private void OnDestroy()
@@ -193,10 +206,15 @@ public class AstarCustom : AIPath
 
     public void forceStop()
     {
+        Debug.LogWarning("Dying!");
         StopAllCoroutines();
         patrol = false;
         playerSpotted = false;
         investigate = false;
+        if (enemyAnimation != null && enemyAnimation.GetBool("isWalking"))
+        {
+            enemyAnimation.SetBool("isWalking", false);
+        }
         currentState = State.STOP;
     }
 
@@ -234,22 +252,7 @@ public class AstarCustom : AIPath
             canSeePlayer = false;
     }
 
-    private void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-
-        UnityEditor.Handles.color = Color.white;
-
-        UnityEditor.Handles.DrawWireArc(viewPoint.transform.position,Vector3.up,Vector3.forward,360,radiusSight);
-
-        Vector3 viewAngle01 = DirectionFromAngle(viewPoint.transform.eulerAngles.y, -angle/2);
-        Vector3 viewAngle02 = DirectionFromAngle(viewPoint.transform.eulerAngles.y, angle / 2);
-
-        UnityEditor.Handles.color = Color.yellow;
-
-        UnityEditor.Handles.DrawLine(viewPoint.transform.position, viewPoint.transform.position+viewAngle01*radiusSight);
-        UnityEditor.Handles.DrawLine(viewPoint.transform.position, viewPoint.transform.position + viewAngle02 * radiusSight);
-    }
+    
 
     private Vector3 DirectionFromAngle(float eulerY, float angleInDegrees)
     {

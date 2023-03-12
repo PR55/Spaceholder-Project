@@ -17,12 +17,6 @@ public class ButtonAccessNextLevel : MonoBehaviour
     {
         roomGeneration = FindObjectOfType<RoomGeneration>();
         player = GameObject.FindGameObjectWithTag("Player");
-
-        if (GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>() != null)
-        {
-            iOCcam = GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>();
-        }
-
     }
 
     public void NextLevel()
@@ -32,9 +26,6 @@ public class ButtonAccessNextLevel : MonoBehaviour
             
             if(roomGeneration != null)
             roomGeneration.NextLevel(roomGeneration.EndRoomCurrent());
-
-            if (iOCcam != null)
-                iOCcam.Setup();
 
             Destroy(this.gameObject);
         }

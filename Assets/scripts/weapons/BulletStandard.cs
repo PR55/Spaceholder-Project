@@ -59,7 +59,7 @@ public class BulletStandard : MonoBehaviour
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<enemyDirectory>().healthLocation().dealDamge(damage);
+            collision.gameObject.GetComponent<EnemyHealth>().dealDamge(damage);
         }
         Destroy(this.gameObject);
     }

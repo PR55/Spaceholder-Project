@@ -11,7 +11,7 @@ public class EnemyHealth : MonoBehaviour
 
     private int enemyHealth = 0;
 
-    AstarCustom astarAccess;
+    public AstarCustom astarAccess;
 
     RunReport runReport;
 
@@ -21,20 +21,22 @@ public class EnemyHealth : MonoBehaviour
             runReport = FindObjectOfType<RunReport>();
 
         enemyHealth = enemyHealthTotal;
-        astarAccess = this.gameObject.GetComponent<AstarCustom>();
     }
 
     public void dealDamge(int DamageDealt)
     {
+        astarAccess.forceStop();
         enemyHealth -= DamageDealt;
+
+        Debug.LogWarning("Damage Detected! Health Current: "+enemyHealth.ToString());
 
         if(enemyHealth <= 0)
         {
+            Debug.LogWarning("Out oof Health!");
             if(runReport != null)
             {
                 runReport.addToScore(pointReward);
             }
-            astarAccess.StopAllCoroutines();
             astarAccess.forceStop();
         }
     }
