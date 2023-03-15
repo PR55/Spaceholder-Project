@@ -12,6 +12,7 @@ public class SpawnZone : XRGrabInteractable
     public GameObject nullMag;
 
     [Header("Haptic Feedback")]
+    int channel = 0;
     [Range(0,1)]
     public float intensity;
     public float duration;

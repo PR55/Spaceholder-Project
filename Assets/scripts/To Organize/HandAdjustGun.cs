@@ -16,28 +16,33 @@ public class HandAdjustGun : MonoBehaviour
     public Vector3 rightOffset;
     public Vector3 leftOffset;
 
+    bool active = false;
 
     private void OnAnimatorIK(int layerIndex)
     {
-        thisAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-        thisAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-
-        if(isLeftHanded == true)
+        if(active)
         {
-            thisAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunGrip.position + leftOffset);
-            thisAnimator.SetIKRotation(AvatarIKGoal.LeftHand, gunGrip.rotation);
+            thisAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+            thisAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
 
-            thisAnimator.SetIKPosition(AvatarIKGoal.RightHand, gunGuard.position + rightOffset);
-            thisAnimator.SetIKRotation(AvatarIKGoal.RightHand, gunGuard.rotation);
-        }
-        else
-        {
-            thisAnimator.SetIKPosition(AvatarIKGoal.RightHand, gunGrip.position + rightOffset);
-            thisAnimator.SetIKRotation(AvatarIKGoal.RightHand, gunGrip.rotation);
+            if (isLeftHanded == true)
+            {
+                thisAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunGrip.position + leftOffset);
+                thisAnimator.SetIKRotation(AvatarIKGoal.LeftHand, gunGrip.rotation);
 
-            thisAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunGuard.position + leftOffset);
-            thisAnimator.SetIKRotation(AvatarIKGoal.LeftHand, gunGuard.rotation);
+                thisAnimator.SetIKPosition(AvatarIKGoal.RightHand, gunGuard.position + rightOffset);
+                thisAnimator.SetIKRotation(AvatarIKGoal.RightHand, gunGuard.rotation);
+            }
+            else
+            {
+                thisAnimator.SetIKPosition(AvatarIKGoal.RightHand, gunGrip.position + rightOffset);
+                thisAnimator.SetIKRotation(AvatarIKGoal.RightHand, gunGrip.rotation);
+
+                thisAnimator.SetIKPosition(AvatarIKGoal.LeftHand, gunGuard.position + leftOffset);
+                thisAnimator.SetIKRotation(AvatarIKGoal.LeftHand, gunGuard.rotation);
+            }
         }
+        
 
 
     }

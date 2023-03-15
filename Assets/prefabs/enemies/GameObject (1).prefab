@@ -184,7 +184,7 @@ MonoBehaviour:
   radiusSight: 2.95
   angle: 125
   endReachPatrol: 2
-  endReachChase: 10
+  endReachChase: 200
   totalDeathWait: 2
   player: {fileID: 0}
   lootItems:
@@ -221,15 +221,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -237,7 +237,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4843875929675230668, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -277,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9058889154276027844, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}
       propertyPath: fireWait
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aedfa0a4dbb4a1f4abad3f4b059e378a, type: 3}

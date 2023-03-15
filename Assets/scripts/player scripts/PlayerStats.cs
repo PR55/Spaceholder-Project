@@ -43,10 +43,6 @@ public class PlayerStats : MonoBehaviour
     {
         decreaseHealth = false;
         health = maxHealth;
-        if (GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>() != null)
-        {
-            iOCcam = GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>();
-        }
     }
 
     private void FixedUpdate()
