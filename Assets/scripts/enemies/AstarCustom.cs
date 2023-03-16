@@ -30,6 +30,7 @@ public class AstarCustom : AIPath
     public EnemyWeapon enemyWeapon;
     public LookTest weaponLook;
     public LookTest weaponPoint;
+    HandAdjustGun handAdjust;
 
     //Sight Properties
     public GameObject viewPoint;
@@ -75,7 +76,14 @@ public class AstarCustom : AIPath
             visualBody = this.transform;
         visBodyOffset = viewPoint.transform.position - visualBody.transform.position;
         StartCoroutine(FOVRoutine());
-        
+
+        if (gameObject.GetComponentInChildren<HandAdjustGun>() != null)
+        {
+            handAdjust = gameObject.GetComponentInChildren<HandAdjustGun>();
+            handAdjust.alignHands();
+        }
+            
+
     }
 
     private void FixedUpdate()
@@ -132,6 +140,8 @@ public class AstarCustom : AIPath
         {
             if (enemyAnimation.GetBool("Dead") == false)
             {
+                handAdjust.unAlignHands();
+                enemyWeapon.gameObject.SetActive(false);
                 enemyAnimation.SetBool("Dead", true);
                 StartCoroutine(deathDestroy(this.gameObject, 5));
             }

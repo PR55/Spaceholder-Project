@@ -18,6 +18,17 @@ public class HandAdjustGun : MonoBehaviour
 
     bool active = false;
 
+    public void alignHands()
+    {
+        active = true;
+    }
+
+    public void unAlignHands()
+    {
+        active = false;
+    }
+
+
     private void OnAnimatorIK(int layerIndex)
     {
         if(active)
