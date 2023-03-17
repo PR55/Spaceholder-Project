@@ -16,11 +16,11 @@ public class HandGrab : MonoBehaviour
     
     void handCheck(XRBaseInteractor hand)
     {
-        if(hand == leftHandAction)
+        if (hand.gameObject.tag == leftHandAction.gameObject.tag)
         {
             leftHand.showHand();
         }
-        else if(hand == rightHandAction)
+        else if (hand.gameObject.tag == rightHandAction.gameObject.tag)
         {
             rightHand.showHand();
         }
@@ -28,11 +28,11 @@ public class HandGrab : MonoBehaviour
 
     void handLeave(XRBaseInteractor hand)
     {
-        if (hand == leftHandAction)
+        if (hand.gameObject.tag == leftHandAction.gameObject.tag)
         {
             leftHand.hideHand();
         }
-        else if (hand == rightHandAction)
+        else if (hand.gameObject.tag == rightHandAction.gameObject.tag)
         {
             rightHand.hideHand();
         }
