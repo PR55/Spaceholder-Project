@@ -63,6 +63,7 @@ public class AstarCustomEditor : EditorBase
 		PropertyField("enemyAnimation");
 
 		Section("Weapon Function Properties");
+		PropertyField("gunVisual");
 		PropertyField("enemyWeapon");
 		PropertyField("weaponLook");
 		PropertyField("weaponPoint");

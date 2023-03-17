@@ -27,6 +27,7 @@ public class AstarCustom : AIPath
     public Animator enemyAnimation;
 
     //weapon Properties
+    public GameObject gunVisual;
     public EnemyWeapon enemyWeapon;
     public LookTest weaponLook;
     public LookTest weaponPoint;
@@ -104,6 +105,13 @@ public class AstarCustom : AIPath
                 enemyAnimation.SetBool("isWalking", true);
             }
             base.Update();
+
+            if (canSeePlayer && !playerSpotted)
+            {
+                currentState = State.STOP;
+                patrol = false;
+                playerSpotted = true;
+            }
             if (reachedDestination)
             {
                 patrolAttributes.nextIndex();
@@ -135,13 +143,19 @@ public class AstarCustom : AIPath
                 }
                 base.Update();
             }
+            if (currentState != State.DEAD && currentState != State.STOP && !canSeePlayer && !patrol)
+            {
+                currentState = State.STOP;
+                patrol = true;
+                playerSpotted = false;
+            }
         }
         else if(currentState == State.DEAD)
         {
             if (enemyAnimation.GetBool("Dead") == false)
             {
                 handAdjust.unAlignHands();
-                enemyWeapon.gameObject.SetActive(false);
+                gunVisual.gameObject.SetActive(false);
                 enemyAnimation.SetBool("Dead", true);
                 StartCoroutine(deathDestroy(this.gameObject, 5));
             }
@@ -168,18 +182,7 @@ public class AstarCustom : AIPath
                 currentState = State.DEAD;
             }
         }
-        if(currentState != State.DEAD && currentState != State.STOP && canSeePlayer && !playerSpotted)
-        {
-            currentState = State.STOP;
-            patrol = false;
-            playerSpotted = true;
-        }
-        else if(currentState != State.DEAD && currentState != State.STOP && !canSeePlayer && !patrol)
-        {
-            currentState = State.STOP;
-            patrol = true;
-            playerSpotted = false;
-        }
+        
         
 
     }
