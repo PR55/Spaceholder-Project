@@ -10,8 +10,6 @@ public class ButtonAccessNextLevel : MonoBehaviour
     RoomGeneration roomGeneration;
     GameObject player;
 
-    IOCcam iOCcam;
-
     // Start is called before the first frame update
     private void Awake()
     {

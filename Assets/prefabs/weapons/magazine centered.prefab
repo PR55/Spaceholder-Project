@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 995900804328540441}
   - component: {fileID: 995900804328540442}
   - component: {fileID: 995900804328540440}
+  - component: {fileID: 7022870140304540032}
   m_Layer: 10
   m_Name: magazine centered
   m_TagString: Untagged
@@ -92,10 +93,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7022870140304540032}
+        m_TargetAssemblyTypeName: ObjectGrabbed, Assembly-CSharp
+        m_MethodName: Grabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7022870140304540032}
+        m_TargetAssemblyTypeName: ObjectGrabbed, Assembly-CSharp
+        m_MethodName: Dropped
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
@@ -184,6 +209,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoValue: 10
   shotCount: 20
+--- !u!114 &7022870140304540032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995900804328540443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 749256a7c1a858948b55fc7c994a83a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8097451655909618114
 GameObject:
   m_ObjectHideFlags: 0

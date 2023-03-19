@@ -42,6 +42,9 @@ public class HandGrab : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        leftHandAction = GameObject.FindGameObjectWithTag("LeftHand").GetComponent<ActionBasedController>();
+        rightHandAction = GameObject.FindGameObjectWithTag("LeftHand").GetComponent<ActionBasedController>();
+
         leftHand.hideHand();
         rightHand.hideHand();
 
