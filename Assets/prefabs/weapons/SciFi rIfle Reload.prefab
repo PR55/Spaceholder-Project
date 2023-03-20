@@ -369,7 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2572975197444128307}
   - component: {fileID: 2572975197444128309}
-  - component: {fileID: 2572975197444128306}
+  - component: {fileID: 5396545561180882032}
   m_Layer: 3
   m_Name: mag socket
   m_TagString: Untagged
@@ -404,7 +404,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.01, y: 0.01, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2572975197444128306
+--- !u!114 &5396545561180882032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2572975197444128304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 042d47847cde1a94cb589846a1a3fea6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -456,6 +456,7 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
+  targetTag: Magazine
 --- !u!1 &2572975197480994683
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,7 +734,7 @@ MonoBehaviour:
   - {fileID: 92672373699251585}
   audioSource: {fileID: 7149053677177970554}
   useMag: 1
-  socketInteractor: {fileID: 2572975197444128306}
+  socketInteractor: {fileID: 5396545561180882032}
 --- !u!114 &9040530438703030607
 MonoBehaviour:
   m_ObjectHideFlags: 0
