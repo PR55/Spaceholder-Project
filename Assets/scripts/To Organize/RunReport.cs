@@ -19,7 +19,7 @@ public class RunReport : MonoBehaviour
 
     //[SerializeField]
     private float elapsedTime = 0;
-    //[SerializeField]
+    [SerializeField]
     private int totalScore = 0;
 
     // Start is called before the first frame update

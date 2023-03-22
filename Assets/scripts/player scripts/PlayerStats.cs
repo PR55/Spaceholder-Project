@@ -31,9 +31,6 @@ public class PlayerStats : MonoBehaviour
     float healTimer = 0;
     bool decreaseHealth;
     float waitTime = 30.0f;
-
-    IOCcam iOCcam;
-
     public GameObject returnAmmoZone()
     {
         return spawnAmmoZone;
@@ -85,14 +82,6 @@ public class PlayerStats : MonoBehaviour
         {
             health -= 1.0f / waitTime * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.Equals))
-        {
-            health += 0.1f;
-        }
-        if (Input.GetKeyDown(KeyCode.Minus))
-        {
-            health -= 0.1f;
-        }
         if(health > maxHealth)
         {
             health = maxHealth;
@@ -117,8 +106,6 @@ public class PlayerStats : MonoBehaviour
 
         if(health <= 0)
         {
-            if (iOCcam != null)
-                iOCcam.DisposeNow();
             Resources.UnloadUnusedAssets();
             SceneManager.LoadScene(sceneIndex);
         }

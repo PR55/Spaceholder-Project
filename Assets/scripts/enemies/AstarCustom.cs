@@ -83,7 +83,8 @@ public class AstarCustom : AIPath
             handAdjust = gameObject.GetComponentInChildren<HandAdjustGun>();
             handAdjust.alignHands();
         }
-            
+
+        endReachPatrol = radiusSight;
 
     }
 
@@ -96,6 +97,10 @@ public class AstarCustom : AIPath
     {
         if(currentState == State.PATROL)
         {
+            if(radiusSight != endReachPatrol)
+            {
+                radiusSight = endReachPatrol;
+            }
             if(weaponLook != null && weaponLook.targetFound)
             {
                 weaponLook.targetFound = false;
@@ -119,6 +124,10 @@ public class AstarCustom : AIPath
         }
         else if(currentState == State.CHASE)
         {
+            if(radiusSight != endReachChase)
+            {
+                radiusSight = endReachChase;
+            }
             if(reachedDestination)
             {
                 if (enemyAnimation != null && enemyAnimation.GetBool("isWalking"))

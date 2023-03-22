@@ -17,15 +17,14 @@ public class EnemyHealth : MonoBehaviour
 
     private void Awake()
     {
-        if (FindObjectOfType<RunReport>() != null)
-            runReport = FindObjectOfType<RunReport>();
-
         enemyHealth = enemyHealthTotal;
     }
-
+    public void Start()
+    {
+        runReport = FindObjectOfType<RunChecker>().runTracker();
+    }
     public void dealDamge(int DamageDealt)
     {
-        astarAccess.forceStop();
         enemyHealth -= DamageDealt;
 
         Debug.LogWarning("Damage Detected! Health Current: "+enemyHealth.ToString());
@@ -33,10 +32,7 @@ public class EnemyHealth : MonoBehaviour
         if(enemyHealth <= 0)
         {
             Debug.LogWarning("Out oof Health!");
-            if(runReport != null)
-            {
-                runReport.addToScore(pointReward);
-            }
+            GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>().addToScore(pointReward);
             astarAccess.forceStop();
         }
     }
