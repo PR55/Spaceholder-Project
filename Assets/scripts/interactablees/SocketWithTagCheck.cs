@@ -27,6 +27,19 @@ public class SocketWithTagCheck : XRSocketInteractor
 
     XRBaseInteractable xR;
 
+    private void Start()
+    {
+        base.Start();
+        if(targetTag != string.Empty)
+        {
+            keepGrabbed = true;
+        }
+        else
+        {
+            keepGrabbed = false;
+        }
+    }
+
     private void FixedUpdate()
     {
         if(keepGrabbed && xR != null)

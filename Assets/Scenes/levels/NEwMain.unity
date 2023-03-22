@@ -5160,6 +5160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5e601a5a473d24895a57784e9f4e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runReport: {fileID: 0}
   reportPrefab: {fileID: 5730069303418465373, guid: 2fdd5895c5ff8254cbefc75b9e72aeee, type: 3}
 --- !u!114 &1104946627
 MonoBehaviour:
@@ -5203,7 +5204,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1104946630
 MonoBehaviour:
@@ -5419,7 +5420,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 122357244760191716, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 122357244760191716, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5464,6 +5465,14 @@ PrefabInstance:
     - target: {fileID: 122357244760191719, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
       propertyPath: m_Name
       value: XR Origin Animated non game 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 122357245824514081, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 122357245824514081, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
+      propertyPath: m_StartingSelectedInteractable
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 122357244760191634, guid: 7867619ce0be19746abaddd5560ca7de, type: 3}
@@ -7431,7 +7440,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1483213744
 GameObject:
@@ -7521,7 +7530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2587963719972636682, guid: f941f6db2b01e0b40985f32c3a24584d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2587963719972636682, guid: f941f6db2b01e0b40985f32c3a24584d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9175,7 +9184,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 17.6
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -9259,7 +9268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905804716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 5.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

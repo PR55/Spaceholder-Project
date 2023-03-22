@@ -17,12 +17,13 @@ public class RunReport : MonoBehaviour
 
     TimeSpan timePlaying;
 
+    //[SerializeField]
     private float elapsedTime = 0;
-
+    //[SerializeField]
     private int totalScore = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         sceneChecked = false;
@@ -48,12 +49,16 @@ public class RunReport : MonoBehaviour
                 }
                 Resources.UnloadUnusedAssets();
             }
-            else if (SceneManager.GetActiveScene().buildIndex == mainLevelIndex && sceneChecked == true)
+            else if (SceneManager.GetActiveScene().buildIndex == mainLevelIndex && sceneChecked == false)
             {
                 ResetVals();
-                Resources.UnloadUnusedAssets();
                 sceneChecked = true;
                 levelRunning = true;
+                Resources.UnloadUnusedAssets();
+            }
+            else if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                sceneChecked = true;
             }
         }
 

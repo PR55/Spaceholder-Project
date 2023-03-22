@@ -7,19 +7,14 @@ public class SceneTransition : MonoBehaviour
 
     RunReport runReport;
 
-    IOCcam iOCcam;
-
     [SerializeField]
     private bool changeScene = false;
     [SerializeField]
+    [Tooltip("Scene to change to")]
     private int scene = 1;
 
     private void Start()
     {
-        if (GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>() != null)
-        {
-            iOCcam = GameObject.FindGameObjectWithTag(Camera.main.tag).GetComponent<IOCcam>();
-        }
         runReport = FindObjectOfType<RunReport>();
     }
 

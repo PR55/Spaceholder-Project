@@ -8,6 +8,7 @@ public class PistolRailgun : MonoBehaviour
     public LineRenderer lineRenderer;
     public Transform firePoint;
     public AudioSource chargeUp;
+ 
     public InverseSound chargeUpControls;
     public AudioSource fireEffect;
 
@@ -33,9 +34,6 @@ public class PistolRailgun : MonoBehaviour
         chargeTime = 0;
 
         lineRenderer.enabled = false;
-
-        
-
     }
 
     // Update is called once per frame

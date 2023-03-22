@@ -17,6 +17,9 @@ public class CapsuleSpawn : MonoBehaviour
     Material material;
 
     bool isActivated = false;
+
+    bool spawnedOnce = false;
+
     private void Start()
     {
         material = meshRenderer.material;
@@ -38,13 +41,15 @@ public class CapsuleSpawn : MonoBehaviour
     void spawnItem()
     {
         Instantiate(toSpawn, transform.position + spawnOffset, spawnRotation);
+
+        spawnedOnce = true;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(isActivated && objectGrabbed)
         {
-            if (!objectGrabbed.grabState())
+            if (!objectGrabbed.grabState() && !spawnedOnce)
             {
                 spawnItem();
                 Destroy(this.gameObject);
