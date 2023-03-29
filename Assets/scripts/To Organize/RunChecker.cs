@@ -11,11 +11,15 @@ public class RunChecker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>() != null)
+        if(GameObject.FindGameObjectWithTag("Reporter") != null)
         {
-            runReport = GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>();
-            runReport.checkScene();
+            if (GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>() != null)
+            {
+                runReport = GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>();
+                runReport.checkScene();
+            }
         }
+        
     }
 
     public RunReport runTracker()
