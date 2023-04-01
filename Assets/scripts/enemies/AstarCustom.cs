@@ -56,7 +56,7 @@ public class AstarCustom : AIPath
     //loot properties
     public GameObject[] lootItems;
     LootTable lootTable;
-
+    overallLook overallLooker;
     private void Start()
     {
         base.Start();
@@ -72,6 +72,9 @@ public class AstarCustom : AIPath
         }
 
         currentState = State.PATROL;
+
+        if (GetComponentInChildren<overallLook>() != null)
+            overallLooker = GetComponentInChildren<overallLook>();
 
         if (visualBody == null)
             visualBody = this.transform;
@@ -97,6 +100,10 @@ public class AstarCustom : AIPath
     {
         if(currentState == State.PATROL)
         {
+            if(overallLooker.targetFound == true)
+            {
+                overallLooker.targetFound = false;
+            }
             if(radiusSight != endReachPatrol)
             {
                 radiusSight = endReachPatrol;
@@ -124,7 +131,12 @@ public class AstarCustom : AIPath
         }
         else if(currentState == State.CHASE)
         {
-            if(radiusSight != endReachChase)
+            if (overallLooker.targetFound == false)
+            {
+                overallLooker.target = player;
+                overallLooker.targetFound = true;
+            }
+            if (radiusSight != endReachChase)
             {
                 radiusSight = endReachChase;
             }
@@ -163,6 +175,10 @@ public class AstarCustom : AIPath
         {
             if (enemyAnimation.GetBool("Dead") == false)
             {
+                if (overallLooker.targetFound == true)
+                {
+                    overallLooker.targetFound = false;
+                }
                 handAdjust.unAlignHands();
                 gunVisual.gameObject.SetActive(false);
                 enemyAnimation.SetBool("Dead", true);

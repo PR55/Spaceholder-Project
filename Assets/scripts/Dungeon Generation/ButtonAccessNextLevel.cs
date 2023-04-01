@@ -7,6 +7,8 @@ public class ButtonAccessNextLevel : MonoBehaviour
     public float activateDistance = 3;
     public GameObject parent;
 
+    public bool overrideLevel;
+
     RoomGeneration roomGeneration;
     GameObject player;
 
@@ -15,6 +17,15 @@ public class ButtonAccessNextLevel : MonoBehaviour
     {
         roomGeneration = FindObjectOfType<RoomGeneration>();
         player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void FixedUpdate()
+    {
+        if(overrideLevel)
+        {
+            player.transform.position = this.transform.position + new Vector3(0, 0, -5);
+            overrideLevelNow();
+        }
     }
 
     public void NextLevel()
@@ -28,4 +39,12 @@ public class ButtonAccessNextLevel : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    void overrideLevelNow()
+    {
+        if (roomGeneration != null)
+            roomGeneration.NextLevel(roomGeneration.EndRoomCurrent());
+        Destroy(this.gameObject);
+    }
+
 }

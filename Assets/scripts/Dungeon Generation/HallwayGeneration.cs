@@ -8,6 +8,11 @@ public class HallwayGeneration : MonoBehaviour
     [Header("Hierarchy Objects")]
     public GameObject hallwayHolder;
 
+    public GameObject indicationHolder;
+
+    public GameObject markerPrefabZ;
+    public GameObject markerPrefabX;
+
     GameObject collideCheck;
 
     [Header("Prefabs")]
@@ -60,7 +65,20 @@ public class HallwayGeneration : MonoBehaviour
         }
         if(!hallwayCheck.collideCheck())
         {
+            GameObject hallMarker;
             distance1 = Vector3.Distance(point1.transform.position, point2.transform.position);
+            if (isZ)
+            {
+                hallMarker = Instantiate(markerPrefabZ, (point1.transform.position + point2.transform.position) / 2, markerPrefabZ.transform.rotation);
+                hallMarker.transform.parent = indicationHolder.transform;
+                hallMarker.transform.localScale = new Vector3(hallMarker.transform.localScale.x, hallMarker.transform.localScale.y, distance1/2);
+            }
+            else if(!isZ)
+            {
+                hallMarker = Instantiate(markerPrefabX, (point1.transform.position + point2.transform.position) / 2, markerPrefabX.transform.rotation);
+                hallMarker.transform.parent = indicationHolder.transform;
+                hallMarker.transform.localScale = new Vector3(hallMarker.transform.localScale.x, hallMarker.transform.localScale.y, distance1 / 2);
+            }
             point1.GetComponent<pointProperties>().hasUsed();
             point1.GetComponent<pointProperties>().isPoint1();
             point1.GetComponent<pointProperties>().otherPint(point2);

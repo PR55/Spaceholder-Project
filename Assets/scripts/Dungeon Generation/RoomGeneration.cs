@@ -94,6 +94,8 @@ public class RoomGeneration : MonoBehaviour
         gridSpawn.GridPoints()[0].GetComponent<GridPoint>().hasUsed();
 
         spawnedRooms[1] = Instantiate(endRoomPrefab, gridSpawn.GridPoints()[gridSpawn.GridPoints().Length - 1].transform.position, Quaternion.identity);
+        spawnedRooms[0].GetComponent<RoomAttribute>().setRoomState(true);
+        spawnedRooms[1].GetComponent<RoomAttribute>().setRoomState(false);
         foreach (pointProperties a in spawnedRooms[1].GetComponent<RoomAttribute>().Doorways())
         {
             if (!doorways.Contains(a))
@@ -133,6 +135,7 @@ public class RoomGeneration : MonoBehaviour
                         doorways.Add(a);
                     }
                 }
+                spawnedRooms[j].GetComponent<RoomAttribute>().setRoomState(false);
                 spawnedPoints[randomIndex].GetComponent<GridPoint>().hasUsed();
                 j++;
             }
@@ -426,18 +429,31 @@ public class RoomGeneration : MonoBehaviour
         }
 
         gridSpawn.GridDestroy();
-        astarPath.Scan();
 
-        foreach(GameObject room in spawnedRooms)
+
+        Invoke("DoubleScan", 1f);
+
+        Invoke("spawnEnemies", 2f);
+
+        Resources.UnloadUnusedAssets();
+
+    }
+
+    void DoubleScan()
+    {
+        astarPath.Scan();
+        astarPath.Scan();
+    }
+
+    void spawnEnemies()
+    {
+        foreach (GameObject room in spawnedRooms)
         {
-            if(room.GetComponent<RoomAttribute>() != null && room != startRoom && room != builtEndRoom)
+            if (room.GetComponent<RoomAttribute>() != null && room != startRoom && room != builtEndRoom)
             {
                 room.GetComponent<RoomAttribute>().SpawnEnemy();
             }
         }
-
-        Resources.UnloadUnusedAssets();
-
     }
 
     public void NextLevel(GameObject endRoom)
