@@ -24,10 +24,6 @@ public class overallLook : MonoBehaviour
         {
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
         }
-        else
-        {
-            transform.rotation = restRotation;
-        }
     }
     public void targetLocated(Transform Dest)
     {

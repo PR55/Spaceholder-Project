@@ -6,37 +6,85 @@ public class FloatObject : MonoBehaviour
 {
     public Vector3 offsetFloat;
 
-    public Vector3 rotateAngle;
+    public Vector3 rotateAngleSpeed = new Vector3(0,0.5f,0);
 
-    public GameObject raritySphere;
+    public float hoverVariation = .15f;
 
-    public float rotateSpeed;
+    public GameObject raritySpherePrefab;
+
+    public float floatSpeed;
 
     public bool disableFloat = false;
 
     Rigidbody rigidbody;
+    GameObject curSphere = null;
+
+    bool floatUp = true;
+
+    Vector3 midHover;
+
     bool floatNow;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        raritySphere.SetActive(false);
     }
 
-    void startFloating()
+    public void floatPossible()
+    {
+        disableFloat = false;
+    }
+
+    public void floatDisable()
+    {
+        disableFloat = true;
+    }
+
+    void startFloating(GameObject floor)
     {
         rigidbody.isKinematic = true;
         transform.rotation = Quaternion.identity;
-        transform.position = transform.position + offsetFloat;
-        raritySphere.SetActive(true);
+        midHover = new Vector3(transform.position.x, floor.transform.position.y + offsetFloat.y, transform.position.z);
+        transform.position = midHover;
+        if(curSphere == null)
+            curSphere = Instantiate(raritySpherePrefab,midHover,Quaternion.identity);
+        floatUp = true;
         floatNow = true;
+    }
+
+    void stopFloating()
+    {
+        rigidbody.isKinematic = false;
+        if (curSphere != null)
+        {
+            Destroy(curSphere);
+            curSphere = null;
+        }
+        floatNow = false;
     }
 
     private void Update()
     {
         if (floatNow)
         {
-            transform.Rotate(rotateAngle, Space.World);
+            transform.Rotate(rotateAngleSpeed, Space.World);
+
+            float initialY = midHover.y;
+            float newY = initialY + (Mathf.Sin(Time.time * floatSpeed) * hoverVariation);
+
+            curSphere.transform.position = midHover;
+
+            transform.position = new Vector3(midHover.x, newY, midHover.z);
+
+        }
+        if(disableFloat && rigidbody.isKinematic == true)
+        {
+            stopFloating();
+            
+        }
+        else if(rigidbody.isKinematic == true && floatNow == false)
+        {
+            rigidbody.isKinematic = false;
         }
     }
 
@@ -47,7 +95,7 @@ public class FloatObject : MonoBehaviour
         {
             if(!disableFloat)
             {
-                startFloating();
+                startFloating(collision.gameObject);
             }
         }
     }

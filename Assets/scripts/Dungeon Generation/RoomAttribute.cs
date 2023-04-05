@@ -10,12 +10,16 @@ public class RoomAttribute : MonoBehaviour
 
     public PatrolAttributes patrolController;
 
+    public GameObject endIndicator;
+    public GameObject startIndicator;
+
     [SerializeField]
     private float spaceTakenx = 3;
     [SerializeField]
     private float spaceTakenz = 3;
     [SerializeField]
     private bool isStart = false;
+
 
 
     public Vector2 RoomDimensions()
@@ -38,6 +42,21 @@ public class RoomAttribute : MonoBehaviour
     public void killEnemies()
     {
         patrolController.roomDestroy();
+    }
+
+    public void setRoomState(bool startState)
+    {
+        isStart = startState;
+        if (isStart)
+        {
+            endIndicator.SetActive(false);
+            startIndicator.SetActive(true);
+        }
+        else if (!isStart)
+        {
+            endIndicator.SetActive(true);
+            startIndicator.SetActive(false);
+        }
     }
 
     private void OnDrawGizmos()
