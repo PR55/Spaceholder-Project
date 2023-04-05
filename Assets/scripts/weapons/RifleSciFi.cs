@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class RifleSciFi : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class RifleSciFi : MonoBehaviour
     private bool isVR = true;
     [SerializeField]
     private MeshCollider[] objectColliders;
+    [SerializeField]
+    private VisualEffect fireEffect;
 
     bool fullAuto = false;
 
@@ -99,6 +102,9 @@ public class RifleSciFi : MonoBehaviour
                     }
 
                     audioSource.Play();
+
+                    if (fireEffect != null)
+                        fireEffect.Play();
 
                     BulletStandard spawnedProjectile = Instantiate(bullet, firePoint.position, firePoint.rotation).GetComponent<BulletStandard>();
 

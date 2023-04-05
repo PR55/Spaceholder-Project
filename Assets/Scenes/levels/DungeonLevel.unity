@@ -153,9 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9adab45dbde524bba47ca5defdf933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnOffset: {x: 0, y: 1, z: 0}
+  respawnOffset: {x: 0, y: 2, z: 0}
   objectsToWatchFor:
-  - {fileID: 1604222298851520412, guid: c45f50cf04785e74681d9c52e3acbc65, type: 3}
+  - {fileID: 9187938846484792880, guid: 4b97389cc947fa44ba91e60957c4b12c, type: 3}
   - {fileID: 2572975198006073894, guid: 2546413eecd120a449e9baa01b945764, type: 3}
   - {fileID: 7658313281187634822, guid: 68a52cdb4cc73014a99a7d680557ffeb, type: 3}
   roomGeneration: {fileID: 1910913720}
@@ -180,7 +180,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10854187}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100, y: -100, z: 100}
+  m_LocalPosition: {x: 100, y: -88, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1110,8 +1110,8 @@ MonoBehaviour:
   gridPoint: {fileID: 1363186821364877657, guid: 01ddefe7daa76bc48bafb10b44264de3, type: 3}
   gridX: 3
   gridZ: 3
-  spacingOffsetX: 39
-  spacingOffsetZ: 39
+  spacingOffsetX: 39.1
+  spacingOffsetZ: 39.1
 --- !u!114 &1910913723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,6 +1192,10 @@ PrefabInstance:
     - target: {fileID: 122357244760191719, guid: db439c46e04fc0f46ad40791da1df01d, type: 3}
       propertyPath: m_Name
       value: XR Origin Animated non game 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 122357246186531992, guid: db439c46e04fc0f46ad40791da1df01d, type: 3}
+      propertyPath: negativeRotation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 448119404233371136, guid: db439c46e04fc0f46ad40791da1df01d, type: 3}
       propertyPath: m_LocalRotation.w
