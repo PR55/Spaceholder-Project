@@ -6,6 +6,12 @@ public class EnemyHealth : MonoBehaviour
 {
     public int enemyHealthTotal = 50;
 
+    public float alphaShow;
+
+    public SkinnedMeshRenderer damageShown;
+
+    public float decaySpeed;
+
     [SerializeField]
     private int pointReward = 50;
 
@@ -23,17 +29,46 @@ public class EnemyHealth : MonoBehaviour
     {
         runReport = FindObjectOfType<RunChecker>().runTracker();
     }
+
+    private void FixedUpdate()
+    {
+        if(damageShown.materials[damageShown.materials .Length- 1].GetColor("_DamageColor").a > 0)
+        {
+            foreach (Material a in damageShown.materials)
+            {
+                Color color = a.GetColor("_DamageColor");
+                color.a = color.a - (Time.fixedDeltaTime * decaySpeed);
+                a.SetColor("_DamageColor", color);
+            }
+        }
+    }
+
     public void dealDamge(int DamageDealt)
     {
-        enemyHealth -= DamageDealt;
-
-        Debug.LogWarning("Damage Detected! Health Current: "+enemyHealth.ToString());
-
-        if(enemyHealth <= 0)
+        if(!astarAccess.CheckDeath())
         {
-            Debug.LogWarning("Out oof Health!");
-            GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>().addToScore(pointReward);
-            astarAccess.forceStop();
+            enemyHealth -= DamageDealt;
+
+            foreach  (Material a in damageShown.materials)
+            {
+                Color color = a.GetColor("_DamageColor");
+                color.a = alphaShow;
+                a.SetColor("_DamageColor", color);
+            }
+
+            Debug.LogWarning("Damage Detected! Health Current: " + enemyHealth.ToString());
+
+            if (enemyHealth <= 0)
+            {
+                Debug.LogWarning("Out oof Health!");
+                GameObject.FindGameObjectWithTag("Reporter").GetComponent<RunReport>().addToScore(pointReward);
+                astarAccess.forceStop();
+            }
+            else
+            {
+                astarAccess.alertEnemy();
+            }
         }
+        
     }
 }

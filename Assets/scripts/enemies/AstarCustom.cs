@@ -57,6 +57,9 @@ public class AstarCustom : AIPath
     public GameObject[] lootItems;
     LootTable lootTable;
     overallLook overallLooker;
+
+    bool enumRunning;
+
     private void Start()
     {
         base.Start();
@@ -80,6 +83,7 @@ public class AstarCustom : AIPath
             visualBody = this.transform;
         visBodyOffset = viewPoint.transform.position - visualBody.transform.position;
         StartCoroutine(FOVRoutine());
+        enumRunning = true;
 
         if (gameObject.GetComponentInChildren<HandAdjustGun>() != null)
         {
@@ -163,6 +167,16 @@ public class AstarCustom : AIPath
                     weaponLook.targetFound = false;
                 }
                 base.Update();
+                if(!enumRunning)
+                {
+                    if(Vector3.Distance(this.transform.position, player.position) > 10)
+                    {
+                        
+                        patrol = true;
+                        currentState = State.STOP;
+                        playerSpotted = false;
+                    }
+                }
             }
             if (currentState != State.DEAD && currentState != State.STOP && !canSeePlayer && !patrol)
             {
@@ -194,7 +208,10 @@ public class AstarCustom : AIPath
                 currentState = State.PATROL;
                 endReachedDistance = endReachPatrol;
                 patrolAttributes.ResumeMove();
-
+                if(!enumRunning)
+                {
+                    StartCoroutine("FOVRoutine");
+                }
             }
             else if (playerSpotted)
             {
@@ -291,6 +308,21 @@ public class AstarCustom : AIPath
     }
 
     
+    public bool CheckDeath()
+    {
+        return currentState == State.DEAD;
+    }
+
+    public void alertEnemy()
+    {
+        patrol = false;
+        if (enumRunning)
+        {
+            StopCoroutine("FOVRoutine");
+        }
+        canSeePlayer = true;
+    }
+
 
     private Vector3 DirectionFromAngle(float eulerY, float angleInDegrees)
     {
