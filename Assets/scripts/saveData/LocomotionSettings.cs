@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class LocomotionSettings : MonoBehaviour
 {
+    [Header("All Scene Variables")]
     public ActionBasedContinuousMoveProvider moveProvider;//choice 1-2
     public ActionBasedContinuousTurnProvider continuousTurnProvider; // choice 2-2
     public ActionBasedSnapTurnProvider snapTurnProvider;// choice 2-1
@@ -13,12 +14,15 @@ public class LocomotionSettings : MonoBehaviour
 
     public GameObject teleportProvider;
 
+    [Header("Main Menu Variables")]
     public Text curStateLoc;
 
     public Text curStateTurn;
-
+    public Image locoControls;
+    public Image teleControls;
     public bool isPlayScene;
 
+    
     private void Awake()
     {
         if(SaveSystem.LoadLocomotion() != null)
@@ -93,6 +97,8 @@ public class LocomotionSettings : MonoBehaviour
                 teleportationProvider.enabled = true;
                 teleportProvider.SetActive(true);
                 moveProvider.enabled = false;
+                teleControls.enabled = true;
+                locoControls.enabled = false;
 
                 curStateLoc.text = "Teleport";
             }
@@ -101,6 +107,8 @@ public class LocomotionSettings : MonoBehaviour
                 teleportationProvider.enabled = false;
                 teleportProvider.SetActive(false);
                 moveProvider.enabled = true;
+                teleControls.enabled = false;
+                locoControls.enabled = true;
                 curStateLoc.text = "Locomotion";
             }
             if (turnState == 0)
