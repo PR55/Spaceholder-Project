@@ -78,5 +78,14 @@ public class DoubleXRGrabInteractable : XRGrabInteractable
         if (interactorsSelecting[0] == args.interactorObject)
             base.OnDeactivated(args);
     }
-
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        if (interactorsSelecting[0] == args.interactorObject)
+            base.OnSelectEntered(args);
+    }
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        if (interactorsSelecting[0] == args.interactorObject)
+            base.OnSelectExited(args);
+    }
 }
