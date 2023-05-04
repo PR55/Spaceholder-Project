@@ -39,6 +39,21 @@ public class LocomotionSettings : MonoBehaviour
         
     }
 
+    public void teleportCheck()
+    {
+        LocoData data = SaveSystem.LoadLocomotion();
+        if(data.moveState == 0)
+        {
+            teleportProvider.SetActive(true);
+        }
+        else
+        {
+            if(teleportProvider.activeInHierarchy)
+            {
+                teleportProvider.SetActive(false);
+            }
+        }
+    }
     public bool moveStateCheck()
     {
         if (teleportationProvider.enabled == true)
