@@ -1,3 +1,6 @@
  # Spaceholder
+ 
+ ## Description
+ Spaceholder is a VR Dungeon crawler made over the course of 8 months as part of my Master's degree research paper. 
 
-<iframe height="167" frameborder="0" src="https://itch.io/embed/1821605" width="552"><a href="https://pr55.itch.io/spaceholder">Spaceholder by PR55</a></iframe>
+ Load in to the virtual environment and explore it's depths! Indefinetly on hold until the time arrives to continue this project.
